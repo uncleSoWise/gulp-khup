@@ -30,7 +30,7 @@ The `gulpfile` is the entry point to all gulp configuration. Configuration and t
 
 Environment-specific variables are loaded securely through `.env` which is NOT under version control. The `gulpfile` then loads in all the gulp tasks in a very specific order.
 
-## /gulp/config.js
+### /gulp/config.js
 Settings for `gulpflow` and `npm` packages should be called from the `config` object that is loaded from `config.js`.
 
 Default `npm` configurations include:
@@ -49,12 +49,12 @@ The config file for the `gulpfile` configures settings for `npm` packages such a
 
 Boolean settings for `gulpflow` allow for enabling or disabling deploying by FTP/SFTP during watch. BrowserSync and `critical` CSS generation can similarly be turned on or off.
 
-## /gulp/errorHandler.js
+### /gulp/errorHandler.js
 The common error handling function should be called from the `errorHandler` object that is loaded from `error.js`
 
 Error messages will display without breaking the `watch` workflow zen.
 
-## /gulp/globs.js
+### /gulp/globs.js
 Globs and file path references should be called from the `globs` object that is loaded from `globs.js`.
 
 If a project requires `gulp` to be somewhere other than `root`, basic file paths can be updated in the variables at the top of the file which will then cascade down into the exported module.
