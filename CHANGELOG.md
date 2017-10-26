@@ -12,6 +12,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Gulp tasks, config, utils
 - Docs
 
-## [0.0.1] - 2017-10-22
+## [0.0.0] - 2017-10-22
 ### Added
 - Repo initial commit
