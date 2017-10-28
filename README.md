@@ -113,22 +113,6 @@ Contains all the power of `html` but with the distinction of building `.mustache
 ### `gulp psi`
 Run tests with Google PageSpeed Insights. One test runs for mobile and one for desktop. Supply the URL to be tested in `config.js`. The CLI has a limit of 5s per result set, which is better than the web interfaces 60s turn around time on cached results.
 
-### `gulp serve`
-Creates a secure public URL to share your local sites with any Internet-connected device. Perfect for browser and device testing. Great for collaborative work without all the “ok hit refresh” chat spam back and forth.
-
-BrowserSync will manage browser refresh and device sync on file change and uses /dist/ as base for the server. The terminal provides all the URLs needed for making use of BrowserSync. Develop using these URLs and NOT with a simple local-file approach.
-
-    [BS] Access URLs:
-    --------------------------------
-           Local: http://localhost:9000
-        External: http://10.1.10.235:9000
-    --------------------------------
-              UI: http://localhost:3001
-     UI External: http://10.1.10.235:3001
-    --------------------------------
-    [BS] Serving files from: dist/
-
-
 ### `gulp size`
 Quick and dirty local performance audit. Output file size reports on `/dist/`.
 
