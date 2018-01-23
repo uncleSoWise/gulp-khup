@@ -16,7 +16,8 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const imageTask = () => {
-    return gulp.src(globs.to.img)
+    return gulp
+        .src(globs.to.img)
         .pipe(plumber(errorHandler))
         .pipe(imagemin({
             progressive: true,

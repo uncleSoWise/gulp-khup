@@ -33,7 +33,8 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const cssTask = () => {
-    return gulp.src(globs.to.scss, { base: globs.to.src })
+    return gulp
+        .src(globs.to.scss, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(sass())
         .pipe(autoprefixer(config.autoprefixer))
@@ -53,8 +54,7 @@ const cssTask = () => {
             rootPath = rootPath.replace(file.basename, '');
             rootPath = path.resolve(rootPath, '../');
             rootPath = `${rootPath}/`;
-            return stream
-                .pipe(replace('../img/', `${rootPath}img/`));
+            return stream.pipe(replace('../img/', `${rootPath}img/`));
         }))
         .pipe(rename({ basename: 'inline', suffix: '.min' }))
         .pipe(gulp.dest(globs.to.dist))

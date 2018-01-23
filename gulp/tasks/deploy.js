@@ -28,7 +28,8 @@ const ftpTask = () => {
         log: gutil.log
     });
 
-    return gulp.src(globs.to.deploy, { base: globs.to.deployBase })
+    return gulp
+        .src(globs.to.deploy, { base: globs.to.deployBase })
         .pipe(plumber(errorHandler))
         .pipe(conn.dest(process.env.FTP_REMOTEPATH))
         .pipe(notify({ message: 'ftp complete', onLast: true }));
@@ -46,7 +47,8 @@ const sftpTask = () => {
         }
     };
 
-    return gulp.src(globs.to.deploy, { buffer: false })
+    return gulp
+        .src(globs.to.deploy, { buffer: false })
         .pipe(plumber(errorHandler))
         .pipe(sftp(conn))
         .pipe(notify({ message: 'sftp complete', onLast: true }));

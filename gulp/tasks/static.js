@@ -14,7 +14,8 @@ import notify from 'gulp-notify';
 import globs from '../globs';
 
 const staticTask = () => {
-    return gulp.src(globs.to.static)
+    return gulp
+        .src(globs.to.static)
         .pipe(cache('static'))
         .pipe(gulp.dest(globs.to.dist))
         .pipe(notify({ message: 'static task complete', onLast: true }));

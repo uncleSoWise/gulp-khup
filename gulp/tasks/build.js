@@ -21,7 +21,14 @@ import staticTask from './static';
 const buildTask = (cb) => {
     return gulp.series(
         cleanTask,
-        gulp.parallel(cssTask, imgTask, htmlTask, mustacheTask, jsTask, staticTask),
+        gulp.parallel(
+            cssTask,
+            imgTask,
+            htmlTask,
+            mustacheTask,
+            jsTask,
+            staticTask
+        ),
         inlineTask
     )(cb);
 };

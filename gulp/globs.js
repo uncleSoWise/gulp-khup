@@ -34,12 +34,7 @@ const globs = {
         src,
         dist,
         serve: dist,
-        clean: [
-            '!.gitignore',
-            '!.gitkeep',
-            '!.keep',
-            `${dist}**/*`
-        ],
+        clean: ['!.gitignore', '!.gitkeep', '!.keep', `${dist}**/*`],
         deploy: {
             globs: deployGlobs
         },
@@ -64,10 +59,7 @@ const globs = {
             img: imgGlobsSrc,
             js: `${src}**/*.js`,
             mustache: `${src}**/*.mustache`,
-            scss: [
-                `${src}**/*.scss`,
-                `!${src}**/reset.scss`
-            ],
+            scss: [`${src}**/*.scss`, `!${src}**/reset.scss`],
             static: staticGlobs
         }
     }

@@ -20,7 +20,8 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const htmlTask = () => {
-    return gulp.src(globs.to.html, { base: globs.to.src })
+    return gulp
+        .src(globs.to.html, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(cache('html'))
         .pipe(special())

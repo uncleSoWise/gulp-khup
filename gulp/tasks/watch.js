@@ -27,16 +27,17 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const serverInitTask = (cb) => {
-    browserSync.init({
-        files: [
-            globs.to.html
-        ],
-        open: false,
-        port: 9000,
-        server: {
-            baseDir: [globs.to.serve]
-        }
-    }, cb);
+    browserSync.init(
+        {
+            files: [globs.to.html],
+            open: false,
+            port: 9000,
+            server: {
+                baseDir: [globs.to.serve]
+            }
+        },
+        cb
+    );
 };
 
 const watchFilesTask = (cb) => {
@@ -44,10 +45,16 @@ const watchFilesTask = (cb) => {
     gulp.watch(globs.to.watch.html, gulp.series(htmlTask, cssTask, inlineTask));
 
     // Watch .mustache files
-    gulp.watch(globs.to.watch.mustache, gulp.series(mustacheTask, cssTask, inlineTask));
+    gulp.watch(
+        globs.to.watch.mustache,
+        gulp.series(mustacheTask, cssTask, inlineTask)
+    );
 
     // Watch .scss files
-    gulp.watch(globs.to.watch.scss, gulp.series(cssTask, htmlTask, mustacheTask, inlineTask));
+    gulp.watch(
+        globs.to.watch.scss,
+        gulp.series(cssTask, htmlTask, mustacheTask, inlineTask)
+    );
 
     // Watch .js files
     gulp.watch(globs.to.watch.js, gulp.parallel(jsTask));
@@ -77,8 +84,12 @@ const watchFilesTask = (cb) => {
             log: gutil.log
         });
         watcher.on('change', (event) => {
-            gutil.log(gutil.colors.red('change:'), gutil.colors.yellow(JSON.stringify(event)));
-            return gulp.src(event, { base: globs.to.deployBase })
+            gutil.log(
+                gutil.colors.red('change:'),
+                gutil.colors.yellow(JSON.stringify(event))
+            );
+            return gulp
+                .src(event, { base: globs.to.deployBase })
                 .pipe(plumber(errorHandler))
                 .pipe(conn.dest(process.env.FTP_REMOTEPATH))
                 .pipe(notify({ message: 'watch-ftp complete', onLast: true }));
@@ -96,8 +107,12 @@ const watchFilesTask = (cb) => {
             }
         };
         watcher.on('change', (event) => {
-            gutil.log(gutil.colors.red('change:'), gutil.colors.yellow(JSON.stringify(event)));
-            return gulp.src(event, { base: globs.to.deployBase, buffer: false })
+            gutil.log(
+                gutil.colors.red('change:'),
+                gutil.colors.yellow(JSON.stringify(event))
+            );
+            return gulp
+                .src(event, { base: globs.to.deployBase, buffer: false })
                 .pipe(plumber(errorHandler))
                 .pipe(sftp(conn))
                 .pipe(notify({ message: 'watch-sftp complete', onLast: true }));
@@ -113,14 +128,12 @@ const watchTask = (cb) => {
 
     // BrowserSync and watch files based on config.js settings
     if (config.gulpflow.isBrowserSync) {
-        taskStream = gulp.series(
-            serverInitTask,
-            watchFilesTask
-        )(cb);
+        taskStream = gulp.series(serverInitTask, watchFilesTask)(cb);
     }
 
     return taskStream;
 };
-watchTask.description = 'start Browsersync, listen for changes in /src/ and run tasks';
+watchTask.description =
+    'start Browsersync, listen for changes in /src/ and run tasks';
 
 export default watchTask;

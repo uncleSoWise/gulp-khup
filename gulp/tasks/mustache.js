@@ -23,7 +23,8 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const mustacheTask = () => {
-    return gulp.src(globs.to.mustache, { base: globs.to.src })
+    return gulp
+        .src(globs.to.mustache, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(cache('mustache'))
         .pipe(mustache())

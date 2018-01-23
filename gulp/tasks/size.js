@@ -14,7 +14,8 @@ import globs from '../globs';
 
 const sizeAllTask = () => {
     const s = size();
-    return gulp.src(globs.to.size.all)
+    return gulp
+        .src(globs.to.size.all)
         .pipe(s)
         .pipe(notify({
             onLast: true,
@@ -26,7 +27,8 @@ const sizeAllTask = () => {
 
 const sizeCssTask = () => {
     const s = size();
-    return gulp.src(globs.to.size.css)
+    return gulp
+        .src(globs.to.size.css)
         .pipe(s)
         .pipe(notify({
             onLast: true,
@@ -38,7 +40,8 @@ const sizeCssTask = () => {
 
 const sizeHtmlTask = () => {
     const s = size();
-    return gulp.src(globs.to.size.html)
+    return gulp
+        .src(globs.to.size.html)
         .pipe(s)
         .pipe(notify({
             onLast: true,
@@ -50,7 +53,8 @@ const sizeHtmlTask = () => {
 
 const sizeImgTask = () => {
     const s = size();
-    return gulp.src(globs.to.size.img)
+    return gulp
+        .src(globs.to.size.img)
         .pipe(s)
         .pipe(notify({
             onLast: true,
@@ -62,7 +66,8 @@ const sizeImgTask = () => {
 
 const sizeJsTask = () => {
     const s = size();
-    return gulp.src(globs.to.size.js)
+    return gulp
+        .src(globs.to.size.js)
         .pipe(s)
         .pipe(notify({
             onLast: true,
