@@ -24,6 +24,7 @@ const imageTask = () => {
             svgoPlugins: [{ removeViewBox: false }],
             use: [pngquant()]
         }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(notify({ message: 'img task complete', onLast: true }));
 };

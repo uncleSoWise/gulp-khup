@@ -32,6 +32,7 @@ const ftpTask = () => {
         .src(globs.to.deploy, { base: globs.to.deployBase })
         .pipe(plumber(errorHandler))
         .pipe(conn.dest(process.env.FTP_REMOTEPATH))
+        .pipe(plumber.stop())
         .pipe(notify({ message: 'ftp complete', onLast: true }));
 };
 ftpTask.description = 'deploy /dist/ files to server via FTP';
@@ -51,6 +52,7 @@ const sftpTask = () => {
         .src(globs.to.deploy, { buffer: false })
         .pipe(plumber(errorHandler))
         .pipe(sftp(conn))
+        .pipe(plumber.stop())
         .pipe(notify({ message: 'sftp complete', onLast: true }));
 };
 sftpTask.description = 'deploy /dist/ files to server via SFTP';

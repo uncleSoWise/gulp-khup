@@ -38,6 +38,7 @@ const mustacheTask = () => {
             removeCommentsFromCDATA: true,
             minifyJS: true
         }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
         .pipe(notify({ message: 'mustache task complete', onLast: true }));

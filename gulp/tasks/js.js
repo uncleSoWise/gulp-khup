@@ -50,6 +50,7 @@ const jsTask = () => {
             .pipe(gulp.dest(globs.to.dist))
             .pipe(rename({ suffix: '.min' }))
             .pipe(uglify())
+            .pipe(plumber.stop())
             .pipe(gulp.dest(globs.to.dist))
             .pipe(browserSync.stream({ once: true }))
             .pipe(notify({ message: 'js task complete', onLast: true }))

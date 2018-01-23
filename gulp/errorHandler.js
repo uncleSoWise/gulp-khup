@@ -6,11 +6,11 @@ const errorHandler = (error) => {
     const line = error.line ? `LINE ${error.line} -- ` : '';
 
     // See: https://github.com/mikaelbr/node-notifier#all-notification-options-with-their-defaults
-    notify({
+    notify.onError({
         title: `Task Failed [${error.plugin}]`,
         message: `${line}See console.`,
         sound: 'Sosumi'
-    }).write(error);
+    })(error);
 
     // Beep noise alert
     beeper();
@@ -29,10 +29,7 @@ const errorHandler = (error) => {
         report += `${chalk.red('\nFILE:')} ${error.file}\n`;
     }
 
-    console.error(report);
-
-    // Prevent the 'watch' task from stopping
-    this.emit('end');
+    return console.error(report);
 };
 
 export default errorHandler;

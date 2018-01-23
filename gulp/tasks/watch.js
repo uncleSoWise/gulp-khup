@@ -90,6 +90,7 @@ const watchFilesTask = (cb) => {
                 .src(event, { base: globs.to.deployBase })
                 .pipe(plumber(errorHandler))
                 .pipe(conn.dest(process.env.FTP_REMOTEPATH))
+                .pipe(plumber.stop())
                 .pipe(notify({ message: 'watch-ftp complete', onLast: true }));
         });
     }
@@ -110,6 +111,7 @@ const watchFilesTask = (cb) => {
                 .src(event, { base: globs.to.deployBase, buffer: false })
                 .pipe(plumber(errorHandler))
                 .pipe(sftp(conn))
+                .pipe(plumber.stop())
                 .pipe(notify({ message: 'watch-sftp complete', onLast: true }));
         });
     }
