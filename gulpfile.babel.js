@@ -45,10 +45,8 @@ import sizeTask from './gulp/tasks/size';
 import staticTask from './gulp/tasks/static';
 import watchTask from './gulp/tasks/watch';
 
-
 // Load environment-specific variables
 dotEnv.config();
-
 
 // Define gulp tasks
 gulp.task('build', buildTask);
@@ -65,7 +63,6 @@ gulp.task('psi', psiTask);
 gulp.task('size', sizeTask);
 gulp.task('static', staticTask);
 gulp.task('watch', watchTask);
-
 
 // Define gulp task alias
 gulp.task('b', buildTask);

@@ -2,7 +2,7 @@ import notify from 'gulp-notify';
 import gutil from 'gulp-util';
 
 const errorHandler = (error) => {
-    const line = (error.line) ? `LINE ${error.line} -- ` : '';
+    const line = error.line ? `LINE ${error.line} -- ` : '';
 
     // See: https://github.com/mikaelbr/node-notifier#all-notification-options-with-their-defaults
     notify({

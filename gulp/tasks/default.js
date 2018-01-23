@@ -11,10 +11,7 @@ import buildTask from './build';
 import watchTask from './watch';
 
 const defaultTask = (cb) => {
-    return gulp.series(
-        buildTask,
-        watchTask
-    )(cb);
+    return gulp.series(buildTask, watchTask)(cb);
 };
 defaultTask.description = 'build a new project and watch for changes';
 

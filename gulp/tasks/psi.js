@@ -38,10 +38,7 @@ const pageSpeedInsightsDesktop = () => {
 };
 
 const psiTask = (cb) => {
-    return gulp.parallel(
-        pageSpeedInsightsMobile,
-        pageSpeedInsightsDesktop
-    )(cb);
+    return gulp.parallel(pageSpeedInsightsMobile, pageSpeedInsightsDesktop)(cb);
 };
 psiTask.description = 'test against Google PageSpeed Insights';
 
