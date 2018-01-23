@@ -1,5 +1,6 @@
+import beeper from 'beeper';
+import chalk from 'chalk';
 import notify from 'gulp-notify';
-import gutil from 'gulp-util';
 
 const errorHandler = (error) => {
     const line = error.line ? `LINE ${error.line} -- ` : '';
@@ -11,24 +12,21 @@ const errorHandler = (error) => {
         sound: 'Sosumi'
     }).write(error);
 
-    // Beep 'sosumi' again
-    gutil.beep();
-
-    // Pretty error reporting
-    const chalk = gutil.colors.red;
-    let report = '';
+    // Beep noise alert
+    beeper();
 
     // Build report body
-    report += `${chalk('\nTASK:')} [${error.plugin}]\n`;
+    let report = '';
+    report += `${chalk.red('\nTASK:')} [${error.plugin}]\n`;
 
     if (error.line) {
-        report += `${chalk('LINE:')} ${error.line}\n`;
+        report += `${chalk.red('LINE:')} ${error.line}\n`;
     }
 
-    report += `${chalk('\nPROB:')} ${error.message}`;
+    report += `${chalk.red('\nPROB:')} ${error.message}`;
 
     if (error.file) {
-        report += `${chalk('\nFILE:')} ${error.file}\n`;
+        report += `${chalk.red('\nFILE:')} ${error.file}\n`;
     }
 
     console.error(report);

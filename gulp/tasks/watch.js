@@ -9,11 +9,12 @@
 // -------------------------------------
 
 import browserSync from 'browser-sync';
+import chalk from 'chalk';
+import fancyLog from 'fancy-log';
 import gulp from 'gulp';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import sftp from 'gulp-sftp';
-import gutil from 'gulp-util';
 import ftp from 'vinyl-ftp';
 import cssTask from './css';
 import htmlTask from './html';
@@ -81,13 +82,10 @@ const watchFilesTask = (cb) => {
             pass: process.env.FTP_PASS,
             maxConnections: 1000,
             parallel: 5,
-            log: gutil.log
+            log: fancyLog
         });
         watcher.on('change', (event) => {
-            gutil.log(
-                gutil.colors.red('change:'),
-                gutil.colors.yellow(JSON.stringify(event))
-            );
+            fancyLog(chalk.red('change:'), chalk.yellow(JSON.stringify(event)));
             return gulp
                 .src(event, { base: globs.to.deployBase })
                 .pipe(plumber(errorHandler))
@@ -107,10 +105,7 @@ const watchFilesTask = (cb) => {
             }
         };
         watcher.on('change', (event) => {
-            gutil.log(
-                gutil.colors.red('change:'),
-                gutil.colors.yellow(JSON.stringify(event))
-            );
+            fancyLog(chalk.red('change:'), chalk.yellow(JSON.stringify(event)));
             return gulp
                 .src(event, { base: globs.to.deployBase, buffer: false })
                 .pipe(plumber(errorHandler))

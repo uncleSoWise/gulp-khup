@@ -12,6 +12,7 @@
 
 import browserify from 'browserify';
 import browserSync from 'browser-sync';
+import fancyLog from 'fancy-log';
 import gulp from 'gulp';
 import cache from 'gulp-cached';
 import buffer from 'gulp-buffer';
@@ -21,7 +22,6 @@ import plumber from 'gulp-plumber';
 import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
-import gutil from 'gulp-util';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -32,7 +32,7 @@ const jsTask = () => {
             .pipe(plumber(errorHandler))
             .pipe(cache('js'))
             .pipe(flatmap((stream, file) => {
-                gutil.log(`bundling ${file.path}`);
+                fancyLog(`bundling ${file.path}`);
                 // replace file contents with browserify's bundle stream
                 const bundler = browserify(file.path, {
                     debug: true

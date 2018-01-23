@@ -8,11 +8,11 @@
 //
 // -------------------------------------
 
+import fancyLog from 'fancy-log';
 import gulp from 'gulp';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import sftp from 'gulp-sftp';
-import gutil from 'gulp-util';
 import ftp from 'vinyl-ftp';
 import config from '../config';
 import errorHandler from '../errorHandler';
@@ -25,7 +25,7 @@ const ftpTask = () => {
         pass: process.env.FTP_PASS,
         maxConnections: 1000,
         parallel: 5,
-        log: gutil.log
+        log: fancyLog
     });
 
     return gulp
