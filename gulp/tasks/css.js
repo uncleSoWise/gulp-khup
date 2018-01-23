@@ -4,7 +4,6 @@
 //
 // - build CSS from SCSS
 // - autoprefix browser vendor styles
-// - comb CSS according to .csscomb.json
 // - convert PX to REM
 // - inline base64 any asset < 8 bytes
 // - move into relative /css/ directory
@@ -18,7 +17,6 @@ import browserSync from 'browser-sync';
 import gulp from 'gulp';
 import autoprefixer from 'gulp-autoprefixer';
 import base64 from 'gulp-base64';
-import csscomb from 'gulp-csscomb';
 import cssnano from 'gulp-cssnano';
 import flatmap from 'gulp-flatmap';
 import notify from 'gulp-notify';
@@ -38,7 +36,6 @@ const cssTask = () => {
         .pipe(plumber(errorHandler))
         .pipe(sass())
         .pipe(autoprefixer(config.autoprefixer))
-        .pipe(csscomb())
         .pipe(pxtorem())
         .pipe(base64(config.base64))
         .pipe(rename((file) => {

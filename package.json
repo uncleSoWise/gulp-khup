@@ -35,7 +35,6 @@
     "gulp-base64": "^0.1.3",
     "gulp-buffer": "^0.0.2",
     "gulp-cached": "^1.1.1",
-    "gulp-csscomb": "^3.0.8",
     "gulp-cssnano": "^2.1.2",
     "gulp-eslint": "^4.0.1",
     "gulp-flatmap": "^1.0.0",
