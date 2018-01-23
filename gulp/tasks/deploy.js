@@ -8,11 +8,11 @@
 //
 // -------------------------------------
 
+import fancyLog from 'fancy-log';
 import gulp from 'gulp';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import sftp from 'gulp-sftp';
-import gutil from 'gulp-util';
 import ftp from 'vinyl-ftp';
 import config from '../config';
 import errorHandler from '../errorHandler';
@@ -25,13 +25,14 @@ const ftpTask = () => {
         pass: process.env.FTP_PASS,
         maxConnections: 1000,
         parallel: 5,
-        log: gutil.log
+        log: fancyLog
     });
 
     return gulp
         .src(globs.to.deploy, { base: globs.to.deployBase })
         .pipe(plumber(errorHandler))
         .pipe(conn.dest(process.env.FTP_REMOTEPATH))
+        .pipe(plumber.stop())
         .pipe(notify({ message: 'ftp complete', onLast: true }));
 };
 ftpTask.description = 'deploy /dist/ files to server via FTP';
@@ -51,6 +52,7 @@ const sftpTask = () => {
         .src(globs.to.deploy, { buffer: false })
         .pipe(plumber(errorHandler))
         .pipe(sftp(conn))
+        .pipe(plumber.stop())
         .pipe(notify({ message: 'sftp complete', onLast: true }));
 };
 sftpTask.description = 'deploy /dist/ files to server via SFTP';

@@ -57,6 +57,7 @@ const cssTask = () => {
             return stream.pipe(replace('../img/', `${rootPath}img/`));
         }))
         .pipe(rename({ basename: 'inline', suffix: '.min' }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
         .pipe(notify({ message: 'css task complete', onLast: true }));

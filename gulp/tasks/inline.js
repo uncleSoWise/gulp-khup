@@ -30,6 +30,7 @@ const inlineTask = () => {
                 rootpath: rootPath
             }));
         }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
         .pipe(notify({ message: 'inline task complete', onLast: true }));

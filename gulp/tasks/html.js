@@ -31,6 +31,7 @@ const htmlTask = () => {
             removeCommentsFromCDATA: true,
             minifyJS: true
         }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
         .pipe(notify({ message: 'html task complete', onLast: true }));
