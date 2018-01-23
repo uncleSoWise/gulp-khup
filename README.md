@@ -111,6 +111,10 @@ A CSS browser reset is created from `normalize.css` and built into the `reset.sc
 
 Deploy complete project to server as defined by `.env` environment-specific variables. Uses FTP or SFTP depending on `gulpflow` booleans in `config.js`.
 
+### `gulp eslint`
+
+Run ESLint on JS files in `/src/`.
+
 ### `gulp html`
 
 Correct special text characters erroneously copy pasted into the HTML and minify.
@@ -127,6 +131,10 @@ Inline scripts directly into HTML for performance gains. Use boolean HTML attrib
 
 Creates the master theme JS file from all JS assets and moves vendor files as needed. Handles concatenation, minification, sourcemaps and moving vendor files into place.
 
+### `gulp lint`
+
+Run all the various linters on files in `/src/`.
+
 ### `gulp mustache`
 
 Contains all the power of `html` but with the distinction of building `.mustache` template files into HTML first.
@@ -134,6 +142,10 @@ Contains all the power of `html` but with the distinction of building `.mustache
 ### `gulp psi`
 
 Run tests with Google PageSpeed Insights. One test runs for mobile and one for desktop. Supply the URL to be tested in `config.js`. The CLI has a limit of 5s per result set, which is better than the web interfaces 60s turn around time on cached results.
+
+### `gulp sasslint`
+
+Run Sass Lint on SCSS files in `/src/`.
 
 ### `gulp size`
 
