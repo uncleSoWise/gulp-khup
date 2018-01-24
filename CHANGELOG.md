@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * eslint task
 * lint task
+* prettier task
 * sasslint task
 
 ### Removed
 
-* csscomb
-* gulp-util
+* csscomb package
+* gulp-util package
 
 ## [0.1.0] - 2017-10-25
 

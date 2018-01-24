@@ -13,6 +13,20 @@
     "url": "https://uncleSoWise/gulp-khup.git"
   },
   "license": "MIT",
+  "scripts": {
+    "prettier":
+      "npm run prettier-css && npm run prettier-js && npm run prettier-json && npm run prettier-md && npm run prettier-scss",
+    "prettier-css":
+      "prettier --tab-width 4 --print-width 80 --single-quote --parser css --write **\\*.css !dist\\**",
+    "prettier-js":
+      "prettier-eslint --tab-width 4 --print-width 80 --single-quote --write **\\*.js !dist\\**",
+    "prettier-json":
+      "prettier --tab-width 4 --print-width 80 --parser json --write **\\*.json !dist\\**",
+    "prettier-md":
+      "prettier --tab-width 4 --print-width 80 --parser markdown --write **\\*.md !dist\\**",
+    "prettier-scss":
+      "prettier --tab-width 4 --print-width 80 --single-quote --parser scss --write **\\*.scss !dist\\**"
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -46,6 +60,7 @@
     "gulp-pxtorem": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
+    "gulp-run": "^1.7.1",
     "gulp-sass": "^3.1.0",
     "gulp-sass-lint": "^1.3.4",
     "gulp-sftp": "^0.1.5",

@@ -139,6 +139,10 @@ Run all the various linters on files in `/src/`.
 
 Contains all the power of `html` but with the distinction of building `.mustache` template files into HTML first.
 
+### `gulp prettier`
+
+Format `/src/` CSS, JSON, Markdown and SCSS files with prettier. Format `/src/` JS files with prettier-eslint.
+
 ### `gulp psi`
 
 Run tests with Google PageSpeed Insights. One test runs for mobile and one for desktop. Supply the URL to be tested in `config.js`. The CLI has a limit of 5s per result set, which is better than the web interfaces 60s turn around time on cached results.

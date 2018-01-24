@@ -17,6 +17,7 @@
 //   `gulp js`
 //   `gulp lint`
 //   `gulp mustache`
+//   `gulp prettier`
 //   `gulp psi`
 //   `gulp sasslint`
 //   `gulp size`
@@ -44,6 +45,7 @@ import imgTask from './gulp/tasks/img';
 import jsTask from './gulp/tasks/js';
 import lintTask from './gulp/tasks/lint';
 import mustacheTask from './gulp/tasks/mustache';
+import prettierTask from './gulp/tasks/prettier';
 import psiTask from './gulp/tasks/psi';
 import sasslintTask from './gulp/tasks/sasslint';
 import sizeTask from './gulp/tasks/size';
@@ -65,6 +67,7 @@ gulp.task('img', imgTask);
 gulp.task('js', jsTask);
 gulp.task('lint', lintTask);
 gulp.task('mustache', mustacheTask);
+gulp.task('prettier', prettierTask);
 gulp.task('psi', psiTask);
 gulp.task('sasslint', sasslintTask);
 gulp.task('size', sizeTask);
