@@ -23,7 +23,7 @@
     "prettier-json":
       "prettier --tab-width 4 --print-width 80 --parser json --write **\\*.json !dist\\**",
     "prettier-md":
-      "prettier --tab-width 4 --print-width 80 --parser markdown --write **\\*.md !dist\\**",
+      "prettier --tab-width 4 --print-width 80 --prose-wrap always --parser markdown --write **\\*.md !dist\\**",
     "prettier-scss":
       "prettier --tab-width 4 --print-width 80 --single-quote --parser scss --write **\\*.scss !dist\\**"
   },
