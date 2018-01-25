@@ -13,7 +13,7 @@
     },
     "rules": {
         "arrow-body-style": ["error", "always"],
-        "arrow-parens": ["error","always"],
+        "arrow-parens": ["error", "always"],
         "arrow-spacing": "error",
         "comma-dangle": ["error", "never"],
         "complexity": ["error", 15],
@@ -26,4 +26,3 @@
         "object-shorthand": ["error", "always"]
     }
 }
-

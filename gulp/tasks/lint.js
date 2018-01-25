@@ -11,10 +11,7 @@ import eslintTask from './eslint';
 import sasslintTask from './sasslint';
 
 const lintTask = (cb) => {
-    return gulp.parallel(
-        eslintTask,
-        sasslintTask
-    )(cb);
+    return gulp.parallel(eslintTask, sasslintTask)(cb);
 };
 lintTask.description = 'lint JS and SCSS';
 
