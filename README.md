@@ -43,22 +43,15 @@ Environment-specific variables are loaded securely through `.env` which is NOT
 under version control. The `gulpfile` then loads in all the gulp tasks. Order is
 unimportant here (but alphabetical is encouraged).
 
-### /gulp/config.js
+### /gulp/commandLineArguments.js
 
-Settings for `gulpflow` and `npm` packages should be called from the `config`
-object that is loaded from `config.js`.
+Configure gulp tasks with the help of CLI arguments. Current supporting CLI
+arguments include:
 
-Default `npm` configurations include:
-
-* Autoprefixor browser settings
-* Base64 inline image file size limits
-* PageSpeedInsights URL for testing with `psi` CLI
-
-Default `gulpflow` booleans determine if:
-
-* `deploy` should use FTP for file uploads
-* `deploy` should use SFTP for file uploads
-* `watch` should use BrowserSync
+* `--nobs` or `--nobrowsersync` to disable Browser Sync
+* `--psi "[url]"` to test a URL with Page Speed Insights
+* `--ftp` to enable deployment via FTP
+* `--sftp` to enable deployment via SFTP
 
 ### /gulp/errorHandler.js
 
@@ -140,7 +133,7 @@ A CSS browser reset is created from `normalize.css` and built into the
 ### `gulp deploy` or `gulp d`
 
 Deploy complete project to server as defined by `.env` environment-specific
-variables. Uses FTP or SFTP depending on `gulpflow` booleans in `config.js`.
+variables. Uses FTP or SFTP depending on CLI arguments.
 
 ### `gulp eslint`
 
@@ -184,9 +177,9 @@ JS files with prettier-eslint.
 ### `gulp psi`
 
 Run tests with Google PageSpeed Insights. One test runs for mobile and one for
-desktop. Supply the URL to be tested in `config.js`. The CLI has a limit of 5s
-per result set, which is better than the web interfaces 60s turn around time on
-cached results.
+desktop. Supply the URL to be tested via CLI argument `--url "[url]"`. The CLI
+has a limit of 5s per result set, which is better than the web interfaces 60s
+turn around time on cached results.
 
 ### `gulp sasslint`
 
@@ -209,10 +202,7 @@ Listens for changes in `/src/` and builds to `/dist/`. Listens for changes in
 `/dist/` and deploys to remote server. File transfer work is time intensive, so
 `gulp` only uploads the files in need, as needed.
 
-Set `gulpflow` booleans in `config.js` to enable or disable:
-
-* deploy by FTP or SFTP on file change
-* start BrowserSync on `watch`
+Configure `gulp watch` settings via CLI arguments
 
 If BrowserSync is enabled, `watch` creates a secure public URL to share your
 local sites with any Internet-connected device on the local network. Perfect for
