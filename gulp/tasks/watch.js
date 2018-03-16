@@ -2,8 +2,9 @@
 //   Task: watch
 // -------------------------------------
 //
-// - Browsersync will manage refresh and device sync
-// - Browsersync uses /dist/ as base for the server
+// - check CLI arguments for BrowserSync and deploy settings
+// - BrowserSync will manage refresh and device sync
+// - BrowserSync uses /dist/ as base for the server
 // - listen for changes in /src/ and run tasks
 //
 // -------------------------------------
@@ -23,7 +24,7 @@ import inlineTask from './inline';
 import jsTask from './js';
 import mustacheTask from './mustache';
 import staticTask from './static';
-import config from '../config';
+import commandLineArguments from '../commandLineArguments';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -75,7 +76,8 @@ const watchFilesTask = (cb) => {
         cb(null);
     });
 
-    if (config.gulpflow.isDeployFTP) {
+    // enable FTP deploys on watch via CLI parameters
+    if (commandLineArguments.ftp) {
         const conn = ftp.create({
             host: process.env.FTP_HOST,
             user: process.env.FTP_USER,
@@ -95,7 +97,8 @@ const watchFilesTask = (cb) => {
         });
     }
 
-    if (config.gulpflow.isDeploySFTP) {
+    // enable SFTP deploys on watch via CLI parameters
+    if (commandLineArguments.sftp) {
         const conn = {
             host: process.env.SFTP_HOST,
             user: process.env.SFTP_USER,
@@ -121,16 +124,15 @@ const watchFilesTask = (cb) => {
 
 const watchTask = (cb) => {
     let taskStream;
-    taskStream = gulp.series(watchFilesTask);
+    taskStream = gulp.series(watchFilesTask)(cb);
 
-    // BrowserSync and watch files based on config.js settings
-    if (config.gulpflow.isBrowserSync) {
+    // enable BrowserSync unless disabled by CLI parameters
+    if (!commandLineArguments.nobs && !commandLineArguments.nobrowsersync) {
         taskStream = gulp.series(serverInitTask, watchFilesTask)(cb);
     }
 
     return taskStream;
 };
-watchTask.description =
-    'start Browsersync, listen for changes in /src/ and run tasks';
+watchTask.description = 'watch for changes in /src/ and run tasks';
 
 export default watchTask;

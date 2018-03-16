@@ -2,8 +2,8 @@
 //   Task: deploy
 // -------------------------------------
 //
+// - check CLI arguments for deployment settings
 // - deploy /dist/ files to server via FTP or SFTP
-// - check gulpflow booleans in config.js for deployment settings
 // - environmental variables located in .env
 //
 // -------------------------------------
@@ -14,7 +14,7 @@ import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
 import sftp from 'gulp-sftp';
 import ftp from 'vinyl-ftp';
-import config from '../config';
+import commandLineArguments from '../commandLineArguments';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -59,10 +59,10 @@ sftpTask.description = 'deploy /dist/ files to server via SFTP';
 
 const deployTask = (cb) => {
     let taskStream;
-    if (config.gulpflow.isDeployFTP) {
+    if (commandLineArguments.ftp) {
         taskStream = gulp.series(ftpTask)(cb);
     }
-    if (config.gulpflow.isDeploySFTP) {
+    if (commandLineArguments.sftp) {
         taskStream = gulp.series(sftpTask)(cb);
     }
     return taskStream;

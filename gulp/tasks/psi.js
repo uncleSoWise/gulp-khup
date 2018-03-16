@@ -2,6 +2,7 @@
 //   Task: psi
 // -------------------------------------
 //
+// - check CLI arguments for testing URL
 // - test against Google PageSpeed Insights
 // - output report to terminal
 // - pass or fail
@@ -17,12 +18,15 @@
 
 import gulp from 'gulp';
 import psi from 'psi';
+import commandLineArguments from '../commandLineArguments';
 
-// hardcoded for now; CLI parameter soon
-const psiUrl = 'http://google.com';
+// fallback to 'https://google.com' if no url provided via CLI
+const url = commandLineArguments.url
+    ? commandLineArguments.url
+    : 'https://google.com';
 
 const pageSpeedInsightsMobile = () => {
-    return psi.output(psiUrl, {
+    return psi.output(url, {
         // key: key
         nokey: 'true',
         strategy: 'mobile',
@@ -31,7 +35,7 @@ const pageSpeedInsightsMobile = () => {
 };
 
 const pageSpeedInsightsDesktop = () => {
-    return psi.output(psiUrl, {
+    return psi.output(url, {
         // key: key
         nokey: 'true',
         strategy: 'desktop',
