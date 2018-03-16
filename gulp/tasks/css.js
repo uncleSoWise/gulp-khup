@@ -26,7 +26,6 @@ import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import sass from 'gulp-sass';
 import path from 'path';
-import config from '../config';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -35,9 +34,11 @@ const cssTask = () => {
         .src(globs.to.scss, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(sass())
-        .pipe(autoprefixer(config.autoprefixer))
+        .pipe(autoprefixer(['last 2 versions']))
         .pipe(pxtorem())
-        .pipe(base64(config.base64))
+        .pipe(base64({
+            maxImageSize: 8 * 1024 // bytes
+        }))
         .pipe(rename((file) => {
             file.dirname = path.join(file.dirname, '../css');
         }))
