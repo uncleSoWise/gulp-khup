@@ -10,13 +10,22 @@ and this project adheres to
 
 ### Added
 
+* `/gulp/commandLineArguments.js` to fetch CLI arguments
 * eslint task
 * lint task
 * prettier task
 * sasslint task
 
+### Changed
+
+* moved configuration settings from `/gulp/config.js` to their singular file
+  homes
+* `gulp`, `gulp deploy`, `gulp psi` and `gulp watch` all rely on CLI arguments
+  rather than `gulpflow` config file settings
+
 ### Removed
 
+* `/gulp/config.js` in favor of CLI arguments
 * csscomb package
 * gulp-util package
 
