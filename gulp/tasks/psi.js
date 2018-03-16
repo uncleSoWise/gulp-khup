@@ -17,10 +17,12 @@
 
 import gulp from 'gulp';
 import psi from 'psi';
-import config from '../config';
+
+// hardcoded for now; CLI parameter soon
+const psiUrl = 'http://google.com';
 
 const pageSpeedInsightsMobile = () => {
-    return psi.output(config.psi_url, {
+    return psi.output(psiUrl, {
         // key: key
         nokey: 'true',
         strategy: 'mobile',
@@ -29,7 +31,7 @@ const pageSpeedInsightsMobile = () => {
 };
 
 const pageSpeedInsightsDesktop = () => {
-    return psi.output(config.psi_url, {
+    return psi.output(psiUrl, {
         // key: key
         nokey: 'true',
         strategy: 'desktop',
