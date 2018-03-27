@@ -15,7 +15,7 @@ import htmlTask from './html';
 import imgTask from './img';
 import inlineTask from './inline';
 import jsTask from './js';
-import mustacheTask from './mustache';
+import nunjucksTask from './nunjucks';
 import staticTask from './static';
 
 const buildTask = (cb) => {
@@ -25,7 +25,7 @@ const buildTask = (cb) => {
             cssTask,
             imgTask,
             htmlTask,
-            mustacheTask,
+            nunjucksTask,
             jsTask,
             staticTask
         ),

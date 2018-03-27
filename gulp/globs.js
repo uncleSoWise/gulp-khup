@@ -42,8 +42,8 @@ const globs = {
         html: `${src}**/*.html`,
         img: imgGlobsSrc,
         inline: `${dist}**/*.html`,
-        js: `${src}**/*.js`,
-        mustache: `${src}**/[^_]*.mustache`,
+        js: `${src}**/[^_]*.js`,
+        nunjucks: `${src}**/[^_]*.njk`,
         scss: `${src}**/[^_]*.scss`,
         size: {
             all: `${dist}**/*`,
@@ -58,7 +58,7 @@ const globs = {
             html: `${src}**/*.html`,
             img: imgGlobsSrc,
             js: `${src}**/*.js`,
-            mustache: `${src}**/*.mustache`,
+            nunjucks: [`${src}**/*.njk`, `${src}**/*.md`],
             scss: [`${src}**/*.scss`, `!${src}**/reset.scss`],
             static: staticGlobs
         }

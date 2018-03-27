@@ -26,6 +26,8 @@ import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import sass from 'gulp-sass';
 import path from 'path';
+import through from 'through2';
+import commandLineArguments from '../commandLineArguments';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -42,9 +44,7 @@ const cssTask = () => {
         .pipe(rename((file) => {
             file.dirname = path.join(file.dirname, '../css');
         }))
-        .pipe(gulp.dest(globs.to.dist))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(cssnano())
+        .pipe(commandLineArguments.nomin ? through.obj() : cssnano())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(flatmap((stream, file) => {
             let rootPath = file.path;
@@ -54,7 +54,7 @@ const cssTask = () => {
             rootPath = `${rootPath}/`;
             return stream.pipe(replace('../img/', `${rootPath}img/`));
         }))
-        .pipe(rename({ basename: 'inline', suffix: '.min' }))
+        .pipe(rename({ basename: 'inline' }))
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
