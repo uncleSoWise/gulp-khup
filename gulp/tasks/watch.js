@@ -22,7 +22,7 @@ import htmlTask from './html';
 import imgTask from './img';
 import inlineTask from './inline';
 import jsTask from './js';
-import mustacheTask from './mustache';
+import nunjucksTask from './nunjucks';
 import staticTask from './static';
 import commandLineArguments from '../commandLineArguments';
 import errorHandler from '../errorHandler';
@@ -46,16 +46,16 @@ const watchFilesTask = (cb) => {
     // Watch .html files
     gulp.watch(globs.to.watch.html, gulp.series(htmlTask, cssTask, inlineTask));
 
-    // Watch .mustache files
+    // Watch .njk files
     gulp.watch(
-        globs.to.watch.mustache,
-        gulp.series(mustacheTask, cssTask, inlineTask)
+        globs.to.watch.nunjucks,
+        gulp.series(nunjucksTask, cssTask, inlineTask)
     );
 
     // Watch .scss files
     gulp.watch(
         globs.to.watch.scss,
-        gulp.series(cssTask, htmlTask, mustacheTask, inlineTask)
+        gulp.series(cssTask, htmlTask, nunjucksTask, inlineTask)
     );
 
     // Watch .js files

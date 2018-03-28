@@ -15,6 +15,12 @@ and this project adheres to
 * lint task
 * prettier task
 * sasslint task
+* nunjucks task
+* gulp-nunjucks package
+* marked package
+* nunjucks package
+* nunjucks-markdown package
+* through2 package
 
 ### Changed
 
@@ -22,12 +28,21 @@ and this project adheres to
   homes
 * `gulp`, `gulp deploy`, `gulp psi` and `gulp watch` all rely on CLI arguments
   rather than `gulpflow` config file settings
+* minification is managed via command line arguments and there are no longer
+  `.min` files output
+* disable file minification with `--nomin` command line argument
+
+### Fixed
+
+* sasslint task now uses `gulp-sass-lint` and pipeline configuration correctly
 
 ### Removed
 
 * `/gulp/config.js` in favor of CLI arguments
+* mustache task
 * csscomb package
 * gulp-util package
+* gulp-mustache package
 
 ## [0.1.0] - 2017-10-25
 

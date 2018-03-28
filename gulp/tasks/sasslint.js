@@ -7,7 +7,7 @@
 // -------------------------------------
 
 import gulp from 'gulp';
-import sasslint from 'gulp-eslint';
+import sasslint from 'gulp-sass-lint';
 import globs from '../globs';
 
 const sasslintTask = () => {
@@ -15,7 +15,7 @@ const sasslintTask = () => {
         .src([globs.to.scss])
         .pipe(sasslint())
         .pipe(sasslint.format())
-        .pipe(sasslint.failAfterError());
+        .pipe(sasslint.failOnError());
 };
 sasslintTask.description = 'Sass Lint SCSS files';
 

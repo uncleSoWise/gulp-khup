@@ -19,9 +19,10 @@ import buffer from 'gulp-buffer';
 import flatmap from 'gulp-flatmap';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
-import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
+import through from 'through2';
+import commandLineArguments from '../commandLineArguments';
 import errorHandler from '../errorHandler';
 import globs from '../globs';
 
@@ -47,9 +48,7 @@ const jsTask = () => {
                 includeContent: false,
                 sourceRoot: globs.to.src
             }))
-            .pipe(gulp.dest(globs.to.dist))
-            .pipe(rename({ suffix: '.min' }))
-            .pipe(uglify())
+            .pipe(commandLineArguments.nomin ? through.obj() : uglify())
             .pipe(plumber.stop())
             .pipe(gulp.dest(globs.to.dist))
             .pipe(browserSync.stream({ once: true }))

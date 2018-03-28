@@ -49,6 +49,7 @@ Configure gulp tasks with the help of CLI arguments. Current supporting CLI
 arguments include:
 
 * `--nobs` or `--nobrowsersync` to disable Browser Sync
+* `--nomin` to disable minification of CSS, JS and HTML output files
 * `--psi "[url]"` to test a URL with Page Speed Insights
 * `--ftp` to enable deployment via FTP
 * `--sftp` to enable deployment via SFTP
@@ -112,7 +113,7 @@ effort on extra characters. Calls `build` and then `watch`.
 ### `gulp build` or `gulp b`
 
 First `/dist/` is nuked with `clean` and then the build order for tasks is
-called. Next `img`, `html`, `mustache`, `css`, `js`, `static` and `inline` tasks
+called. Next `img`, `html`, `nunjucks`, `css`, `js`, `static` and `inline` tasks
 are all called to build a complete project to `/dist/`.
 
 ### `gulp clean` or `gulp c`
@@ -164,10 +165,11 @@ into place.
 
 Run all the various linters on files in `/src/`.
 
-### `gulp mustache`
+### `gulp nunjucks`
 
-Contains all the power of `html` but with the distinction of building
-`.mustache` template files into HTML first.
+Contains all the power of `html` but with the distinction of building `.njk`
+template files into HTML first. Converts Markdown blocks or imports via
+`{{ markdown }}` command.
 
 ### `gulp prettier`
 
