@@ -21,6 +21,7 @@ and this project adheres to
 * nunjucks package
 * nunjucks-markdown package
 * through2 package
+* babelify package
 
 ### Changed
 
@@ -31,10 +32,15 @@ and this project adheres to
 * minification is managed via command line arguments and there are no longer
   `.min` files output
 * disable file minification with `--nomin` command line argument
+* update `gulp js` to use `babelify` to allow for ES6 style authoring `import`
+* remove `gulp-cache` from html and js tasks
 
 ### Fixed
 
 * sasslint task now uses `gulp-sass-lint` and pipeline configuration correctly
+* files made for inline during `gulp css` are now correctly prefixed `.inline`
+  rather than renaming all files to `inline.css` which is very confusing with
+  multiple theme files
 
 ### Removed
 

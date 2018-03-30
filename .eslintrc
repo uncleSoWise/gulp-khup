@@ -1,28 +1,35 @@
 {
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": "airbnb-base",
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "modules": true
-        }
-    },
-    "rules": {
-        "arrow-body-style": ["error", "always"],
-        "arrow-parens": ["error", "always"],
-        "arrow-spacing": "error",
-        "comma-dangle": ["error", "never"],
-        "complexity": ["error", 15],
-        "import/imports-first": ["error", "absolute-first"],
-        "indent": ["error", 4, { "SwitchCase": 1 }],
-        "max-len": ["error", 120, 4],
-        "max-statements": ["error", 15],
-        "no-console": 0,
-        "no-param-reassign": ["error", { "props": false }],
-        "object-shorthand": ["error", "always"]
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
     }
+  },
+  "rules": {
+    "arrow-body-style": ["error", "always"],
+    "arrow-parens": ["error", "always"],
+    "arrow-spacing": "error",
+    "comma-dangle": ["error", "never"],
+    "complexity": ["error", 15],
+    "import/imports-first": ["error", "absolute-first"],
+    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "max-len": ["error", 120, 4],
+    "max-statements": ["error", 15],
+    "no-console": 0,
+    "no-param-reassign": ["error", { "props": false }],
+    "object-shorthand": ["error", "always"]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  }
 }
