@@ -47,13 +47,13 @@ const jsTask = () => {
             .pipe(commandLineArguments.nomin
                 ? sourcemaps.init({ loadMaps: true })
                 : through.obj())
-            .pipe(commandLineArguments.nomin ? through.obj() : uglify())
             .pipe(commandLineArguments.nomin
                 ? sourcemaps.write({
                     includeContent: false,
                     sourceRoot: globs.to.src
                 })
                 : through.obj())
+            .pipe(commandLineArguments.nomin ? through.obj() : uglify())
             .pipe(plumber.stop())
             .pipe(gulp.dest(globs.to.dist))
             .pipe(browserSync.stream({ once: true }))

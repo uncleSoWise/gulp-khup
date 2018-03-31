@@ -25,6 +25,7 @@ import pxtorem from 'gulp-pxtorem';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
 import sass from 'gulp-sass';
+import sourcemaps from 'gulp-sourcemaps';
 import path from 'path';
 import through from 'through2';
 import commandLineArguments from '../commandLineArguments';
@@ -35,7 +36,14 @@ const cssTask = () => {
     return gulp
         .src(globs.to.scss, { base: globs.to.src })
         .pipe(plumber(errorHandler))
+        .pipe(commandLineArguments.nomin ? sourcemaps.init() : through.obj())
         .pipe(sass())
+        .pipe(commandLineArguments.nomin
+            ? sourcemaps.write({
+                includeContent: false,
+                sourceRoot: globs.to.src
+            })
+            : through.obj())
         .pipe(autoprefixer(['last 2 versions']))
         .pipe(pxtorem())
         .pipe(base64({
