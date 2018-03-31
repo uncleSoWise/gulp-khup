@@ -54,7 +54,7 @@ const cssTask = () => {
             rootPath = `${rootPath}/`;
             return stream.pipe(replace('../img/', `${rootPath}img/`));
         }))
-        .pipe(rename({ basename: 'inline' }))
+        .pipe(rename({ suffix: '.inline' }))
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))

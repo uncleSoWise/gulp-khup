@@ -157,9 +157,9 @@ attribute `inline` to target scripts and links for inline.
 
 ### `gulp js`
 
-Creates the master theme JS file from all JS assets and moves vendor files as
-needed. Handles concatenation, minification, sourcemaps and moving vendor files
-into place.
+Transform ES6 into browser friendly ES5 with `babelify` and `browserify`.
+Bundles are minified by default. If the command line argument `--nomin` is set
+minification will be disabled and sourcemap support will be enabled.
 
 ### `gulp lint`
 

@@ -11,7 +11,6 @@
 
 import browserSync from 'browser-sync';
 import gulp from 'gulp';
-import cache from 'gulp-cached';
 import htmlmin from 'gulp-htmlmin';
 import notify from 'gulp-notify';
 import plumber from 'gulp-plumber';
@@ -25,7 +24,6 @@ const htmlTask = () => {
     return gulp
         .src(globs.to.html, { base: globs.to.src })
         .pipe(plumber(errorHandler))
-        .pipe(cache('html'))
         .pipe(special())
         .pipe(commandLineArguments.nomin
             ? through.obj()
