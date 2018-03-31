@@ -32,6 +32,8 @@ and this project adheres to
 * minification is managed via command line arguments and there are no longer
   `.min` files output
 * disable file minification with `--nomin` command line argument
+* enable sourcemaps for `gulp js` and `gulp css` with `--nomin` command line
+  argument
 * update `gulp js` to use `babelify` to allow for ES6 style authoring `import`
 * remove `gulp-cache` from html and js tasks
 
