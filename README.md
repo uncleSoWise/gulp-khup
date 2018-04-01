@@ -4,10 +4,9 @@ A mostly reasonable gulpsheet written in ES6 modules for modest projects.
 
 ## Getting Started
 
-* be sure node, npm, yarn and gulp-cli are installed
-* run `npm install` or `yarn` to install all required packages for development
-* run `gulp` to build a new project and load the watch tasks
-* code stuff and let gulp do the grunt work for you
+* be sure `node`, `npm`, `yarn` and `gulp-cli` are installed
+* run `npm i` or `yarn` to install all required packages for development
+* run `gulp` to `build` a new project and load the `watch` task
 
 ## Directory Structure / Scaffolding
 
@@ -50,9 +49,9 @@ arguments include:
 
 * `--nobs` or `--nobrowsersync` to disable Browser Sync
 * `--nomin` to disable minification of CSS, JS and HTML output files
-* `--psi "[url]"` to test a URL with Page Speed Insights
 * `--ftp` to enable deployment via FTP
 * `--sftp` to enable deployment via SFTP
+* `--url "[url]"` to test a URL with Page Speed Insights in `gulp psi` task
 
 ### /gulp/errorHandler.js
 
@@ -102,7 +101,7 @@ action with `gulp watch` and get to coding.
 
 Every defined task listed by terminal command and a brief description.
 
-**NOTE:**Some tasks may contain sub-routines that are not explicitly expressed
+**NOTE:** Some tasks may contain sub-routines that are not explicitly expressed
 here.
 
 ### `gulp`
@@ -124,12 +123,11 @@ Deletes `/dist/` completely. Scorched earth. Only the directory itself remains.
 
 Builds the main stylesheet from the SCSS project files. Runs the CSS through
 Autoprefixer to manage browser vendor prefixes. Images less than 8kb are base64
-inlined. PX units are converted to REM units. A minified version is created
-along side the working version. A third version for use with inline style blocks
-is also created. All three files are moved into place in `/dist/`.
+inlined. PX units are converted to REM units. An inline style block version is
+created along side the working version. Files are moved into place in `/dist/`.
 
-A CSS browser reset is created from `normalize.css` and built into the
-`reset.scss` partial in `/src/`.
+If the command line argument `--nomin` is set minification will be disabled and
+sourcemap support will be enabled.
 
 ### `gulp deploy` or `gulp d`
 
