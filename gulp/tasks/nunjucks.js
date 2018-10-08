@@ -27,7 +27,9 @@ import errorHandler from '../errorHandler';
 import globs from '../globs';
 
 const nunjucksTask = () => {
-    const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('src'));
+    const env = new nunjucks.Environment(
+        new nunjucks.FileSystemLoader(globs.to.src)
+    );
     marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: false,
@@ -45,17 +47,21 @@ const nunjucksTask = () => {
         .pipe(plumber(errorHandler))
         .pipe(gulpNunjucks.compile('', { env }))
         .pipe(special())
-        .pipe(rename((file) => {
-            file.extname = '.html';
-        }))
-        .pipe(commandLineArguments.nomin
-            ? through.obj()
-            : htmlmin({
-                collapseWhitespace: true,
-                removeComments: true,
-                removeCommentsFromCDATA: true,
-                minifyJS: true
-            }))
+        .pipe(
+            rename((file) => {
+                file.extname = '.html';
+            })
+        )
+        .pipe(
+            commandLineArguments.nomin
+                ? through.obj()
+                : htmlmin({
+                    collapseWhitespace: true,
+                    removeComments: true,
+                    minifyCSS: true,
+                    minifyJS: true
+                })
+        )
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))

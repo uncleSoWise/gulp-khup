@@ -37,31 +37,39 @@ const cssTask = () => {
         .src(globs.to.scss, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(commandLineArguments.nomin ? sourcemaps.init() : through.obj())
-        .pipe(sass())
-        .pipe(commandLineArguments.nomin
-            ? sourcemaps.write({
-                includeContent: false,
-                sourceRoot: globs.to.src
-            })
-            : through.obj())
-        .pipe(autoprefixer(['last 2 versions']))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(
+            commandLineArguments.nomin
+                ? sourcemaps.write({
+                      includeContent: false,
+                      sourceRoot: globs.to.src
+                  })
+                : through.obj()
+        )
+        .pipe(autoprefixer())
         .pipe(pxtorem())
-        .pipe(base64({
-            maxImageSize: 8 * 1024 // bytes
-        }))
-        .pipe(rename((file) => {
-            file.dirname = path.join(file.dirname, '../css');
-        }))
+        .pipe(
+            base64({
+                maxImageSize: 8 * 1024 // bytes
+            })
+        )
+        .pipe(
+            rename((file) => {
+                file.dirname = path.join(file.dirname, '../css');
+            })
+        )
         .pipe(commandLineArguments.nomin ? through.obj() : cssnano())
         .pipe(gulp.dest(globs.to.dist))
-        .pipe(flatmap((stream, file) => {
-            let rootPath = file.path;
-            rootPath = rootPath.replace(file.base, '');
-            rootPath = rootPath.replace(file.basename, '');
-            rootPath = path.resolve(rootPath, '../');
-            rootPath = `${rootPath}/`;
-            return stream.pipe(replace('../img/', `${rootPath}img/`));
-        }))
+        .pipe(
+            flatmap((stream, file) => {
+                let rootPath = file.path;
+                rootPath = rootPath.replace(file.base, '');
+                rootPath = rootPath.replace(file.basename, '');
+                rootPath = path.resolve(rootPath, '../');
+                rootPath = `${rootPath}/`;
+                return stream.pipe(replace('../img/', `${rootPath}img/`));
+            })
+        )
         .pipe(rename({ suffix: '.inline' }))
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))

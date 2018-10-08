@@ -10,6 +10,8 @@ and this project adheres to
 
 ### Added
 
+* `.browserlistrc`
+* `.prettierrc` and `.prettierignore`
 * `/gulp/commandLineArguments.js` to fetch CLI arguments
 * eslint task
 * lint task

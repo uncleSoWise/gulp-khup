@@ -1,0 +1,30 @@
+{
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "printWidth": 80,
+    "proseWrap": "always",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "useTabs": false,
+    "overrides": [
+        {
+            "files": [".babelrc", ".eslintrc", ".prettierrc", ".stylelintrc"],
+            "options": { "parser": "json" }
+        },
+        {
+            "files": ["**/*.vue"],
+            "options": { "parser": "vue" }
+        },
+        {
+            "files": ["**/*.scss"],
+            "options": { "trailingComma": "none" }
+        },
+        {
+            "files": [".editorconfig"],
+            "options": { "parser": "yaml", "proseWrap": "preserve" }
+        }
+    ]
+}

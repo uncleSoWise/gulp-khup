@@ -25,14 +25,16 @@ const htmlTask = () => {
         .src(globs.to.html, { base: globs.to.src })
         .pipe(plumber(errorHandler))
         .pipe(special())
-        .pipe(commandLineArguments.nomin
-            ? through.obj()
-            : htmlmin({
-                collapseWhitespace: true,
-                removeComments: true,
-                removeCommentsFromCDATA: true,
-                minifyJS: true
-            }))
+        .pipe(
+            commandLineArguments.nomin
+                ? through.obj()
+                : htmlmin({
+                      collapseWhitespace: true,
+                      removeComments: true,
+                      minifyCSS: true,
+                      minifyJS: true
+                  })
+        )
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))
