@@ -4,9 +4,9 @@ A mostly reasonable gulpsheet written in ES6 modules for modest projects.
 
 ## Getting Started
 
-* be sure `node`, `npm`, `yarn` and `gulp-cli` are installed
-* run `npm i` or `yarn` to install all required packages for development
-* run `gulp` to `build` a new project and load the `watch` task
+-   be sure `node`, `npm`, `yarn` and `gulp-cli` are installed
+-   run `npm i` or `yarn` to install all required packages for development
+-   run `gulp` to `build` a new project and load the `watch` task
 
 ## Directory Structure / Scaffolding
 
@@ -47,11 +47,11 @@ unimportant here (but alphabetical is encouraged).
 Configure gulp tasks with the help of CLI arguments. Current supporting CLI
 arguments include:
 
-* `--nobs` or `--nobrowsersync` to disable Browser Sync
-* `--nomin` to disable minification of CSS, JS and HTML output files
-* `--ftp` to enable deployment via FTP
-* `--sftp` to enable deployment via SFTP
-* `--url "[url]"` to test a URL with Page Speed Insights in `gulp psi` task
+-   `--nobs` or `--nobrowsersync` to disable Browser Sync
+-   `--nomin` to disable minification of CSS, JS and HTML output files
+-   `--ftp` to enable deployment via FTP
+-   `--sftp` to enable deployment via SFTP
+-   `--url "[url]"` to test a URL with Page Speed Insights in `gulp psi` task
 
 ### /gulp/errorHandler.js
 
@@ -228,11 +228,11 @@ local-file approach.
 
 The major workflow tasks come with shortcut commands for the lazy developer.
 
-* `gulp` == `gulp default`
-* `gulp b` == `gulp build`
-* `gulp c` == `gulp clean`
-* `gulp d` == `gulp deploy`
-* `gulp w` == `gulp watch`
+-   `gulp` == `gulp default`
+-   `gulp b` == `gulp build`
+-   `gulp c` == `gulp clean`
+-   `gulp d` == `gulp deploy`
+-   `gulp w` == `gulp watch`
 
 ## Notes
 
@@ -248,21 +248,21 @@ projects will require adding new tasks or updates to the existing tasks.
 
 #### Richard Deslauriers
 
-* [twitter.com/uncleSoWise](https://twitter.com/uncleSoWise)
-* [github.com/uncleSoWise](https://github.com/uncleSoWise)
-* [bitbucket.org/uncleSoWise](https://bitbucket.org/uncleSoWise)
+-   [twitter.com/uncleSoWise](https://twitter.com/uncleSoWise)
+-   [github.com/uncleSoWise](https://github.com/uncleSoWise)
+-   [bitbucket.org/uncleSoWise](https://bitbucket.org/uncleSoWise)
 
 ## Helpful Resources
 
 Knowing is half the battle.
 
-* [http://gulpjs.com/](http://gulpjs.com/)
-* [https://markgoodyear.com/2014/01/getting-started-with-gulp/](https://markgoodyear.com/2014/01/getting-started-with-gulp/)
-* [http://makina-corpus.com/blog/metier/2015/make-your-gulp-modular](http://makina-corpus.com/blog/metier/2015/make-your-gulp-modular)
-* [http://moonshotproject.github.io/moondash/building/packaging/2014/11/26/modular-gulp.html](http://moonshotproject.github.io/moondash/building/packaging/2014/11/26/modular-gulp.html)
-* [https://bugsnag.com/blog/replacing-the-rails-asset-pipeline-with-gulp](https://bugsnag.com/blog/replacing-the-rails-asset-pipeline-with-gulp)
-* [http://drewbarontini.com/articles/building-a-better-gulpfile/](http://drewbarontini.com/articles/building-a-better-gulpfile/)
-* [http://macr.ae/article/splitting-gulpfile-multiple-files.html](http://macr.ae/article/splitting-gulpfile-multiple-files.html)
+-   [http://gulpjs.com/](http://gulpjs.com/)
+-   [https://markgoodyear.com/2014/01/getting-started-with-gulp/](https://markgoodyear.com/2014/01/getting-started-with-gulp/)
+-   [http://makina-corpus.com/blog/metier/2015/make-your-gulp-modular](http://makina-corpus.com/blog/metier/2015/make-your-gulp-modular)
+-   [http://moonshotproject.github.io/moondash/building/packaging/2014/11/26/modular-gulp.html](http://moonshotproject.github.io/moondash/building/packaging/2014/11/26/modular-gulp.html)
+-   [https://bugsnag.com/blog/replacing-the-rails-asset-pipeline-with-gulp](https://bugsnag.com/blog/replacing-the-rails-asset-pipeline-with-gulp)
+-   [http://drewbarontini.com/articles/building-a-better-gulpfile/](http://drewbarontini.com/articles/building-a-better-gulpfile/)
+-   [http://macr.ae/article/splitting-gulpfile-multiple-files.html](http://macr.ae/article/splitting-gulpfile-multiple-files.html)
 
 ## License
 

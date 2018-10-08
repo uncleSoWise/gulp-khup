@@ -56,11 +56,11 @@ const nunjucksTask = () => {
             commandLineArguments.nomin
                 ? through.obj()
                 : htmlmin({
-                    collapseWhitespace: true,
-                    removeComments: true,
-                    minifyCSS: true,
-                    minifyJS: true
-                })
+                      collapseWhitespace: true,
+                      removeComments: true,
+                      minifyCSS: true,
+                      minifyJS: true
+                  })
         )
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))

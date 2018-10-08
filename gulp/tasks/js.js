@@ -31,28 +31,34 @@ const jsTask = () => {
         gulp
             .src(globs.to.js)
             .pipe(plumber(errorHandler))
-            .pipe(flatmap((stream, file) => {
-                fancyLog(`bundling ${file.path}`);
-                // replace file contents with browserify's bundle stream
-                file.contents = browserify(file.path, {
-                    paths: globs.to.src,
-                    debug: true
+            .pipe(
+                flatmap((stream, file) => {
+                    fancyLog(`bundling ${file.path}`);
+                    // replace file contents with browserify's bundle stream
+                    file.contents = browserify(file.path, {
+                        paths: globs.to.src,
+                        debug: true
+                    })
+                        .transform(babelify)
+                        .bundle();
+                    return stream;
                 })
-                    .transform(babelify)
-                    .bundle();
-                return stream;
-            }))
+            )
             // transform streaming contents into buffer contents
             .pipe(buffer())
-            .pipe(commandLineArguments.nomin
-                ? sourcemaps.init({ loadMaps: true })
-                : through.obj())
-            .pipe(commandLineArguments.nomin
-                ? sourcemaps.write({
-                    includeContent: false,
-                    sourceRoot: globs.to.src
-                })
-                : through.obj())
+            .pipe(
+                commandLineArguments.nomin
+                    ? sourcemaps.init({ loadMaps: true })
+                    : through.obj()
+            )
+            .pipe(
+                commandLineArguments.nomin
+                    ? sourcemaps.write({
+                          includeContent: false,
+                          sourceRoot: globs.to.src
+                      })
+                    : through.obj()
+            )
             .pipe(commandLineArguments.nomin ? through.obj() : uglify())
             .pipe(plumber.stop())
             .pipe(gulp.dest(globs.to.dist))

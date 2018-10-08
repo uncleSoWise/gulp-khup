@@ -15,15 +15,23 @@
             "options": { "parser": "json" }
         },
         {
+            "files": ["package.json"],
+            "options": { "tabWidth": 2 }
+        },
+        {
             "files": ["**/*.vue"],
             "options": { "parser": "vue" }
+        },
+        {
+            "files": ["LICENSE"],
+            "options": { "parser": "markdown" }
         },
         {
             "files": ["**/*.scss"],
             "options": { "trailingComma": "none" }
         },
         {
-            "files": [".editorconfig"],
+            "files": [".browserslistrc", ".editorconfig"],
             "options": { "parser": "yaml", "proseWrap": "preserve" }
         }
     ]

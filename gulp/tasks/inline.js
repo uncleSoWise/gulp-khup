@@ -21,15 +21,19 @@ const inlineTask = () => {
     return gulp
         .src(globs.to.inline)
         .pipe(plumber(errorHandler))
-        .pipe(flatmap((stream, file) => {
-            let rootPath = file.path;
-            rootPath = rootPath.replace(file.base, '');
-            rootPath = rootPath.replace(file.basename, '');
-            rootPath = path.join(globs.to.dist, rootPath);
-            return stream.pipe(inlinesource({
-                rootpath: rootPath
-            }));
-        }))
+        .pipe(
+            flatmap((stream, file) => {
+                let rootPath = file.path;
+                rootPath = rootPath.replace(file.base, '');
+                rootPath = rootPath.replace(file.basename, '');
+                rootPath = path.join(globs.to.dist, rootPath);
+                return stream.pipe(
+                    inlinesource({
+                        rootpath: rootPath
+                    })
+                );
+            })
+        )
         .pipe(plumber.stop())
         .pipe(gulp.dest(globs.to.dist))
         .pipe(browserSync.stream({ once: true }))

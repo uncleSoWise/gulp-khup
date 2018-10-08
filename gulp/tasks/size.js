@@ -17,12 +17,14 @@ const sizeAllTask = () => {
     return gulp
         .src(globs.to.size.all)
         .pipe(s)
-        .pipe(notify({
-            onLast: true,
-            message: () => {
-                return `TOTAL size ${s.prettySize}`;
-            }
-        }));
+        .pipe(
+            notify({
+                onLast: true,
+                message: () => {
+                    return `TOTAL size ${s.prettySize}`;
+                }
+            })
+        );
 };
 
 const sizeCssTask = () => {
@@ -30,12 +32,14 @@ const sizeCssTask = () => {
     return gulp
         .src(globs.to.size.css)
         .pipe(s)
-        .pipe(notify({
-            onLast: true,
-            message: () => {
-                return `CSS size ${s.prettySize}`;
-            }
-        }));
+        .pipe(
+            notify({
+                onLast: true,
+                message: () => {
+                    return `CSS size ${s.prettySize}`;
+                }
+            })
+        );
 };
 
 const sizeHtmlTask = () => {
@@ -43,12 +47,14 @@ const sizeHtmlTask = () => {
     return gulp
         .src(globs.to.size.html)
         .pipe(s)
-        .pipe(notify({
-            onLast: true,
-            message: () => {
-                return `HTML size ${s.prettySize}`;
-            }
-        }));
+        .pipe(
+            notify({
+                onLast: true,
+                message: () => {
+                    return `HTML size ${s.prettySize}`;
+                }
+            })
+        );
 };
 
 const sizeImgTask = () => {
@@ -56,12 +62,14 @@ const sizeImgTask = () => {
     return gulp
         .src(globs.to.size.img)
         .pipe(s)
-        .pipe(notify({
-            onLast: true,
-            message: () => {
-                return `IMG size ${s.prettySize}`;
-            }
-        }));
+        .pipe(
+            notify({
+                onLast: true,
+                message: () => {
+                    return `IMG size ${s.prettySize}`;
+                }
+            })
+        );
 };
 
 const sizeJsTask = () => {
@@ -69,12 +77,14 @@ const sizeJsTask = () => {
     return gulp
         .src(globs.to.size.js)
         .pipe(s)
-        .pipe(notify({
-            onLast: true,
-            message: () => {
-                return `JS size ${s.prettySize}`;
-            }
-        }));
+        .pipe(
+            notify({
+                onLast: true,
+                message: () => {
+                    return `JS size ${s.prettySize}`;
+                }
+            })
+        );
 };
 
 const sizeTask = (cb) => {
