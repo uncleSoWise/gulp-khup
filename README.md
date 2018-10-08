@@ -171,8 +171,7 @@ template files into HTML first. Converts Markdown blocks or imports via
 
 ### `gulp prettier`
 
-Format `/src/` CSS, JSON, Markdown and SCSS files with prettier. Format `/src/`
-JS files with prettier-eslint.
+Format repo files with `prettier`.
 
 ### `gulp psi`
 
