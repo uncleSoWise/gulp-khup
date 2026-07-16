@@ -22,8 +22,7 @@ jobs:
         run: npm install --ignore-scripts --legacy-peer-deps
 
       - name: Run security audit
-        # Informational only — 163 remaining vulns all require Phase 2 breaking changes.
-        # We audit but do not fail the build on high/critical until Phase 2 is merged.
+        # 163 remaining vulns all require Phase 2 breaking changes — informational only.
         run: npm audit || true
 
   test:
@@ -43,5 +42,6 @@ jobs:
 
       - name: Run tests
         run: npm test
-        # Note: `npm test` is a no-op in Phase 1 (no test suite yet).
-        # This job becomes meaningful after Phase 2 adds Vitest.
+
+      - name: Run coverage (src/ must be 100%)
+        run: npm run test:coverage
