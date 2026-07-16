@@ -1,0 +1,42 @@
+// -------------------------------------
+//   Task: inline
+// -------------------------------------
+//
+// - source /dist/ HMTL
+// - inline files with `inline` attribute
+//
+// -------------------------------------
+
+import browserSync from 'browser-sync';
+import gulp from 'gulp';
+import flatmap from 'gulp-flatmap';
+import inlinecss from 'gulp-inline-css';
+import inlinesource from 'gulp-inline-source';
+import plumber from 'gulp-plumber';
+import path from 'path';
+import errorHandler from '../errorHandler.js';
+import globs from '../globs.js';
+
+const inlineTask = () => {
+  return gulp
+    .src(globs.to.inline)
+    .pipe(plumber(errorHandler))
+    .pipe(flatmap((stream, file) => {
+      let rootPath = file.path;
+      rootPath = rootPath.replace(file.base, '');
+      rootPath = rootPath.replace(file.basename, '');
+      rootPath = path.join(globs.to.dist, rootPath);
+      return stream.pipe(inlinesource({
+        rootpath: rootPath
+      }));
+    }))
+    .pipe(inlinecss({
+        removeStyleTags: false
+    }))
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(globs.to.dist))
+    .pipe(browserSync.stream({ once: true }));
+};
+inlineTask.description = 'inline files with `inline` attribute';
+
+export default inlineTask;
