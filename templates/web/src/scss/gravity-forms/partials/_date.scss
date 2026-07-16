@@ -1,0 +1,16 @@
+@use "../../base/mixins";
+.gform_wrapper {
+  .datepicker_with_icon {
+    margin-right: 10px;
+  }
+  .clear-multi {
+    display: flex;
+    div {
+      flex-grow: 1;
+      margin-right: 1.6949152542%;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+/* stylelint-disable */
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/functions';
+
+body.login {
+  background-color: Rgb(var(--white));
+}
+.login h1 a {
+  /* background-image: functions.svg-url('<svg class="logo" xmlns="http://www.w3.org/2000/svg" width="40.328" height="52" viewBox="0 0 40.328 52"><title>K Squared Search</title><g><path data-name="Path 132" d="M15.649 40.664a3.2 3.2 0 0 1-2.725-2 9.7 9.7 0 0 1-1.147-4.929v-8.46l3.676-1.864 6.679 9.526a9.755 9.755 0 0 1 1.778 5.1c0 1.747-.574 2.634-1.749 2.634v.458h17.9v-.458q-1.334 0-3.7-2.061a30.45 30.45 0 0 1-4.445-4.867l-9.094-13.068-1.9-2.408-9.145 6.513V.467h-.459L.506 1.383v.458a3.288 3.288 0 0 1 2.753 1.976A10.045 10.045 0 0 1 4.377 8.77v24.965a10 10 0 0 1-1.118 4.924c-.774 1.346-1.692 2-2.753 2v.458h15.143Z" fill="#142f4d"/><path data-name="Path 133" d="M2.128 48.838c-.752-.273-1.041-.486-1.041-.827 0-.372.259-.683.821-.683a2.676 2.676 0 0 1 1.193.357l.3-.834a3.148 3.148 0 0 0-1.474-.364 1.625 1.625 0 0 0-1.794 1.548c0 .637.357 1.131 1.4 1.509.965.357 1.163.569 1.163.925s-.289.652-.919.652a2.709 2.709 0 0 1-1.451-.478l-.327.85a3.462 3.462 0 0 0 1.748.508c1.193 0 1.915-.584 1.915-1.532 0-.7-.342-1.168-1.535-1.631" fill="#7c0108"/><path data-name="Path 134" d="M6.811 51.91h3.472v-.864h-2.53v-1.274h2.295v-.834H7.753v-1.494h2.53v-.865H6.811Z" fill="#7c0108"/><path data-name="Path 135" d="M15.467 46.532 12.96 51.91h.988l.463-1.062h2.3l.471 1.062h1.01l-2.508-5.378Zm-.722 3.565.812-1.836.813 1.836Z" fill="#7c0108"/><path data-name="Path 136" d="M24.922 48.473c0-1.115-.714-1.9-2.135-1.9h-1.71v5.333h.943v-1.548h.585a4.683 4.683 0 0 0 .478-.023l1.132 1.57h1.1l-1.368-1.806a1.666 1.666 0 0 0 .973-1.631m-2.2 1.054h-.7v-2.086h.7c.889 0 1.186.447 1.186 1.032s-.3 1.054-1.186 1.054" fill="#7c0108"/><path data-name="Path 137" d="M30.882 51.112a1.873 1.873 0 1 1 .091-3.74 3.666 3.666 0 0 1 1.4.349l.327-.8a3.9 3.9 0 0 0-1.884-.433 2.813 2.813 0 0 0-2.88 2.754 2.774 2.774 0 0 0 3.01 2.761 3.513 3.513 0 0 0 1.778-.447l-.289-.8a3.439 3.439 0 0 1-1.55.364" fill="#7c0108"/><path data-name="Path 138" d="M39.387 46.585v2.389h-2.606v-2.4h-.943v5.333h.943v-2.1h2.606v2.1h.942v-5.325Z" fill="#7c0108"/><path data-name="Path 139" d="M27.484 7.679c-.564.7-1.175 1.416-1.821 2.144a47.09 47.09 0 0 0-2.139 2.534 14.084 14.084 0 0 0-1.7 2.768 10.1 10.1 0 0 1 2.374-2.443 36.913 36.913 0 0 1 2.75-1.962c.9-.585 1.774-1.2 2.585-1.819a10.184 10.184 0 0 0 2-2.014 3.956 3.956 0 0 0 .787-2.417 4.045 4.045 0 0 0-1.434-3.313A5.679 5.679 0 0 0 27.649.013a1.956 1.956 0 0 1 1.128 1 4.648 4.648 0 0 1 .611 2.35 4.883 4.883 0 0 1-.529 2.183 13.012 13.012 0 0 1-1.375 2.131" fill="#7e1416"/><path data-name="Path 140" d="M23.837 4.808a9.77 9.77 0 0 1 .2-1.286A6.516 6.516 0 0 1 24.57 2a5.446 5.446 0 0 1 .975-1.415 2.1 2.1 0 0 1 1-.585A6.144 6.144 0 0 0 24.9.364a10.2 10.2 0 0 0-1.927.974 12.027 12.027 0 0 0-1.645 1.273l2.468 2.729Z" fill="#7e1416"/><path data-name="Path 141" d="M27.693 14.113a8.319 8.319 0 0 0-2.77 1h7.451v-4.759s-.458 3.351-4.681 3.759" fill="#7e1416"/></g></svg>'); */
+  background-size: auto 112px;
+  height: 112px;
+  margin-left: 0;
+  width: 320px;
+}
+#login {
+  padding: 100px 0 0;
+}
+.login #backtoblog a,
+.login #nav a,
+.login h1 a {
+  color: Rgb(var(--link-color));
+}
+.login #backtoblog a:hover,
+.login #backtoblog a:focus,
+.login #backtoblog a:active,
+.login #nav a:hover,
+.login #nav a:focus,
+.login #nav a:active,
+.login h1 a:hover,
+.login h1 a:focus,
+.login h1 a:active {
+  color: Rgb(var(--link-hover));
+}
+.login .privacy-policy-link {
+  color: Rgb(var(--link-color));
+}
+.login .privacy-policy-link:hover {
+  color: Rgb(var(--link-hover));
+}
+.wp-core-ui .button-primary {
+  background-color: Rgb(var(--link-color));
+  border-color: Rgb(var(--link-color));
+  color: Rgb(var(--white));
+  box-shadow: none;
+  text-shadow: none;
+}
+.wp-core-ui .button-primary.hover,
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary.focus,
+.wp-core-ui .button-primary:focus {
+  background-color: Rgb(var(--link-hover));
+  border-color: Rgb(var(--link-hover));
+  color: Rgb(var(--white));
+}
+.login form {
+  background-color: Rgb(var(--westar));
+  border-color: Rgb(var(--westar));
+  border-radius: 1rem;
+}
+.login label {
+  color: Rgb(var(--text-color));
+}
+.login form .input,
+.login form input[type="checkbox"],
+.login input[type="text"] {
+  background-color: Rgb(var(--white));
+  border: .0625rem solid rgb(var(--text-color));
+  color: Rgb(var(--text-color));
+}
+.login .button.wp-hide-pw {
+  background-color: Rgb(var(--white));
+  box-shadow: 0 0 0 1px Rgb(var(--link-color));
+  .dashicons {
+    color: Rgb(var(--link-color));
+  }
+  &:focus {
+    background-color: Rgb(var(--white));
+    box-shadow: 0 0 0 1px Rgb(var(--link-color));
+  }
+}

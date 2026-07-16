@@ -1,0 +1,29 @@
+@use "../../base/functions";
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+@use 'sass:math';
+.gform_wrapper {
+  select {
+    appearance: none;
+    background-image: functions.svg-url('<svg class="arrow arrow--down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 23" width="40" height="23"><title>Expand</title><path fill="#000" d="M17.58 22a3.31 3.31 0 004.71 0L39.11 5.17a3 3 0 000-4.28 3 3 0 00-4.27 0L22.29 13.45a3.31 3.31 0 01-4.71 0L5.16 1A3 3 0 00.89 5.3z"/></svg>');
+    background-position: calc(100% - 1rem) 50%;
+    background-repeat: no-repeat;
+    background-size: 14px auto;
+    outline: none;
+    width: 100%;
+    &::-ms-expand {
+      display: none;
+    }
+  }
+  .ginput_container_multiselect {
+    select {
+      background: colors.$gravity-medium-fog;
+      height: calc(3 * 46px);
+      padding: 0;
+      option {
+        padding: math.div(layout.$gravity-form-input-padding, 2);
+      }
+    }
+  }
+}

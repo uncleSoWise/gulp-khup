@@ -1,0 +1,106 @@
+@use "sass:string";
+@use 'sass:math';
+
+/** -------------------------------------
+ *   function: str-replace($string, $search, $replace: '')
+ * -------------------------------------
+ *
+ * - $string     : String source
+ * - $search     : String to search for
+ * - $replace    : String to replace with
+ *
+ * - Simple helper function to string replace
+ *
+ * -------------------------------------
+ */
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+/** -------------------------------------
+ *   function: svg-url($svg)
+ * -------------------------------------
+ *
+ * - $svg : XML string of SVG code
+ *
+ * - SVG as background image XML made websafe URI
+ *
+ * - EXAMPLE:
+ *
+ * .class {
+ *     background-image: svg-url('<svg>...</svg>');
+ * }
+ *
+ * -------------------------------------
+ */
+@function svg-url($svg) {
+  /**
+   *  Chunk up string in order to avoid
+   *  "stack level too deep" error
+   */
+  $encoded: '';
+  $slice: 2000;
+  $index: 0;
+  $loops: math.ceil(math.div(string.length($svg), $slice));
+  @for $i from 1 through $loops {
+    $chunk: string.slice($svg, $index, $index + $slice - 1);
+    /**
+     *   Encode (may need a few extra replacements)
+     */
+    $chunk: str-replace($chunk, '%', '%25');
+    $chunk: str-replace($chunk, '<', '%3C');
+    $chunk: str-replace($chunk, '>', '%3E');
+    $chunk: str-replace($chunk, '&', '%26');
+    $chunk: str-replace($chunk, '#', '%23');
+    $chunk: str-replace($chunk, '<', '%3C');
+    $chunk: str-replace($chunk, '>', '%3E');
+    $chunk: str-replace($chunk, ' ', '%20');
+    $chunk: str-replace($chunk, '!', '%21');
+    $chunk: str-replace($chunk, '*', '%2A');
+    $chunk: str-replace($chunk, '\"', '%27');
+    $chunk: str-replace($chunk, '"', '%22');
+    $chunk: str-replace($chunk, '(', '%28');
+    $chunk: str-replace($chunk, ')', '%29');
+    $chunk: str-replace($chunk, ';', '%3B');
+    $chunk: str-replace($chunk, ':', '%3A');
+    $chunk: str-replace($chunk, '@', '%40');
+    $chunk: str-replace($chunk, '=', '%3D');
+    $chunk: str-replace($chunk, '+', '%2B');
+    $chunk: str-replace($chunk, '$', '%24');
+    $chunk: str-replace($chunk, ',', '%2C');
+    $chunk: str-replace($chunk, '/', '%2F');
+    $chunk: str-replace($chunk, '?', '%3F');
+    $chunk: str-replace($chunk, '[', '%5B');
+    $chunk: str-replace($chunk, ']', '%5D');
+    $encoded: #{$encoded}#{$chunk};
+    $index: $index + $slice;
+  }
+  @return url('data:image/svg+xml;charset=utf8,#{$encoded}');
+}
+/* http://codepen.io/jakob-e/pen/doMoML */
+
+/** -------------------------------------
+ *   function: tracking($val)
+ * -------------------------------------
+ *
+ * - $val     : String source
+ *
+ * - Convert PS kerning to CSS letter-spacing
+ *
+ *   https://codepen.io/alyda/pen/gGzbL
+ *
+ * - EXAMPLE:
+ *
+ * .class {
+ *   letter-spacing: tracking(-10);
+ * }
+ *
+ * -------------------------------------
+ */
+@function tracking($val) {
+  @return ( math.div($val, 1000) ) * 1em;
+}

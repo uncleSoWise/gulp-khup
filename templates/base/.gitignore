@@ -1,0 +1,15 @@
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+node_modules
+dist
+gulp/tmp
+npm-debug.log
+.DS_Store
+.sublime-gulp.cache
+Gulp Results
+sftp-config.json
+wp-config.php
+wp-config-DEV.php
+.env
+yarn-error.log
+*.sublime-workspace

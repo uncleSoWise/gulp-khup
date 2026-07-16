@@ -1,0 +1,201 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+@use "../variables/typography";
+.grecaptcha-badge {
+  visibility: collapse;
+  .page-contact & {
+    visibility: visible;
+  }
+}
+.gform_wrapper,
+.gform_confirmation_wrapper {
+  max-width: 590px;
+  padding-top: 3rem;
+}
+.gform {
+  position: relative;
+  z-index: 3;
+}
+.gform_title {
+}
+.gform_description {
+}
+.gform_confirmation_message {
+  position: relative;
+  text-align: center;
+}
+.gform_fields {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.gfield {
+  clear: both;
+  list-style-type: none;
+  margin: 0 0 layout.$gravity-margin;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  &.captcha {
+    margin-bottom: 0;
+  }
+}
+.gfield_description {
+  color: colors.$gravity-white;
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: layout.$gravity-margin;
+}
+.gfield_consent_description {
+  padding-top: 1rem;
+}
+.gform_required_legend {
+  display: none;
+  font-size: typography.$gravity-small-font-size;
+  text-align: right;
+}
+.gfield_required {
+  color: colors.$gravity-red;
+  display: none;
+  padding-left: 2px;
+}
+.gfield_label {
+  color: colors.$gravity-off-black;
+  display: inline-block;
+  font-family: var(--font-secondary);
+  font-size: typography.$gravity-title-font-size;
+  font-weight: 400;
+  line-height: 1.4444;
+  margin: 0;
+  overflow: hidden;
+  padding-left: layout.$gravity-form-input-padding;
+  padding-right: layout.$gravity-form-input-padding;
+  position: absolute;
+  top: 1.5rem;
+  transform: translate(0, -50%);
+  transition-duration: 300ms;
+  transition-property: transform, font, top;
+  transition-timing-function: ease;
+  white-space: nowrap;
+  z-index: 3;
+  .input-active & {
+    color: colors.$gravity-gray;
+    font-size: typography.$gravity-medium-font-size;
+    top: 0;
+    transform: translate(0, .3125rem);
+  }
+}
+.gfield_consent_label {
+  padding-left: .5rem;
+}
+.ginput_container {
+  line-height: 0;
+  position: relative;
+  .small {
+    width: 100%;
+  }
+  .medium {
+    width: 100%;
+  }
+  .large {
+    width: 100%;
+  }
+  textarea {
+    max-height: 192px;
+  }
+  select,
+  textarea,
+  input:not([type='checkbox']):not([type='radio']):not([type='file']) {
+    appearance: none;
+    background-color: colors.$gravity-white;
+    border: 2px solid colors.$gravity-white;
+    border-radius: 0;
+    color: colors.$gravity-off-black;
+    font-family: var(--font-secondary);
+    font-size: typography.$gravity-title-font-size;
+    font-weight: 400;
+    height: 53px;
+    line-height: 1.4444;
+    padding-left: layout.$gravity-form-input-padding;
+    padding-right: layout.$gravity-form-input-padding;
+    padding-top: layout.$gravity-margin-small;
+    width: 100%;
+    &:active,
+    &:focus,
+    &:focus-visible {
+      border-color: colors.$gravity-orange;
+      outline: none;
+    }
+  }
+  ::placeholder {
+    color: colors.$gravity-light-gray;
+    opacity: 1;
+  }
+}
+.gform_ajax_spinner {
+  animation: spinner 1.1s infinite linear;
+  border: .25rem solid colors.$gravity-gray; /* match width with border-left */
+  border-left: .25rem solid colors.$gravity-orange;
+  border-radius: 50%;
+  display: inline-block;
+  height: 2rem;
+  margin-left: 1rem; /* give it some space from the Submit button */
+  width: 2rem; /* match with height for a circle */
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@include mixins.mq(640px) {
+  .gform_fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .gfield--width-half {
+    padding-right: .6875rem;
+    width: 50%;
+    + .gfield--width-half {
+      padding-left: .6875rem;
+      padding-right: 2rem;
+    }
+  }
+}
+@include mixins.mq(800px) {
+  .gfield {
+    padding: 0 2rem;
+  }
+  .gfield--width-half {
+    padding-right: .6875rem;
+    width: 50%;
+    + .gfield--width-half {
+      padding-left: .6875rem;
+      padding-right: 2rem;
+    }
+  }
+  .gfield--width-third {
+    padding-right: .6875rem;
+    width: 33.3334%;
+    + .gfield--width-third {
+      padding-left: .6875rem;
+      + .gfield--width-third {
+        padding-left: .6875rem;
+        padding-right: 2rem;
+      }
+    }
+  }
+  .gform_button {
+    margin-left: 2rem;
+  }
+}
+@include mixins.mq(960px) {
+}
+@include mixins.mq(1280px) {
+}

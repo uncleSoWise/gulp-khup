@@ -1,0 +1,212 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { mkdtemp, rm, mkdir, access } from 'fs/promises';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { tmpdir } from 'os';
+
+import { scaffold, applyTokens, resolveTemplateDirs } from '../src/scaffold.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const TEMPLATES_DIR = join(__dirname, '../templates');
+
+// ---------------------------------------------------------------------------
+// applyTokens — pure function, no I/O, all tests run immediately
+// ---------------------------------------------------------------------------
+
+describe('applyTokens', () => {
+  it('replaces a single token', () => {
+    expect(applyTokens('Hello <%= name %>', { name: 'World' })).toBe('Hello World');
+  });
+
+  it('replaces multiple distinct tokens', () => {
+    const result = applyTokens('<%= a %> and <%= b %>', { a: 'foo', b: 'bar' });
+    expect(result).toBe('foo and bar');
+  });
+
+  it('replaces the same token appearing multiple times', () => {
+    const result = applyTokens('<%= x %> then <%= x %>', { x: 'hi' });
+    expect(result).toBe('hi then hi');
+  });
+
+  it('leaves unrecognised tokens unreplaced', () => {
+    const result = applyTokens('<%= unknown %>', { other: 'value' });
+    expect(result).toBe('<%= unknown %>');
+  });
+
+  it('handles empty string content', () => {
+    expect(applyTokens('', { name: 'World' })).toBe('');
+  });
+
+  it('handles content with no tokens', () => {
+    expect(applyTokens('no tokens here', { name: 'World' })).toBe('no tokens here');
+  });
+
+  it('handles empty tokens object', () => {
+    expect(applyTokens('<%= name %>', {})).toBe('<%= name %>');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// resolveTemplateDirs — pure function, no I/O
+// ---------------------------------------------------------------------------
+
+describe('resolveTemplateDirs', () => {
+  it('returns base dir first for web type', () => {
+    const dirs = resolveTemplateDirs('web', TEMPLATES_DIR);
+    expect(dirs[0]).toBe(join(TEMPLATES_DIR, 'base'));
+  });
+
+  it('returns type-specific dir second for web type', () => {
+    const dirs = resolveTemplateDirs('web', TEMPLATES_DIR);
+    expect(dirs[1]).toBe(join(TEMPLATES_DIR, 'web'));
+  });
+
+  it('returns base dir first for wordpress type', () => {
+    const dirs = resolveTemplateDirs('wordpress', TEMPLATES_DIR);
+    expect(dirs[0]).toBe(join(TEMPLATES_DIR, 'base'));
+  });
+
+  it('returns type-specific dir second for wordpress type', () => {
+    const dirs = resolveTemplateDirs('wordpress', TEMPLATES_DIR);
+    expect(dirs[1]).toBe(join(TEMPLATES_DIR, 'wordpress'));
+  });
+
+  it('returns exactly two directories', () => {
+    expect(resolveTemplateDirs('web', TEMPLATES_DIR)).toHaveLength(2);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// scaffold() — structural / error-handling tests (no templates needed)
+// ---------------------------------------------------------------------------
+
+describe('scaffold — directory handling', () => {
+  let tmpDir;
+  let outDir;
+
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-test-'));
+    outDir = join(tmpDir, 'output');
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('creates the output directory', async () => {
+    await scaffold({ ...defaults, outDir });
+    await expect(access(outDir)).resolves.toBeUndefined();
+  });
+
+  it('uses projectName as output dir name when outDir is not specified', async () => {
+    await scaffold({ ...defaults, outDir: undefined, cwd: tmpDir });
+    await expect(access(join(tmpDir, defaults.projectName))).resolves.toBeUndefined();
+  });
+
+  it('throws with a descriptive message when output dir already exists', async () => {
+    await mkdir(outDir);
+    await expect(scaffold({ ...defaults, outDir })).rejects.toThrow(/already exists/i);
+  });
+
+  it('includes the output path in the error message', async () => {
+    await mkdir(outDir);
+    await expect(scaffold({ ...defaults, outDir })).rejects.toThrow(outDir);
+  });
+
+  it('succeeds silently when type-specific template dir does not exist', async () => {
+    // templates/ doesn't exist yet — copyDir with ENOENT is a no-op by design
+    await expect(scaffold({ ...defaults, outDir, projectType: 'wordpress' })).resolves.toBeUndefined();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// scaffold() — file-content tests (require templates/ from Task 5)
+// ---------------------------------------------------------------------------
+
+describe('scaffold — generated file content', () => {
+  let tmpDir;
+  let outDir;
+
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-test-'));
+    outDir = join(tmpDir, 'output');
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('creates gulpfile.js', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...defaults, outDir });
+    await expect(access(join(outDir, 'gulpfile.js'))).resolves.toBeUndefined();
+  });
+
+  it('creates package.json from .tpl with token substitution', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).toContain('"test-project"');
+    expect(content).toContain('"A test project"');
+    expect(content).toContain('"Test Author"');
+    expect(content).toContain('"test@example.com"');
+  });
+
+  it('strips .tpl extension from output filename', async () => {
+    await scaffold({ ...defaults, outDir });
+    await expect(access(join(outDir, 'package.json.tpl'))).rejects.toThrow();
+    await expect(access(join(outDir, 'package.json'))).resolves.toBeUndefined();
+  });
+
+  it('copies non-template files verbatim', async () => {
+    await scaffold({ ...defaults, outDir });
+    await expect(access(join(outDir, '.gitignore'))).resolves.toBeUndefined();
+  });
+
+  it('creates gulp/tasks/ directory', async () => {
+    await scaffold({ ...defaults, outDir });
+    await expect(access(join(outDir, 'gulp', 'tasks'))).resolves.toBeUndefined();
+  });
+
+  it('creates web project src/ directory structure', async () => {
+    await scaffold({ ...defaults, outDir });
+    await expect(access(join(outDir, 'src'))).resolves.toBeUndefined();
+  });
+
+  it('creates CHANGELOG.md with year token substituted', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'CHANGELOG.md'), 'utf-8');
+    expect(content).toContain(new Date().getFullYear().toString());
+  });
+
+  it('matches package.json snapshot', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(JSON.parse(content)).toMatchSnapshot();
+  });
+
+  it('matches gulpfile.js snapshot', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).toMatchSnapshot();
+  });
+});

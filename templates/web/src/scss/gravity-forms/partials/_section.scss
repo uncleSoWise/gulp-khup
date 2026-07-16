@@ -1,0 +1,14 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+.gform_wrapper {
+  .gfield_html,
+  .gsection {
+    border-bottom: 1px dotted colors.$gravity-light-gray;
+    margin: 0 0 layout.$gravity-margin-small;
+    padding: 0 0 layout.$gravity-margin-small;
+  }
+  .gfield_html {
+    border-bottom: 0 none;
+  }
+}
