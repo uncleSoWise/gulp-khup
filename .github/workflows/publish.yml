@@ -31,7 +31,10 @@ jobs:
         run: npm run test:coverage
 
       - name: Publish to npm
-        # Uses GitHub OIDC token for authentication — no NPM_TOKEN needed.
-        # Requires: npm trusted publisher configured at npmjs.com for this repo.
-        # See: https://docs.npmjs.com/generating-provenance-statements
+        # NODE_AUTH_TOKEN is required — npm --provenance uses OIDC for signing
+        # only; the actual registry auth still requires a token.
+        # Requirement: npm account 2FA must be set to "Authorization only"
+        # (not "Authorization and write actions") so tokens can publish in CI.
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
