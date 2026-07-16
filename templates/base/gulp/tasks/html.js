@@ -1,0 +1,43 @@
+/* eslint-disable quotes */
+/* eslint-disable import/extensions */
+// -------------------------------------
+//   Task: html
+// -------------------------------------
+//
+// - cache files for `watch`
+// - correct special characters in HTML
+// - minify html
+// - move to /dist/
+//
+// -------------------------------------
+
+import browserSync from 'browser-sync';
+import gulp from 'gulp';
+import htmlmin from 'gulp-htmlmin';
+import plumber from 'gulp-plumber';
+import special from 'gulp-special-html';
+import through from 'through2';
+import commandLineArguments from '../commandLineArguments.js';
+import errorHandler from '../errorHandler.js';
+import globs from '../globs.js';
+
+const htmlTask = () => {
+  return gulp
+    .src(globs.to.html, { base: globs.to.src })
+    .pipe(plumber(errorHandler))
+    .pipe(special())
+    .pipe(commandLineArguments.nomin
+      ? through.obj()
+      : htmlmin({
+        collapseWhitespace: true,
+        removeComments: true,
+        removeCommentsFromCDATA: true,
+        minifyJS: true
+      }))
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(globs.to.dist))
+    .pipe(browserSync.stream({ once: true }));
+};
+htmlTask.description = 'optimize html and move to /dist/';
+
+export default htmlTask;

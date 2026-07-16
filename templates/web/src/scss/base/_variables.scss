@@ -1,0 +1,32 @@
+:root {
+  /** -------------------------------------
+   *   Font Family
+   * -------------------------------------
+   */
+  --font-primary: 'Red Hat Text', sans-serif;
+  --font-secondary: 'Space Mono', monospace;
+
+  /** -------------------------------------
+   *   Color
+   * -------------------------------------
+   *
+   * - http://chir.ag/projects/name-that-color/
+   *
+   * -------------------------------------
+   */
+  --black:      0 0 0;       /* #000000 */
+  --white:      255 255 255; /* #ffffff */
+
+  /** -------------------------------------
+   *   Sizes and Spacing
+   * -------------------------------------
+   */
+  --nav-height: 64px;
+  --bg-color: var(--white);
+  --text-color: var(--black);
+  --link-color: var(--black);
+  --link-hover: var(--black);
+  --button-bg: var(--black);
+  --button-border: var(--black);
+  --button-color: var(--white);
+}

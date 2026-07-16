@@ -1,0 +1,42 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+.gform_wrapper {
+  .ginput_complex {
+    display: flex;
+    &.ginput_container_address {
+      flex-wrap: wrap;
+    }
+    span {
+      flex-grow: 1;
+      flex-shrink: 1;
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+    .name_prefix_select {
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+    .ginput_full {
+      flex-shrink: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+    .ginput_left {
+    }
+    .ginput_right {
+    }
+  }
+}
+.input-active .gfield_label_before_complex,
+.gfield_label_before_complex {
+  color: colors.$gravity-off-black;
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  position: static;
+  transform: none;
+}

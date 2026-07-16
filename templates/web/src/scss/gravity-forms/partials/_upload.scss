@@ -1,0 +1,54 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+.gform_wrapper {
+  .gform_drop_area {
+    background-color: colors.$gravity-white;
+    border: 2px dashed colors.$gravity-medium-fog;
+    color: Rgb(var(--text-color));
+    margin-bottom: 10px;
+    padding: 25px;
+    text-align: center;
+  }
+  .gform_fileupload_rules {
+    display: none;
+  }
+  .ginput_preview {
+    padding-left: layout.$gravity-form-input-padding;
+    padding-top: .5rem;
+    strong {
+      font-weight: 400;
+    }
+  }
+  .gform_button_select_files {
+    background-color: transparent;
+    border: .125rem solid Rgb(var(--terracotta));
+    color: Rgb(var(--text-color));
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 500;
+    padding: .25rem .5rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition-duration: 300ms;
+    &:hover {
+      border-color: transparent;
+      color: Rgb(var(--text-color));
+    }
+    &::before {
+      border: solid Rgb(var(--terracotta));
+      border-width: .125rem .125rem 0 0;
+      content: '';
+      height: 1rem;
+      position: absolute;
+      right: -.125rem;
+      top: -.125rem;
+      width: 1rem;
+    }
+    .button-theme__group & {
+      margin: 0 1.625rem 1.5rem;
+    }
+  }
+}

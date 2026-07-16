@@ -1,0 +1,25 @@
+// -------------------------------------
+//   IMPORT ORDER
+// -------------------------------------
+//
+// - base/
+// - components/
+// - patterns/
+// - views/
+//
+// -------------------------------------
+
+
+@use "sass:meta";
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/functions';
+@use 'base/reset';
+@use 'base/core';
+
+@media screen {
+  @include meta.load-css("patterns/button-theme");
+  @include meta.load-css("patterns/nav");
+  @include meta.load-css("patterns/cover-slider");
+  @include meta.load-css("patterns/swiper");
+}

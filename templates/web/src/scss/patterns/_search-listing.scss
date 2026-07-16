@@ -1,0 +1,101 @@
+@use "../base/mixins";
+@use "../base/functions";
+.search-listing {
+  position: relative;
+}
+.search-listing__wrap {
+  margin: 0 auto 2.625rem;
+  max-width: 864px;
+  padding: 1.375rem 2.625rem 0;
+}
+.search-listing__item {
+  border-bottom: 1px solid Rgb(var(--text-color));
+  display: block;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  text-decoration: none;
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+.search-listing__link {
+  border-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  text-decoration: none;
+  transition-duration: 300ms;
+  transition-property: background;
+  transition-timing-function: ease;
+  .search-listing__item:hover & {
+    text-decoration: none;
+  }
+}
+.search-listing__image-wrap {
+  align-self: flex-start;
+  aspect-ratio: 1;
+  flex-grow: 0;
+  flex-shrink: 0;
+  position: relative;
+  width: 18.2482%;
+}
+.search-listing__image {
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  width: 100%;
+}
+.search-listing__info {
+  padding: 0 1.5rem 0 0;
+  width: calc(81.7518% - 1.5rem);
+}
+.search-listing__date {
+  color: Rgb(var(--text-color));
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+.search-listing__title {
+  color: Rgb(var(--text-color));
+}
+.search-listing__excerpt {
+  color: Rgb(var(--text-color));
+}
+.search-listing__permalink {
+  font-size: 12px;
+  padding-top: 2rem;
+  .search-listing__item:hover & {
+    text-decoration: underline;
+  }
+}
+.search-listing__meta {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+
+@include mixins.mq(800px) {
+  .search-listing__meta {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+@include mixins.mq(960px) {
+  .search-listing__wrap {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5rem;
+  }
+  .search-listing__info {
+    display: flex;
+    flex-direction: column;
+    width: calc(81.7518% - 3.5rem);
+  }
+  .search-listing__permalink {
+    margin-top: auto;
+  }
+}

@@ -1,0 +1,32 @@
+@use "../../base/mixins";
+.gform_wrapper {
+  .ginput_container_textarea {
+    &::before {
+      background-color: Rgb(var(--white));
+      content: '';
+      height: 1rem;
+      left: .125rem;
+      position: absolute;
+      top: .125rem;
+      width: calc(100% - .25rem);
+      z-index: 2;
+    }
+    .textarea {
+      padding-top: 1.125rem;
+      resize: none;
+      &.small,
+      &.medium {
+        width: 100%;
+      }
+      &.small {
+        height: 5em;
+      }
+      &.medium {
+        height: 9.375em;
+      }
+      &.large {
+        height: 15.625em;
+      }
+    }
+  }
+}

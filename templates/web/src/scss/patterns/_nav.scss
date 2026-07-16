@@ -1,0 +1,93 @@
+@use 'sass:meta';
+@use '../base/mixins';
+
+.nav {
+  height: var(--nav-height);
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
+.nav__wrap {
+  margin: 0 auto;
+  max-width: 1920px;
+}
+.nav__controls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: .75rem 1rem .75rem 1.313rem;
+  width: 100%;
+}
+.nav__options {
+  background-color: Rgb(var(--bg-color));
+  display: inline-block;
+  left: 0;
+  margin: 0;
+  max-height: 100vh;
+  opacity: 0;
+  overflow: auto;
+  padding: 1.25rem 3rem 1.5625rem;
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
+  transition-duration: 300ms;
+  transition-property: opacity, transform;
+  transition-timing-function: ease;
+  width: 100vw;
+  z-index: 5;
+  .nav--is-active & {
+    opacity: .9;
+    transform: translateY(0);
+  }
+}
+
+@include mixins.mq(800px) {
+  :root {
+    --nav-height: 101px;
+  }
+  .nav {
+    background-color: transparent;
+    transition-duration: 300ms;
+    transition-property: background;
+    transition-timing-function: ease-in-out;
+    .nav--is-active & {
+      background-color: Rgb(var(--bg-color));
+    }
+  }
+  .nav__wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem 1rem 1.6875rem 1.313rem;
+    position: relative;
+  }
+  .nav__controls {
+    background-color: transparent;
+    padding: 0;
+    position: static;
+    width: auto;
+  }
+  .nav__options {
+    background-color: transparent;
+    height: auto;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: auto;
+    .nav--is-active & {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@include meta.load-css('../components/nav__logo');
+@include meta.load-css('../components/nav__toggle');
+@include meta.load-css('../components/nav__menu');
+/*@include meta.load-css('../components/nav__submenu');*/

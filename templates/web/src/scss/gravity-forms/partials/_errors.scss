@@ -1,0 +1,56 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+.gform_wrapper {
+  .gfield_error {
+    margin-bottom: 0;
+    > label {
+      color: colors.$gravity-red;
+    }
+    select,
+    textarea,
+    input:not([type='checkbox']):not([type='radio']):not([type='file']) {
+      border-color: colors.$gravity-red;
+    }
+  }
+  .validation_error {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .validation_title {
+    color: colors.$gravity-red;
+    padding-right: 1rem;
+  }
+  .gform_validation_errors {
+    background-color: colors.$gravity-white;
+    border: 2px solid colors.$gravity-red;
+    color: Rgb(var(--text-color));
+    margin-bottom: 1rem;
+    padding: 1rem;
+    position: relative;
+    width: 100%;
+  }
+  .gform_submission_error {
+    font-family: var(--font-primary);
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  .validation_message {
+    color: colors.$gravity-red;
+    font-size: 14px;
+    padding: 1rem 1.5rem;
+    &:last-child {
+      padding-bottom: 0;
+    }
+    &.gfield_validation_message {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.4444;
+      padding: 0 layout.$gravity-form-input-padding;
+      li {
+        list-style: none;
+      }
+    }
+  }
+}

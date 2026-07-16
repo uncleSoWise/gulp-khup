@@ -1,0 +1,81 @@
+@use "../../base/mixins";
+@use "../variables/colors";
+@use "../variables/layout";
+@use "../variables/typography";
+.gform_wrapper {
+  .gf_progressbar_wrapper {
+    border-bottom: 1px dotted colors.$gravity-light-gray;
+    margin: 0 0 layout.$gravity-margin-small;
+    padding: 0 0 layout.$gravity-margin-small;
+    .gf_progressbar_title {
+      font-size: typography.$gravity-medium-font-size;
+      font-weight: normal;
+    }
+  }
+  .gf_progressbar {
+    background: colors.$gravity-light-gray;
+    border: 1px solid colors.$gravity-medium-fog;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+  }
+  .gf_progressbar_percentage {
+    font-size: typography.$gravity-medium-font-size;
+    height: 20px;
+    text-align: right;
+    text-shadow: 0 1px 1px Rgba(colors.$gravity-off-black, .5);
+    span {
+      display: block;
+      float: right;
+      margin: 0 5px;
+      width: auto;
+    }
+    &.percentbar_0 span {
+      color: colors.$gravity-light-gray;
+      text-shadow: none;
+    }
+  }
+  .percentbar_blue {
+    background-color: colors.$gravity-blue;
+    color: colors.$gravity-white;
+  }
+  .percentbar_gray {
+    background-color: colors.$gravity-gray;
+    color: colors.$gravity-white;
+  }
+  .percentbar_green {
+    background-color: colors.$gravity-green;
+    color: colors.$gravity-white;
+  }
+  .percentbar_orange {
+    background-color: colors.$gravity-orange;
+    color: colors.$gravity-white;
+  }
+  .percentbar_red {
+    background-color: colors.$gravity-red;
+    color: colors.$gravity-white;
+  }
+  .gf_page_steps {
+    border-bottom: 1px dotted colors.$gravity-light-gray;
+    margin: 0 0 layout.$gravity-margin-small;
+    padding: 0 0 layout.$gravity-margin-small;
+  }
+  .gf_step {
+    display: inline-block;
+    height: typography.$gravity-title-font-size;
+    line-height: 1.25;
+    margin: 0 16px 10px 0;
+    opacity: 0.2;
+    span {
+      vertical-align: top;
+    }
+  }
+  .gf_step_active {
+    opacity: 1;
+  }
+  .gf_step_number {
+    font-size: typography.$gravity-title-font-size;
+  }
+  .gf_step_clear {
+  }
+}

@@ -1,0 +1,70 @@
+// -------------------------------------
+//   IMPORT ORDER
+// -------------------------------------
+//
+// - base/
+// - components/
+// - patterns/
+// - views/
+//
+// -------------------------------------
+
+
+@use "sass:meta";
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/functions';
+@use 'base/reset';
+@use 'base/core';
+@use 'base/print';
+
+@use 'gravity-forms/gravity';
+
+@media screen {
+  @include meta.load-css("patterns/button-theme");
+  @include meta.load-css("patterns/nav");
+  @include meta.load-css("patterns/cover-slider");
+  @include meta.load-css("patterns/swiper");
+  @include meta.load-css("patterns/search-listing");
+  @include meta.load-css("patterns/pagination");
+}
+
+
+// -------------------------------------
+//   SCAFFOLDING EXAMPLE
+// -------------------------------------
+//
+// scss/
+// |
+// |– base/
+// |   |– reset.scss       # Reset/normalize
+// |   |– core.scss        # Core styles and typography rules
+// |   |– bootstrap.scss   # Bootstrap
+// |   |– jquery-ui.scss   # jQuery UI
+// |   |– variables.scss   # SCSS Variables
+// |   |– functions.scss   # SCSS Functions
+// |   |– mixins.scss      # SCSS Mixins
+// |   |– helpers.scss     # Class & placeholders helpers
+// |   ...                 # Etc…
+// |
+// |– components/
+// |   |– buttons.scss     # Buttons
+// |   |– cover.scss       # Cover
+// |   |– dropdown.scss    # Dropdown
+// |   ...                 # Etc…
+// |
+// |– patterns/
+// |   |– nav.scss         # Navigation
+// |   |– header.scss      # Header
+// |   |– footer.scss      # Footer
+// |   |– sidebar.scss     # Sidebar
+// |   |– forms.scss       # Forms
+// |   ...                 # Etc…
+// |
+// |– views/
+// |   |– home.scss        # Home specific styles
+// |   |– contact.scss     # Contact specific styles
+// |   |– admin.scss       # Admin specific styles
+// |   ...                 # Etc…
+// |
+// `– theme.scss            # Main SCSS file

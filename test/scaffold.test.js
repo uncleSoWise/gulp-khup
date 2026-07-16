@@ -152,13 +152,13 @@ describe('scaffold — generated file content', () => {
     await rm(tmpDir, { recursive: true, force: true });
   });
 
-  it.skip('creates gulpfile.js (requires templates/ — Task 5)', async () => {
+  it('creates gulpfile.js', async () => {
     const { readFile } = await import('fs/promises');
     await scaffold({ ...defaults, outDir });
     await expect(access(join(outDir, 'gulpfile.js'))).resolves.toBeUndefined();
   });
 
-  it.skip('creates package.json from .tpl with token substitution (requires templates/ — Task 5)', async () => {
+  it('creates package.json from .tpl with token substitution', async () => {
     const { readFile } = await import('fs/promises');
     await scaffold({ ...defaults, outDir });
     const content = await readFile(join(outDir, 'package.json'), 'utf-8');
@@ -168,42 +168,42 @@ describe('scaffold — generated file content', () => {
     expect(content).toContain('"test@example.com"');
   });
 
-  it.skip('strips .tpl extension from output filename (requires templates/ — Task 5)', async () => {
+  it('strips .tpl extension from output filename', async () => {
     await scaffold({ ...defaults, outDir });
     await expect(access(join(outDir, 'package.json.tpl'))).rejects.toThrow();
     await expect(access(join(outDir, 'package.json'))).resolves.toBeUndefined();
   });
 
-  it.skip('copies non-template files verbatim (requires templates/ — Task 5)', async () => {
+  it('copies non-template files verbatim', async () => {
     await scaffold({ ...defaults, outDir });
     await expect(access(join(outDir, '.gitignore'))).resolves.toBeUndefined();
   });
 
-  it.skip('creates gulp/tasks/ directory (requires templates/ — Task 5)', async () => {
+  it('creates gulp/tasks/ directory', async () => {
     await scaffold({ ...defaults, outDir });
     await expect(access(join(outDir, 'gulp', 'tasks'))).resolves.toBeUndefined();
   });
 
-  it.skip('creates web project src/ directory structure (requires templates/ — Task 5)', async () => {
+  it('creates web project src/ directory structure', async () => {
     await scaffold({ ...defaults, outDir });
     await expect(access(join(outDir, 'src'))).resolves.toBeUndefined();
   });
 
-  it.skip('creates CHANGELOG.md with year token substituted (requires templates/ — Task 5)', async () => {
+  it('creates CHANGELOG.md with year token substituted', async () => {
     const { readFile } = await import('fs/promises');
     await scaffold({ ...defaults, outDir });
     const content = await readFile(join(outDir, 'CHANGELOG.md'), 'utf-8');
     expect(content).toContain(new Date().getFullYear().toString());
   });
 
-  it.skip('matches package.json snapshot (requires templates/ — Task 5)', async () => {
+  it('matches package.json snapshot', async () => {
     const { readFile } = await import('fs/promises');
     await scaffold({ ...defaults, outDir });
     const content = await readFile(join(outDir, 'package.json'), 'utf-8');
     expect(JSON.parse(content)).toMatchSnapshot();
   });
 
-  it.skip('matches gulpfile.js snapshot (requires templates/ — Task 5)', async () => {
+  it('matches gulpfile.js snapshot', async () => {
     const { readFile } = await import('fs/promises');
     await scaffold({ ...defaults, outDir });
     const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
