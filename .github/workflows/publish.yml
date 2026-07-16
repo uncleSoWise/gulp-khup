@@ -31,6 +31,7 @@ jobs:
         run: npm run test:coverage
 
       - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # Uses GitHub OIDC token for authentication — no NPM_TOKEN needed.
+        # Requires: npm trusted publisher configured at npmjs.com for this repo.
+        # See: https://docs.npmjs.com/generating-provenance-statements
+        run: npm publish --provenance --access public
