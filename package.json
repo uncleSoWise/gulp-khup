@@ -14,7 +14,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "prettier": "prettier --write **/*"
+    "prettier": "prettier --write **/*",
+    "test": "echo \"No tests yet — see TODO.md for Phase 2\" && exit 0"
   },
   "dependencies": {
     "@babel/core": "^7.5.4",
