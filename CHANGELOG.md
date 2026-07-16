@@ -8,6 +8,23 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: upgrade npm to 11.5.1+ (`npm install -g npm@latest`) so the
+  runner has native OIDC trusted-publishing support. Node 20 ships npm 10.x,
+  which cannot perform the OIDC token exchange — the true root cause of the
+  earlier publish failures. Removed `registry-url`, `NODE_AUTH_TOKEN`, and the
+  manual JWT fetch; modern npm authenticates automatically via the linked
+  publisher on npmjs.com.
+
+## [1.1.4] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: attempted manual OIDC JWT fetch (superseded by 1.1.5)
+
 ## [1.1.3] - 2026-07-16
 
 ### Fixed
