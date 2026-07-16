@@ -24,7 +24,7 @@ describe('package.json', () => {
   });
 
   it('declares the CLI bin entry point', () => {
-    expect(pkg.bin?.['create-gulp-khup']).toBe('./bin/create.js');
+    expect(pkg.bin?.['create-gulp-khup']).toBe('bin/create.js');
   });
 
   it('exports the scaffold module', () => {
