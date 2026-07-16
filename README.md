@@ -1,11 +1,25 @@
-# gulp-khup [0.1.0]
+# gulp-khup [0.1.1]
 
 A mostly reasonable gulpsheet written in ES6 modules for modest projects.
 
+> **Note:** This is the v0.1.1 maintenance release. See [TODO.md](TODO.md) for the
+> upcoming modernization into a `create-gulp-khup` npm scaffolder (Gulp 5, esbuild,
+> Dart Sass, Biome).
+
+## Requirements
+
+-   **Node.js 16** — `node-sass` (used by the CSS task) requires native compilation
+    and does not support Node 17+. Use `nvm use` to switch to the pinned version.
+-   **npm 7+** or **Yarn**
+-   **gulp-cli** installed globally: `npm install -g gulp-cli`
+
+On Node 17+ you can still install with `npm install --ignore-scripts --legacy-peer-deps`,
+but the `gulp css` task will not function. Full Node 18+ support lands in Phase 2.
+
 ## Getting Started
 
--   be sure `node`, `npm`, `yarn` and `gulp-cli` are installed
--   run `npm i` or `yarn` to install all required packages for development
+-   run `nvm use` to switch to the correct Node version (requires [nvm](https://github.com/nvm-sh/nvm))
+-   run `npm install` to install all required packages for development
 -   run `gulp` to `build` a new project and load the `watch` task
 
 ## Directory Structure / Scaffolding
