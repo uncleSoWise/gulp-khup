@@ -386,3 +386,95 @@ describe('scaffold — wordpress project type', () => {
     await expect(access(join(outDir, 'src', 'js', 'editor.js'))).resolves.toBeUndefined();
   });
 });
+
+// ---------------------------------------------------------------------------
+// Bug fixes — template token substitution and path correctness
+// ---------------------------------------------------------------------------
+
+describe('scaffold — web template token substitution (bug fixes)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-bugfix-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('_layout.njk has no unresolved <%= inSubFolder %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', '_layout.njk'), 'utf-8');
+    expect(content).not.toContain('<%= inSubFolder %>');
+  });
+
+  it('index.njk has no unresolved <%= inSubFolder %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'index.njk'), 'utf-8');
+    expect(content).not.toContain('<%= inSubFolder %>');
+  });
+
+  it('inc/_meta.njk has no unresolved <%= appName %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_meta.njk'), 'utf-8');
+    expect(content).not.toContain('<%= appName %>');
+    expect(content).toContain('test-project');
+  });
+
+  it('_reset.scss uses the correct relative path to normalize.css', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'scss', 'base', '_reset.scss'), 'utf-8');
+    expect(content).toContain('../../../node_modules/normalize.css/normalize');
+    expect(content).not.toContain('../../../../../node_modules');
+  });
+
+  it('gulp/globs.js has no unresolved <%= prototypePath %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulp', 'globs.js'), 'utf-8');
+    expect(content).not.toContain('<%= prototypePath %>');
+  });
+});
+
+describe('scaffold — email template token substitution (bug fixes)', () => {
+  let tmpDir;
+  let outDir;
+  const emailDefaults = {
+    projectName: 'test-email',
+    description: 'A test email project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'email',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-email-bugfix-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...emailDefaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('email layout partials have no unresolved <%= contentWidth %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', 'layout', '_one-col.njk'), 'utf-8');
+    expect(content).not.toContain('<%= contentWidth %>');
+  });
+
+  it('email _preheader.njk has no unresolved EJS tokens', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_preheader.njk'), 'utf-8');
+    expect(content).not.toContain('<%=');
+  });
+});

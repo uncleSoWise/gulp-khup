@@ -36,8 +36,8 @@ const globs = {
   to: {
     src,
     dist,
-    serve: `${dist}<%= prototypePath %>/`,
-    environment: `${src}<%= prototypePath %>`,
+    serve: dist,
+    environment: src,
     clean: ['!.gitignore', '!.gitkeep', '!.keep', `${dist}**/*`],
     deploy: {
       globs: deployGlobs

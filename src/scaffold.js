@@ -52,6 +52,7 @@ export async function scaffold({
     authorEmail,
     appVersion: '0.1.0',
     year: new Date().getFullYear().toString(),
+    inSubFolder: '',
   };
 
   try {
