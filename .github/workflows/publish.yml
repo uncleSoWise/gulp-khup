@@ -17,15 +17,15 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Upgrade npm for OIDC trusted publishing
         # npm's native OIDC trusted publishing requires npm >= 11.5.1.
-        # Node 20 ships npm 10.x, which has no OIDC support — this is why
-        # earlier publish attempts failed. With a modern npm and no token,
-        # npm detects the GitHub Actions OIDC environment and authenticates
-        # against the linked publisher configured on npmjs.com.
+        # Node 22 ships a modern npm; upgrade to latest to guarantee OIDC
+        # support. With a modern npm and no token, npm detects the GitHub
+        # Actions OIDC environment and authenticates against the linked
+        # publisher configured on npmjs.com.
         run: npm install -g npm@latest
 
       - name: Install dependencies
