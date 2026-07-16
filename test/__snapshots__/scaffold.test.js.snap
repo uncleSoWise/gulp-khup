@@ -1,8 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`scaffold — generated file content > matches gulpfile.js snapshot 1`] = `
-"/* eslint-disable import/extensions */
-// *************************************
+"// *************************************
 //
 //   gulpflow v8.1.0
 //

@@ -443,6 +443,24 @@ describe('scaffold — web template token substitution (bug fixes)', () => {
     const content = await readFile(join(outDir, 'gulp', 'globs.js'), 'utf-8');
     expect(content).not.toContain('<%= prototypePath %>');
   });
+
+  it('generated gulp task files contain no eslint-disable comments', async () => {
+    const { readFile } = await import('fs/promises');
+    const taskFiles = [
+      'gulp/tasks/build.js',
+      'gulp/tasks/css.js',
+      'gulp/tasks/html.js',
+      'gulp/tasks/img.js',
+      'gulp/tasks/js.js',
+      'gulp/tasks/nunjucks.js',
+      'gulp/tasks/watch.js',
+      'gulpfile.js',
+    ];
+    for (const file of taskFiles) {
+      const content = await readFile(join(outDir, file), 'utf-8');
+      expect(content, `${file} should have no eslint-disable`).not.toContain('eslint-disable');
+    }
+  });
 });
 
 describe('scaffold — email template token substitution (bug fixes)', () => {

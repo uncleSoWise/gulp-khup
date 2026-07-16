@@ -1,5 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable import/extensions */
 // -------------------------------------
 //   Task: deploy
 // -------------------------------------

@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 // *************************************
 //
 //   gulpflow v8.1.0
