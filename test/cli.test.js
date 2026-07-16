@@ -7,6 +7,14 @@ import { validateProjectName, sanitizeProjectName, getGitConfig } from '../src/c
 // ---------------------------------------------------------------------------
 
 describe('validateProjectName', () => {
+  it('returns an error message for null input', () => {
+    expect(validateProjectName(null)).toMatch(/required/i);
+  });
+
+  it('returns an error message for undefined input', () => {
+    expect(validateProjectName(undefined)).toMatch(/required/i);
+  });
+
   it('returns an error message for empty string', () => {
     expect(validateProjectName('')).toMatch(/required/i);
   });

@@ -41,9 +41,10 @@ export async function scaffold({
   projectType = 'web',
   outDir,
   cwd = process.cwd(),
+  _templatesDir, // optional test seam — defaults to the bundled templates/
 }) {
   const targetDir = outDir ?? join(cwd, projectName);
-  const templatesDir = join(__dirname, '../templates');
+  const templatesDir = _templatesDir ?? join(__dirname, '../templates');
   const tokens = {
     appName: projectName,
     appDescription: description,
