@@ -8,6 +8,32 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-16
+
+### Added
+
+- **Email project type** — `templates/email/` — full nunjucks email template scaffold
+  with CSS inlining (`gulp-inline-css`), email-specific build/watch pipeline, 9 nunjucks
+  content block partials (headline, one-col, two-col, three-col-image, etc.)
+- **WordPress project type** — `templates/wordpress/` — WordPress theme development scaffold
+  with BrowserSync proxy mode (`WP_URL`), deploy to `wp-content/themes/<name>/`,
+  WP theme header in `theme.scss` (Theme Name, Author, Description, Version),
+  full SCSS base (variables, mixins, typography), components, and Gutenberg editor support
+
+### Changed
+
+- Email and WordPress options in CLI no longer show "coming soon" hint — both are fully functional
+
+### Removed
+
+- Legacy gulpsheet root files (`gulpfile.babel.js`, `gulp/`, `.babelrc`, `.browserslistrc`,
+  `.editorconfig`, `.eslintrc`, `.prettierignore`, `.prettierrc`) — removed as they were
+  orphaned v0.x artifacts with no relevance to the scaffolder
+
+### Fixed
+
+- `.nvmrc` updated from `16` → `18` to reflect the scaffolder's actual Node requirement
+
 ## [1.0.0] - 2026-07-16
 
 ### Added
