@@ -292,3 +292,97 @@ describe('scaffold — email project type', () => {
     expect(pkg.author.email).toBe('test@example.com');
   });
 });
+
+// ---------------------------------------------------------------------------
+// scaffold() — wordpress project type
+// ---------------------------------------------------------------------------
+
+describe('scaffold — wordpress project type', () => {
+  let tmpDir;
+  let outDir;
+
+  const wpDefaults = {
+    projectName: 'my-wp-theme',
+    description: 'A WordPress theme',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'wordpress',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-wp-'));
+    outDir = join(tmpDir, 'output');
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('creates the output directory for wordpress type', async () => {
+    await scaffold({ ...wpDefaults, outDir });
+    await expect(access(outDir)).resolves.toBeUndefined();
+  });
+
+  it('generates wordpress-specific gulpfile.js (overrides base)', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...wpDefaults, outDir });
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).toContain('WordPress Theme');
+    expect(content).toContain('deployTask');
+    expect(content).toContain('jsTask');
+  });
+
+  it('generates wordpress gulpfile without nunjucks or inline tasks', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...wpDefaults, outDir });
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).not.toContain('nunjucksTask');
+    expect(content).not.toContain('inlineTask');
+    expect(content).not.toContain('htmlTask');
+  });
+
+  it('generates wordpress-specific gulp tasks (build, deploy, watch)', async () => {
+    await scaffold({ ...wpDefaults, outDir });
+    await expect(access(join(outDir, 'gulp', 'tasks', 'build.js'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'gulp', 'tasks', 'deploy.js'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'gulp', 'tasks', 'watch.js'))).resolves.toBeUndefined();
+  });
+
+  it('generates wordpress .env.example with WP_URL', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...wpDefaults, outDir });
+    const content = await readFile(join(outDir, '.env.example'), 'utf-8');
+    expect(content).toContain('WP_URL');
+    expect(content).toContain('localhost:8888');
+  });
+
+  it('generates .env.example with theme name in remote path', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...wpDefaults, outDir });
+    const content = await readFile(join(outDir, '.env.example'), 'utf-8');
+    expect(content).toContain('my-wp-theme');
+  });
+
+  it('generates wordpress scss src/ structure', async () => {
+    await scaffold({ ...wpDefaults, outDir });
+    await expect(access(join(outDir, 'src', 'scss', 'theme.scss'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'scss', 'critical.scss'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'scss', 'base'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'scss', 'components'))).resolves.toBeUndefined();
+  });
+
+  it('generates wordpress theme.scss with WP theme header tokens substituted', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...wpDefaults, outDir });
+    const content = await readFile(join(outDir, 'src', 'scss', 'theme.scss'), 'utf-8');
+    expect(content).toContain('Theme Name: my-wp-theme');
+    expect(content).toContain('Author: Test Author');
+    expect(content).toContain('Description: A WordPress theme');
+  });
+
+  it('generates wordpress js src/ files', async () => {
+    await scaffold({ ...wpDefaults, outDir });
+    await expect(access(join(outDir, 'src', 'js', 'theme.js'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'js', 'editor.js'))).resolves.toBeUndefined();
+  });
+});

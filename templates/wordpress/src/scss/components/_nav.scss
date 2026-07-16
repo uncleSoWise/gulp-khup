@@ -1,0 +1,22 @@
+// Site Navigation
+.site-navigation {
+  display: flex;
+  align-items: center;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: $spacing-unit;
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-text;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}

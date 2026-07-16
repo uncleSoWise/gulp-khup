@@ -80,7 +80,7 @@ export async function promptUser(initialName = '') {
           message: 'Project type?',
           options: [
             { value: 'web', label: 'Static HTML', hint: 'recommended' },
-            { value: 'wordpress', label: 'WordPress', hint: 'coming soon' },
+            { value: 'wordpress', label: 'WordPress' },
             { value: 'email', label: 'Email' },
           ],
         }),
