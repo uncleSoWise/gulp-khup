@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: removed `registry-url` from `setup-node` to enable OIDC
+  trusted publishing — `registry-url` was injecting an empty `_authToken` into
+  `.npmrc` that blocked npm from detecting the OIDC environment
+- `package.json`: normalized `bin` path and `repository.url` format via `npm pkg fix`
+
 ## [1.1.0] - 2026-07-16
 
 ### Added
