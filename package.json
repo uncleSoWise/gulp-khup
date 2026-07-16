@@ -51,7 +51,7 @@
     "gulp-plumber": "^1.2.1",
     "gulp-pxtorem": "^3.0.0",
     "gulp-rename": "^1.4.0",
-    "gulp-replace": "^1.0.0",
+    "gulp-replace": "^1.1.4",
     "gulp-run": "^1.7.1",
     "gulp-sass": "^4.0.2",
     "gulp-sass-lint": "^1.4.0",
