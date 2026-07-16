@@ -1,0 +1,293 @@
+@use "mixins";
+@use "variables";
+
+/* -------------------------------------
+ *  Base styles and opinionated defaults
+ * -------------------------------------
+ */
+
+/*
+ * Inheriting box-sizing Probably Slightly Better Best-Practice
+ * http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ *
+ * Transitions Only After Page Load
+ * http://css-tricks.com/transitions-only-after-page-load/
+ */
+html {
+  background-color: Rgb(var(--bg-color));
+  box-sizing: border-box;
+  font-size: 1em;
+  line-height: 1.5;
+}
+* {
+  box-sizing: inherit;
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+  .preload & {
+    transition: none;
+  }
+}
+body {
+  background-color: Rgb(var(--bg-color));
+  color: Rgb(var(--text-color));
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  position: relative;
+  transition-duration: 1000ms;
+  transition-property: background-color;
+  transition-timing-function: ease-in;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+::selection {
+  background-color: Rgb(var(--black));
+  color: Rgb(var(--white));
+  text-shadow: none;
+}
+
+/*
+ * Placeholder text should be fully opaque. Looking at you FireFox.
+ */
+::placeholder {
+  opacity: 1;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+hr {
+  border: solid Rgb(var(--text-color));
+  border-width: 1px 0 0;
+  display: block;
+  height: 1px;
+  margin: 2.25rem 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+textarea {
+  resize: vertical;
+}
+
+/*
+ * Type-scale.com
+ */
+ul,
+ol,
+p {
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 400;
+  margin: 0 0 1.5rem;
+  strong {
+    color: Rgb(var(--jade));
+    display: block;
+    font-weight: 800;
+  }
+}
+h1,
+.h1 {
+  font-size: 40px;
+  line-height: 1;
+}
+h2,
+.h2 {
+  font-size: 48px;
+  line-height: 1;
+}
+h3,
+.h3 {
+  font-size: 36px;
+  line-height: 1;
+}
+h4,
+.h4 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1334;
+}
+h5,
+.h5 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1667;
+}
+h6,
+.h6 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+small {
+  font-size: .889em;
+}
+a {
+  color: Rgb(var(--link-color));
+  text-decoration: none;
+  transition-duration: 300ms;
+  transition-property: bakground, border, color, font;
+  transition-timing-function: ease-in-out;
+  &:hover {
+    color: Rgb(var(--link-hover));
+  }
+}
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+/** -------------------------------------
+  *   WordPress admin editor
+  * -------------------------------------
+  *
+  * - helper classes for images in content()
+  * - no layout styles until the viewport is wide enough
+  * - no SCSS logic here ¯\_(ツ)_/¯
+  *
+  * -------------------------------------
+  */
+.wp-caption {
+  color: inherit;
+}
+.wp-caption-text {
+  color: inherit;
+}
+.sticky {
+  color: inherit;
+}
+.screen-reader-text {
+  @include mixins.visuallyhidden;
+}
+.gallery-caption {
+  color: inherit;
+}
+.bypostauthor {
+  color: inherit;
+}
+.post-edit-link {
+  font-size: 10px;
+}
+
+@include mixins.mq(640px) {
+  .aligncenter {
+    display: block;
+    margin: 0 auto;
+  }
+  .alignleft {
+    float: left;
+    height: auto;
+    margin: 0 20px 10px 0;
+  }
+  .alignright {
+    float: right;
+    height: auto;
+    margin: 0 0 10px 20px;
+  }
+}
+@include mixins.mq(720px) {
+  body {
+    font-size: 18px;
+    line-height: 1.4444;
+  }
+  h1,
+  .h1 {
+    font-size: 92px;
+    strong {
+      font-size: 92px;
+      line-height: 1;
+    }
+  }
+  h2,
+  .h2 {
+    font-size: 76px;
+  }
+  h3,
+  .h3 {
+    font-size: 48px;
+    line-height: 1.0833;
+  }
+  h4,
+  .h4 {
+    font-size: 36px;
+    line-height: 1.1111;
+  }
+}
+@include mixins.mq(1120px) {
+  body {
+    font-size: 18px;
+    line-height: 1.4444;
+  }
+  h1,
+  .h1 {
+    font-size: 100px;
+    strong {
+      font-size: 90px;
+      line-height: 1.1111;
+    }
+  }
+  h2,
+  .h2 {
+    font-size: 100px;
+  }
+  h3,
+  .h3 {
+    font-size: 62px;
+    line-height: 1.0968;
+  }
+  h4,
+  .h4 {
+    font-size: 42px;
+    line-height: 1.1429;
+  }
+}

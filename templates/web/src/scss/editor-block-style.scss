@@ -1,0 +1,182 @@
+/* stylelint-disable */
+@use "sass:meta";
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/functions';
+
+@use 'gravity-forms/gravity';
+
+html :where(.block-editor .wp-block) {
+  max-width: 1600px;
+}
+html :where(.block-editor .wp-block.is-selected) {
+  max-width: 1600px;
+}
+.block-editor {
+  .editor-styles-wrapper {
+    background-color: Rgb(var(--bg-color));
+    color: Rgb(var(--text-color));
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.313;
+    position: relative;
+    /*
+     * A better looking default horizontal rule
+     */
+    hr {
+      border: solid Rgba(var(--text-color) / 50%);
+      border-width: 1px 0 0;
+      display: block;
+      height: 1px;
+      margin: 0 0 2.5rem;
+      padding: 0;
+    }
+
+    /*
+     * Remove the gap between audio, canvas, iframes,
+     * images, videos and the bottom of their containers:
+     * https://github.com/h5bp/html5-boilerplate/issues/440
+     */
+    audio,
+    canvas,
+    iframe,
+    img,
+    svg,
+    video {
+      vertical-align: middle;
+    }
+
+    /*
+     * Remove default fieldset styles.
+     */
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /*
+     * Allow only vertical resizing of textareas.
+     */
+    textarea {
+      resize: vertical;
+    }
+
+    /*
+     * Type-scale.com
+     */
+    ul,
+    ol,
+    p {
+      margin-bottom: 1.5rem;
+      margin-top: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &:not(.wp-block-post-title) {
+        font-family: var(--font-secondary);
+        font-weight: 400;
+        margin: 0 0 1rem;
+      }
+    }
+    h1,
+    .h1 {
+      font-size: 42px;
+      line-height: 1.476;
+    }
+    h2,
+    .h2 {
+      font-size: 36px;
+      line-height: 1.472;
+    }
+    h3,
+    .h3 {
+      font-size: 28px;
+      line-height: 1.5;
+    }
+    h4,
+    .h4 {
+      font-size: 24px;
+      line-height: 1.5;
+    }
+    h5,
+    .h5 {
+      font-size: 18px;
+      line-height: 1.4444;
+    }
+    small {
+      font-size: .889em;
+    }
+    .wp-caption {
+      color: inherit;
+    }
+    .wp-caption-text {
+      color: inherit;
+    }
+    .sticky {
+      color: inherit;
+    }
+    .screen-reader-text {
+      @include mixins.visuallyhidden;
+    }
+    .hidden {
+      display: none;
+    }
+    .gallery-caption {
+      color: inherit;
+    }
+    .bypostauthor {
+      color: inherit;
+    }
+    .post-edit-link {
+      font-size: 10px;
+    }
+    .nobr {
+      white-space: nowrap;
+    }
+    .wp-block-group {
+      border: 1px dotted Rgb(var(--twine));
+      &::after {
+        content: 'group';
+      }
+    }
+    a:not([class]) {
+      color: Rgb(var(--text-color));
+      text-decoration: none;
+      transition-duration: 300ms;
+      transition-property: bakground, border, color, font;
+      transition-timing-function: ease-in-out;
+      &:hover {
+        color: Rgb(var(--terracotta));
+      }
+    }
+
+    @include mixins.mq(640px) {
+      .aligncenter {
+        display: block;
+        margin: 0 auto;
+      }
+      .alignleft {
+        float: left;
+        height: auto;
+        margin: 0 20px 10px 0;
+      }
+      .alignright {
+        float: right;
+        height: auto;
+        margin: 0 0 10px 20px;
+      }
+    }
+
+    @include meta.load-css("patterns/button-theme");
+    @include meta.load-css("patterns/cover-slider");
+  }
+}

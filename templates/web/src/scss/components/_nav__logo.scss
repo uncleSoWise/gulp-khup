@@ -1,0 +1,41 @@
+@use '../base/mixins';
+
+.nav__logo {
+  display: block;
+  font-size: 0;
+  margin: 0;
+  position: relative;
+  z-index: 6;
+}
+.nav__logo-link {
+  color: Rgb(var(--text-color));
+  display: block;
+  max-width: 61px;
+  overflow: hidden;
+  &:hover {
+    color: Rgb(var(--text-color));
+  }
+  .logo__words {
+    display: none;
+  }
+  .logo {
+    display: block;
+    height: 45px;
+    width: auto;
+  }
+}
+
+@include mixins.mq(1120px) {
+  .nav__logo {
+    transform: translateX(0);
+    transition-duration: 300ms;
+    transition-property: height transform;
+    transition-timing-function: ease-in-out;
+    .scrolled & {
+      transform: translateX(-42px);
+    }
+    .nav--is-active & {
+      transform: translateX(0);
+    }
+  }
+}

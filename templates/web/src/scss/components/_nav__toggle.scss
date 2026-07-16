@@ -1,0 +1,146 @@
+@use "sass:meta";
+@use "sass:list";
+@use "../base/mixins";
+
+$hamburger-padding-x:            1.25rem;
+$hamburger-padding-y:            .6563rem;
+$hamburger-layer-width:          1.75rem;
+$hamburger-layer-height:         .1875rem;
+$hamburger-layer-spacing:        .3125rem;
+$hamburger-layer-color:          Rgb(var(--white));
+$hamburger-layer-border-radius:  0;
+$hamburger-hover-opacity:        1;
+$hamburger-active-layer-color:   Rgb(var(--black));
+$hamburger-hover-layer-color:    Rgb(var(--black));
+$hamburger-active-hover-opacity: $hamburger-hover-opacity;
+
+/**
+ * To use CSS filters as the hover effect instead of opacity,
+ * set $hamburger-hover-use-filter as true and
+ * change the value of $hamburger-hover-filter accordingly.
+ */
+$hamburger-hover-use-filter   : false;
+$hamburger-hover-filter       : opacity(50%);
+$hamburger-active-hover-filter: $hamburger-hover-filter;
+
+/* Types (Remove or comment out what you don’t need) */
+$hamburger-types: (
+  squeeze
+);
+
+@use "sass:math";
+.hamburger {
+  background-color: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: $hamburger-padding-y $hamburger-padding-x;
+  text-transform: none;
+  transition-duration: 0.15s;
+  transition-property: opacity, filter;
+  transition-timing-function: linear;
+  &:hover {
+    opacity: $hamburger-hover-opacity;
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      background-color: $hamburger-hover-layer-color;
+    }
+  }
+  &.is-active {
+    .hamburger-inner,
+    .hamburger-inner::before,
+    .hamburger-inner::after {
+      background-color: $hamburger-active-layer-color;
+    }
+    &:hover {
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        background-color: $hamburger-hover-layer-color;
+      }
+    }
+  }
+}
+.hamburger-box {
+  display: inline-block;
+  height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2;
+  position: relative;
+  width: $hamburger-layer-width;
+}
+.hamburger-inner {
+  display: block;
+  margin-top: math.div($hamburger-layer-height, -2);
+  top: 50%;
+  &,
+  &::before,
+  &::after {
+    background-color: $hamburger-layer-color;
+    border-radius: $hamburger-layer-border-radius;
+    height: $hamburger-layer-height;
+    position: absolute;
+    transition-duration: 0.15s;
+    transition-property: transform;
+    transition-timing-function: ease;
+    width: $hamburger-layer-width;
+  }
+  &::after {
+    bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+    content: "";
+    display: block;
+  }
+  &::before {
+    content: "";
+    display: block;
+    top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+  }
+}
+.hamburger--squeeze {
+  .hamburger-inner {
+    transition-duration: 0.075s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    &::after {
+      transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    &::before {
+      transition: top 0.075s 0.12s ease, opacity 0.075s ease;
+    }
+  }
+  &.is-active {
+    .hamburger-inner {
+      transform: rotate(45deg);
+      transition-delay: 0.12s;
+      transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      &::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+      &::before {
+        opacity: 0;
+        top: 0;
+        transition: top 0.075s ease, opacity 0.075s 0.12s ease;
+      }
+    }
+  }
+}
+.nav__toggle {
+  line-height: 0;
+  position: relative;
+  transition-duration: 300ms;
+  transition-property: border;
+  z-index: 6;
+  &:focus {
+    outline: 1px auto -webkit-focus-ring-color;
+  }
+}
+
+@include mixins.mq(800px) {
+  .hamburger {
+    display: none;
+  }
+}

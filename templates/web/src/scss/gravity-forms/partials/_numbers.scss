@@ -1,0 +1,11 @@
+@use "../../base/mixins";
+@use "../variables/layout";
+@use 'sass:math';
+.gform_wrapper {
+  .ginput_container_number {
+    input {
+      padding-bottom: math.div(layout.$gravity-form-input-padding, 2);
+      padding-top: math.div(layout.$gravity-form-input-padding, 2);
+    }
+  }
+}

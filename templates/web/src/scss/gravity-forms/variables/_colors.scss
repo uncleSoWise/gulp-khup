@@ -1,0 +1,30 @@
+// Gravity Forms Colors
+//------------------------------------------------------------------------------
+$gravity-black:      #000 !default;
+$gravity-off-black:  #1c1e1f !default;
+$gravity-gray:       #666 !default;
+$gravity-light-gray: #a4a5a5 !default;
+$gravity-light-fog:  #f3f3f4 !default;
+$gravity-medium-fog: #e0e0e0 !default;
+$gravity-fog:        #ccc !default;
+$gravity-white:      #fff !default;
+
+$gravity-blue:       #0072bc !default;
+$gravity-yellow:     #fff2aa !default;
+$gravity-green:      #94dc21 !default;
+$gravity-orange:     #dc7021 !default;
+$gravity-red:        #dc2521 !default;
+
+//Client Specific Colors
+// $gravity-black:      Rgb(var(--black));
+$gravity-off-black:  Rgb(var(--shark));
+$gravity-gray:       Rgba(var(--shark) / 50%);
+// $gravity-light-gray: Rgb(var(--medium-gray));
+// $gravity-light-fog:  Rgb(var(--light-gray));
+// $gravity-medium-fog: Rgb(var(--alto));
+// $gravity-fog:        Rgb(var(--fog-gray));
+// $gravity-white:      Rgb(var(--white));
+
+// $gravity-blue:       Rgb(var(--blue-jay));
+$gravity-orange:     Rgb(var(--terracotta));
+// $gravity-red:        Rgb(var(--tangerine));

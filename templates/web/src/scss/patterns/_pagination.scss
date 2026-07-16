@@ -1,0 +1,57 @@
+@use '../base/functions';
+@use '../base/mixins';
+.pagination {
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  gap: 1rem;
+  justify-content: center;
+  line-height: 1.2;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 2rem 1.5rem;
+  .prev,
+  .next {
+    align-items: center;
+    background-color: Rgb(var(--white));
+    border-radius: 50%;
+    color: Rgb(var(--envy));
+    display: flex;
+    height: 2.5rem;
+    justify-content: center;
+    transition-duration: 300ms;
+    transition-property: background;
+    width: 2.5rem;
+    &:hover {
+      background-color: Rgb(var(--text-color));
+    }
+  }
+  .prev {
+    .arrow {
+      height: 26px;
+      width: 26px;
+    }
+  }
+  .next {
+    .arrow {
+      height: 26px;
+      width: 26px;
+    }
+  }
+  .page-numbers {
+  }
+  .dots {
+    padding: 0;
+  }
+  .current {
+    color: Rgb(var(--text-color));
+    font-weight: 800;
+  }
+}
+
+@include mixins.mq(960px) {
+  .pagination {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

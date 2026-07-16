@@ -1,0 +1,29 @@
+@use "../base/functions";
+@use "../base/mixins";
+.button-theme__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.button-theme {
+  background-color: Rgb(var(--button-bg));
+  border: .0625rem solid Rgb(var(--button-border));
+  color: Rgb(var(--button-color));
+  cursor: pointer;
+  display: block;
+  font-weight: 400;
+  padding: 1rem 2rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition-duration: 300ms;
+  &:hover {
+    --button-bg: var(--white);
+    --button-border: var(--white);
+    --button-color: var(--black);
+  }
+}
+.gform_button {
+  min-width: 192px;
+}

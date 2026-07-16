@@ -1,0 +1,73 @@
+{
+  "name": "<%= appName %>",
+  "description": "<%= appDescription %>",
+  "version": "<%= appVersion %>",
+  "main": "./gulpfile.js",
+  "private": true,
+  "author": {
+    "name": "<%= authorName %>",
+    "email": "<%= authorEmail %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/<%= appName %>"
+  },
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "check": "biome check .",
+    "format": "biome format --write .",
+    "lint": "biome lint ."
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "beeper": "^3.0.0",
+    "browser-sync": "^3.0.4",
+    "chalk": "^5.6.2",
+    "cssnano": "^7.1.1",
+    "del": "^8.0.1",
+    "dotenv": "^17.2.2",
+    "esbuild": "^0.25.10",
+    "@biomejs/biome": "^2.2.4",
+    "fancy-log": "^2.0.0",
+    "gulp": "^5.0.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-changed": "^5.0.3",
+    "gulp-flatmap": "^1.0.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^9.1.0",
+    "gulp-inline-source": "^4.0.0",
+    "gulp-notify": "^5.0.0",
+    "gulp-nunjucks": "^6.1.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^10.0.0",
+    "gulp-pxtorem": "^3.0.0",
+    "gulp-rename": "^2.1.0",
+    "gulp-replace": "^1.1.4",
+    "gulp-sass": "^6.0.1",
+    "gulp-size": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-special-html": "0.0.4",
+    "gulp-touch-cmd": "0.0.1",
+    "marked": "^16.3.0",
+    "nunjucks": "^3.2.4",
+    "nunjucks-markdown": "^2.0.1",
+    "postcss": "^8.5.6",
+    "psi": "^4.1.0",
+    "sass": "^1.93.2",
+    "ssh2-sftp-client": "^12.0.1",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^39.0.0",
+    "stylelint-order": "^7.0.0",
+    "stylelint-scss": "^6.12.1",
+    "through2": "^4.0.2",
+    "vinyl-ftp": "^0.6.1"
+  },
+  "dependencies": {
+    "basiclightbox": "^5.0.4",
+    "fastclick": "^1.0.6",
+    "hamburgers": "^1.2.1",
+    "normalize.css": "^8.0.1",
+    "swiper": "^12.0.2"
+  }
+}

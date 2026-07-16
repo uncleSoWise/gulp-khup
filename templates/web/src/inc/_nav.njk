@@ -1,0 +1,32 @@
+  <a id="top" class="screen-reader-text" href="#content">Skip to content</a>
+
+  <nav id="js-nav" class="nav">
+    <div class="nav__wrap">
+
+      <div class="nav__controls">
+        <{{ site_tag }} class="nav__logo">
+          <a class="nav__logo-link" href="/_/">
+            Logo
+          </a>
+        </{{ site_tag }}>
+
+        <button class="nav__toggle hamburger hamburger--squeeze js-toggle" id="js-nav__toggle" data-html-class="nav--is-active" type="button" aria-label="Menu" aria-controls="js-navigation">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+
+      <div id="js-navigation" class="nav__options">
+
+        <ul id="menu-main-nav" class="nav__menu">
+          <li class="nav__menu-item {% if 'ancestor-about' in body_class %}nav__menu-item--active{% endif %}"><a href="#.html" class="nav__menu-link">Page 1</a></li>
+          <li class="nav__menu-item {% if 'ancestor-about' in body_class %}nav__menu-item--active{% endif %}"><a href="#.html" class="nav__menu-link">Page 2</a></li>
+          <li class="nav__menu-item {% if 'ancestor-about' in body_class %}nav__menu-item--active{% endif %}"><a href="#.html" class="nav__menu-link">Page 3</a></li>
+          <li class="nav__menu-item {% if 'ancestor-about' in body_class %}nav__menu-item--active{% endif %}"><a href="#.html" class="nav__menu-link">Page 4</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>

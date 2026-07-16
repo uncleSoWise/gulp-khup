@@ -1,0 +1,131 @@
+/** -------------------------------------
+ *   Breakpoint
+ * -------------------------------------
+ *
+ * - EXAMPLE:
+ * - @include mq(480px) { ... }
+ *
+ * - NOTE:
+ * - 782px is a magic number used by WordPress in media queries
+ *
+ * -------------------------------------
+ */
+
+$mq-portrait: '(orientation : portrait)';
+$mq-landscape: '(orientation : landscape)';
+$mq-ratio: '(min-aspect-ratio: 7/4)';
+
+@mixin mq($point) {
+  @if $point == 480px {
+    @media (min-width: 30em) { @content ; }
+  } @else if $point == 640px {
+    @media (min-width: 40em) { @content ; }
+  } @else if $point == 782px {
+    @media (min-width: 48.875em) { @content ; }
+  } @else if $point == 800px {
+    @media (min-width: 50em) { @content ; }
+  } @else if $point == 960px {
+    @media (min-width: 60em) { @content ; }
+  } @else if $point == 1120px {
+    @media (min-width: 70em) { @content ; }
+  } @else if $point == 1280px {
+    @media (min-width: 80em) { @content ; }
+  } @else if $point == 1440px {
+    @media (min-width: 90em) { @content ; }
+  } @else if $point == 1600px {
+    @media (min-width: 100em) { @content ; }
+  } @else if $point == 1760px {
+    @media (min-width: 110em) { @content ; }
+  } @else if $point == 1920px {
+    @media (min-width: 120em) { @content ; }
+  }
+}
+
+/** -------------------------------------
+ *   mixin: clearfix()
+ * -------------------------------------
+ *
+ * - clear a float element
+ * - add to parent wrapper element
+ *
+ * - EXAMPLE:
+ * - @include clearfix;
+ *
+ * -------------------------------------
+ */
+
+@mixin clearfix {
+  &::before,
+  &::after {
+    content: ' '; /* 1 */
+    display: table; /* 2 */
+
+    /**
+     * Fixes Opera/contenteditable bug:
+     * http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+     */
+    line-height: 0;
+  }
+  &::after {
+    clear: both;
+  }
+}
+
+/** -------------------------------------
+ *   mixin: visuallyhidden()
+ * -------------------------------------
+ *
+ * - hide element text visually
+ * - maintains accessibility for screen readers
+ * - focusable modifier allows for element focus
+ * - sizes down to 1px in box model
+ *
+ * -------------------------------------
+ */
+
+@mixin visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+@mixin visuallyhidden--focusable {
+  @include visuallyhidden;
+  &:active,
+  &:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+  }
+}
+
+/** -------------------------------------
+ *   mixin: ir()
+ * -------------------------------------
+ *
+ * - text image replacement
+ * - maintains accessibility for screen readers
+ * - focusable modifier allows for element focus
+ * - size as needed in box model
+ *
+ * -------------------------------------
+ */
+
+@mixin ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  &::before {
+    content: '';
+    display: block;
+    height: 150%;
+    width: 0;
+  }
+}

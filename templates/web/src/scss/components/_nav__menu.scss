@@ -1,0 +1,69 @@
+@use '../base/mixins';
+
+.nav__menu {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+.nav__menu-item {
+  display: block;
+  line-height: 1;
+  margin: 0;
+  padding: 0 .75rem;
+  text-align: center;
+}
+.nav__menu-link {
+  background: transparent;
+  border: 0;
+  color: Rgb(var(--text-color));
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.286;
+  outline: none;
+  padding: 1rem .75rem 1.0625rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  &:hover,
+  &:focus,
+  &:active {
+    color: Rgb(var(--text-color));
+    &::before {
+      opacity: 1;
+    }
+  }
+  .nav__menu-item--active &,
+  .nav__menu-item--ancestor--active & {
+    color: Rgb(var(--text-color));
+    &::after {
+      opacity: 1;
+    }
+  }
+  .nav__menu-item--parent.is-active & {
+    .arrow--nav-right {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+@include mixins.mq(800px) {
+  .nav__menu {
+    display: flex;
+    justify-content: flex-start;
+    opacity: 1;
+    transition-duration: 300ms;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    .scrolled & {
+      opacity: 0;
+    }
+    .nav--is-active & {
+      opacity: 1;
+    }
+  }
+}
