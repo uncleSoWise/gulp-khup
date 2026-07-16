@@ -1,0 +1,26 @@
+// Base Typography
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-block-end: $spacing-unit;
+}
+
+p {
+  margin-block-end: $spacing-unit;
+}
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-secondary;
+  }
+}
