@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-16
+
 ### Added
 
 -   `.browserlistrc`
@@ -45,6 +47,21 @@ and this project adheres to
 -   files made for inline during `gulp css` are now correctly prefixed `.inline`
     rather than renaming all files to `inline.css` which is very confusing with
     multiple theme files
+-   resolved critical `@babel/traverse` vulnerability GHSA-67hx-6x53-jw92
+    (arbitrary code execution) via lockfile update
+-   resolved high `@babel/core` vulnerability GHSA-4x5r-pxfx-6jf8
+    (arbitrary file read via sourceMappingURL) via lockfile update
+-   resolved high `acorn` vulnerability GHSA-6chw-6frg-f759 (ReDoS)
+    via lockfile update
+-   resolved 51 additional moderate/high transitive vulnerabilities via
+    `npm audit fix`
+
+### Known Issues
+
+-   163 vulnerabilities remain; all require Phase 2 major-version dependency
+    upgrades (gulp v5, browser-sync v3, gulp-sass v6, psi v4, gulp-imagemin v9)
+-   `node-sass` does not compile on Node v18+; the stack requires
+    `--ignore-scripts` on modern Node. Full remediation is Phase 2.
 
 ### Removed
 
