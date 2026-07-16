@@ -1,4 +1,4 @@
-# gulp-khup | Change Log
+# create-gulp-khup | Change Log
 
 All notable changes to this project will be documented in this file.
 
@@ -7,6 +7,39 @@ and this project adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-07-16
+
+### Added
+
+- `bin/create.js` — CLI entry point: `npm create gulp-khup@latest my-project`
+- `src/cli.js` — interactive prompt flow via `@clack/prompts` with input validation
+- `src/scaffold.js` — template file copying with `<%= token %>` substitution
+- `templates/base/` — Gulp 5 task suite: esbuild, Dart Sass, Biome, BrowserSync, ssh2-sftp-client
+- `templates/web/` — Static HTML project scaffold with full `src/` directory structure
+- Vitest test suite: 78 tests, 100% `src/` line/branch/function/statement coverage
+- GitHub Actions CI workflow with coverage enforcement
+- GitHub Actions npm publish workflow (triggered on GitHub Release)
+- `AGENTS.md` — AI agent guidance for the Phase 2 architecture
+- `.github/copilot-instructions.md` — coding conventions for the scaffolder
+
+### Changed
+
+- Package name: `gulp-khup` → `create-gulp-khup`
+- Package is now public (`private` removed)
+- Module system: Babel/CJS → native ESM (`"type": "module"`)
+- JS bundling in generated projects: Browserify + Babel → esbuild
+- CSS in generated projects: LibSass → Dart Sass
+- Linting/formatting in generated projects: ESLint + Prettier → Biome
+- Deploy in generated projects: `vinyl-ftp` + `gulp-sftp` → `ssh2-sftp-client`
+- Node.js minimum: 18 (generated projects also target Node 18+)
+- README rewritten for `npm create` usage
+
+### Removed
+
+- All legacy gulp-task dependencies from `package.json` (moved to `templates/base/package.json.tpl`)
+- `gulpfile.babel.js` top-level entry point (replaced by `bin/create.js`)
+- `.babelrc`, `.eslintrc`, `.browserslistrc`, `.prettierrc`, `.prettierignore` (legacy config)
 
 ## [0.1.1] - 2026-07-16
 
