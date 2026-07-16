@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: restore `registry-url` in `setup-node` but strip the empty
+  `_authToken` line before publishing — enables npm OIDC trusted publishing by
+  ensuring npm has registry config but no token, allowing OIDC fallback
+
 ## [1.1.1] - 2026-07-16
 
 ### Fixed
