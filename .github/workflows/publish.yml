@@ -18,8 +18,15 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
+
+      - name: Upgrade npm for OIDC trusted publishing
+        # npm's native OIDC trusted publishing requires npm >= 11.5.1.
+        # Node 20 ships npm 10.x, which has no OIDC support — this is why
+        # earlier publish attempts failed. With a modern npm and no token,
+        # npm detects the GitHub Actions OIDC environment and authenticates
+        # against the linked publisher configured on npmjs.com.
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci
@@ -30,21 +37,7 @@ jobs:
       - name: Verify 100% src/ coverage
         run: npm run test:coverage
 
-      - name: Get GitHub OIDC token for npm trusted publishing
-        id: oidc
-        run: |
-          # Fetch GitHub OIDC JWT with audience 'npm'.
-          # setup-node writes _authToken=${NODE_AUTH_TOKEN} to .npmrc but does NOT
-          # automatically exchange the OIDC token. We fetch it ourselves and pass it
-          # as NODE_AUTH_TOKEN. The npm registry validates the JWT against the trusted
-          # publisher config and authorises the publish without a stored secret.
-          OIDC_TOKEN=$(curl -fsSL \
-            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm" | jq -r '.value')
-          echo "::add-mask::${OIDC_TOKEN}"
-          echo "token=${OIDC_TOKEN}" >> "${GITHUB_OUTPUT}"
-
       - name: Publish to npm
+        # No NODE_AUTH_TOKEN, no registry-url — npm >= 11.5.1 performs the
+        # OIDC token exchange itself via the linked publisher on npmjs.com.
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
