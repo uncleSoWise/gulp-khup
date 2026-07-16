@@ -36,7 +36,14 @@ jobs:
         # of falling back to OIDC. Removing that line lets npm detect the GitHub
         # Actions OIDC environment and authenticate via the linked publisher.
         run: |
+          echo "=== .npmrc BEFORE strip ==="
+          cat "$NPM_CONFIG_USERCONFIG"
+          echo "=== stripping _authToken ==="
           sed -i '/^\/\/registry.npmjs.org\/:_authToken/d' "$NPM_CONFIG_USERCONFIG"
+          echo "=== .npmrc AFTER strip ==="
+          cat "$NPM_CONFIG_USERCONFIG"
+          echo "=== OIDC env vars ==="
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL set: $([[ -n $ACTIONS_ID_TOKEN_REQUEST_URL ]] && echo YES || echo NO)"
 
       - name: Publish to npm
         run: npm publish --provenance --access public
