@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.6] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: bump runner to Node 22. `npm@latest` is now v12 which
+  requires Node >=22; the Node 20 runner failed with `EBADENGINE`. Node 22
+  (current LTS) ships a modern npm with native OIDC trusted-publishing support.
+
 ## [1.1.5] - 2026-07-16
 
 ### Fixed
