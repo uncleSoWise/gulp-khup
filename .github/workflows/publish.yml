@@ -18,7 +18,10 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          # No registry-url here — setup-node injects `_authToken=${NODE_AUTH_TOKEN}`
+          # into .npmrc when registry-url is set. With no token in use, that empty
+          # entry blocks npm from using OIDC trusted publishing. Omitting registry-url
+          # lets npm detect the OIDC environment and authenticate natively.
           cache: 'npm'
 
       - name: Install dependencies
@@ -31,10 +34,7 @@ jobs:
         run: npm run test:coverage
 
       - name: Publish to npm
-        # NODE_AUTH_TOKEN is required — npm --provenance uses OIDC for signing
-        # only; the actual registry auth still requires a token.
-        # Requirement: npm account 2FA must be set to "Authorization only"
-        # (not "Authorization and write actions") so tokens can publish in CI.
+        # No NODE_AUTH_TOKEN — uses npm trusted publishing via GitHub OIDC.
+        # Requires: package configured with a linked publisher on npmjs.com
+        # (package settings → Publishing → Linked publishers).
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
