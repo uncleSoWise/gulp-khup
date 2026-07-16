@@ -1,44 +1,27 @@
 # TODO
 
-Phase 2 work items for the `create-gulp-khup` modernization. See
-[`docs/superpowers/specs/2026-07-15-gulp-khup-modernization-design.md`](docs/superpowers/specs/2026-07-15-gulp-khup-modernization-design.md)
-for the full design, and
-[`docs/superpowers/plans/2026-07-15-phase2-create-gulp-khup-scaffolder.md`](docs/superpowers/plans/2026-07-15-phase2-create-gulp-khup-scaffolder.md)
-for the step-by-step implementation plan.
+`create-gulp-khup@1.0.0` is live on npm. This file tracks remaining post-1.0.0 work.
 
-All Phase 2 work happens on the `next` branch.
+Do not create a new GitHub Release until all items below are complete.
 
 ---
 
-## Phase 2: create-gulp-khup Scaffolder
+## Active: Post-1.0.0 Polish
 
-### Scaffolder CLI — [#25](https://github.com/uncleSoWise/gulp-khup/issues/25)
-Build `bin/create.js` + `src/cli.js` — the `npm create gulp-khup@latest` entry point
-using `@clack/prompts` for interactive project setup.
+### Remove legacy gulpsheet artifacts — [#53](https://github.com/uncleSoWise/gulp-khup/issues/53)
+Remove `gulpfile.babel.js`, `gulp/`, `.babelrc`, `.browserslistrc`, `.editorconfig`,
+`.eslintrc`, `.prettierignore`, `.prettierrc` from the repo root. Update `.nvmrc` to Node 18.
 
-### Template Suite (Gulp 5) — [#27](https://github.com/uncleSoWise/gulp-khup/issues/27)
-Port Gulp 5 task suite from the Archive (`generator-pnmg` v8.1.0): esbuild for JS,
-Dart Sass, Biome for linting, PostCSS/cssnano, ssh2-sftp-client for deploy.
+### Email project template — [#52](https://github.com/uncleSoWise/gulp-khup/issues/52)
+Port the email template from the Archive (`generator-pnmg`) into `templates/email/`.
+Replaces the current stub README. Includes nunjucks email layouts + gulp tasks.
 
-### Test Harness — [#26](https://github.com/uncleSoWise/gulp-khup/issues/26)
-Vitest test suite with 100% line coverage: scaffold output tests + CLI unit tests.
-Tests gate the Phase 2 → `develop` merge.
-
-### Dependency Modernization — [#24](https://github.com/uncleSoWise/gulp-khup/issues/24)
-Resolve all 163 remaining vulnerabilities via major-version upgrades:
-`gulp@5`, `browser-sync@3`, `gulp-sass@6` + Dart Sass, `psi@4`, `gulp-imagemin@9`,
-esbuild replacing Browserify+Babel, Biome replacing ESLint+Prettier.
-
-Also resolves: `node-sass` Node v18+ incompatibility (replaced by Dart Sass).
-
-### npm Publish Workflow — [#28](https://github.com/uncleSoWise/gulp-khup/issues/28)
-GitHub Actions workflow on release tag: run tests → `npm publish`.
-Package changes: `private: false`, `bin` field, `name: create-gulp-khup`, `type: module`.
+### WordPress project template — [#51](https://github.com/uncleSoWise/gulp-khup/issues/51)
+Build a WordPress theme development scaffold (no Archive source — built fresh).
+CSS/JS/images only, deploy path targets `wp-content/themes/<slug>/`.
 
 ---
 
-## Future (Phase 3+)
+## Future (Phase 4+)
 
-- WordPress project type
-- Email project type
-- `cosmiconfig` support for customizing globs (see #18)
+- `cosmiconfig` support for customizing globs in generated projects (see [#18](https://github.com/uncleSoWise/gulp-khup/issues/18))
