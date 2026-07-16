@@ -210,3 +210,85 @@ describe('scaffold — generated file content', () => {
     expect(content).toMatchSnapshot();
   });
 });
+
+// ---------------------------------------------------------------------------
+// scaffold() — email project type
+// ---------------------------------------------------------------------------
+
+describe('scaffold — email project type', () => {
+  let tmpDir;
+  let outDir;
+
+  const emailDefaults = {
+    projectName: 'test-email',
+    description: 'A test email project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'email',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-email-'));
+    outDir = join(tmpDir, 'output');
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('creates the output directory for email type', async () => {
+    await scaffold({ ...emailDefaults, outDir });
+    await expect(access(outDir)).resolves.toBeUndefined();
+  });
+
+  it('generates email-specific gulpfile.js (overrides base)', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...emailDefaults, outDir });
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).toContain('gulpflow — Email');
+    expect(content).toContain('inlineTask');
+  });
+
+  it('generates email package.json with gulp-inline-css', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...emailDefaults, outDir });
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).toHaveProperty('gulp-inline-css');
+  });
+
+  it('generates email package.json without esbuild', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...emailDefaults, outDir });
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('esbuild');
+  });
+
+  it('generates email-specific gulp tasks (build, inline, watch)', async () => {
+    await scaffold({ ...emailDefaults, outDir });
+    await expect(access(join(outDir, 'gulp', 'tasks', 'inline.js'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'gulp', 'tasks', 'build.js'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'gulp', 'tasks', 'watch.js'))).resolves.toBeUndefined();
+  });
+
+  it('generates email src/ nunjucks templates', async () => {
+    await scaffold({ ...emailDefaults, outDir });
+    await expect(access(join(outDir, 'src', '_layout.njk'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'index.njk'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'inc'))).resolves.toBeUndefined();
+  });
+
+  it('generates email src/ content block partials', async () => {
+    await scaffold({ ...emailDefaults, outDir });
+    await expect(access(join(outDir, 'src', 'inc', 'layout', '_headline.njk'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'inc', 'layout', '_one-col.njk'))).resolves.toBeUndefined();
+  });
+
+  it('email package.json has correct token substitution', async () => {
+    const { readFile } = await import('fs/promises');
+    await scaffold({ ...emailDefaults, outDir });
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.name).toBe('test-email');
+    expect(pkg.author.name).toBe('Test Author');
+    expect(pkg.author.email).toBe('test@example.com');
+  });
+});

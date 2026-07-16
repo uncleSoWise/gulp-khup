@@ -81,7 +81,7 @@ export async function promptUser(initialName = '') {
           options: [
             { value: 'web', label: 'Static HTML', hint: 'recommended' },
             { value: 'wordpress', label: 'WordPress', hint: 'coming soon' },
-            { value: 'email', label: 'Email', hint: 'coming soon' },
+            { value: 'email', label: 'Email' },
           ],
         }),
     },
