@@ -30,20 +30,21 @@ jobs:
       - name: Verify 100% src/ coverage
         run: npm run test:coverage
 
-      - name: Enable OIDC trusted publishing
-        # setup-node writes `_authToken=${NODE_AUTH_TOKEN}` to .npmrc. When no
-        # token is provided that expands to empty string, which npm uses instead
-        # of falling back to OIDC. Removing that line lets npm detect the GitHub
-        # Actions OIDC environment and authenticate via the linked publisher.
+      - name: Get GitHub OIDC token for npm trusted publishing
+        id: oidc
         run: |
-          echo "=== .npmrc BEFORE strip ==="
-          cat "$NPM_CONFIG_USERCONFIG"
-          echo "=== stripping _authToken ==="
-          sed -i '/^\/\/registry.npmjs.org\/:_authToken/d' "$NPM_CONFIG_USERCONFIG"
-          echo "=== .npmrc AFTER strip ==="
-          cat "$NPM_CONFIG_USERCONFIG"
-          echo "=== OIDC env vars ==="
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL set: $([[ -n $ACTIONS_ID_TOKEN_REQUEST_URL ]] && echo YES || echo NO)"
+          # Fetch GitHub OIDC JWT with audience 'npm'.
+          # setup-node writes _authToken=${NODE_AUTH_TOKEN} to .npmrc but does NOT
+          # automatically exchange the OIDC token. We fetch it ourselves and pass it
+          # as NODE_AUTH_TOKEN. The npm registry validates the JWT against the trusted
+          # publisher config and authorises the publish without a stored secret.
+          OIDC_TOKEN=$(curl -fsSL \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm" | jq -r '.value')
+          echo "::add-mask::${OIDC_TOKEN}"
+          echo "token=${OIDC_TOKEN}" >> "${GITHUB_OUTPUT}"
 
       - name: Publish to npm
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.oidc.outputs.token }}
