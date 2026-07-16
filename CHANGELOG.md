@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-07-16
+
+### Fixed
+
+- Publish workflow: debug run to diagnose OIDC trusted publishing failure
+
 ## [1.1.2] - 2026-07-16
 
 ### Fixed
