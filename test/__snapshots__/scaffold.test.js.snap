@@ -19,7 +19,6 @@ exports[`scaffold — generated file content > matches gulpfile.js snapshot 1`] 
 //   \`gulp js\`
 //   \`gulp nunjucks\`
 //   \`gulp prettier\`
-//   \`gulp psi\`
 //   \`gulp size\`
 //   \`gulp static\`
 //   \`gulp watch\`
@@ -43,7 +42,6 @@ import htmlTask from './gulp/tasks/html.js';
 import imgTask from './gulp/tasks/img.js';
 import jsTask from './gulp/tasks/js.js';
 import nunjucksTask from './gulp/tasks/nunjucks.js';
-import psiTask from './gulp/tasks/psi.js';
 import sizeTask from './gulp/tasks/size.js';
 import staticTask from './gulp/tasks/static.js';
 import watchTask from './gulp/tasks/watch.js';
@@ -63,7 +61,6 @@ gulp.task('img', imgTask);
 gulp.task('js', jsTask);
 
 gulp.task('nunjucks', nunjucksTask);
-gulp.task('psi', psiTask);
 gulp.task('size', sizeTask);
 gulp.task('static', staticTask);
 gulp.task('watch', watchTask);
@@ -124,7 +121,6 @@ exports[`scaffold — generated file content > matches package.json snapshot 1`]
     "nunjucks": "^3.2.4",
     "nunjucks-markdown": "^2.0.1",
     "postcss": "^8.5.6",
-    "psi": "^4.1.0",
     "sass": "^1.93.2",
     "ssh2-sftp-client": "^12.0.1",
     "stylelint": "^16.24.0",

@@ -53,7 +53,6 @@
     "nunjucks": "^3.2.4",
     "nunjucks-markdown": "^2.0.1",
     "postcss": "^8.5.6",
-    "psi": "^4.1.0",
     "sass": "^1.93.2",
     "ssh2-sftp-client": "^12.0.1",
     "stylelint": "^16.24.0",

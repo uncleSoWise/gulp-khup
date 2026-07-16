@@ -463,6 +463,45 @@ describe('scaffold — web template token substitution (bug fixes)', () => {
   });
 });
 
+describe('scaffold — psi task removal (#72)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-psi-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generated package.json does not include psi dependency', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('psi');
+  });
+
+  it('generated gulpfile.js does not import psiTask', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).not.toContain('psiTask');
+    expect(content).not.toContain('psi.js');
+  });
+
+  it('psi.js is not copied to generated project', async () => {
+    await expect(access(join(outDir, 'gulp', 'tasks', 'psi.js'))).rejects.toThrow();
+  });
+});
+
 describe('scaffold — email template token substitution (bug fixes)', () => {
   let tmpDir;
   let outDir;
