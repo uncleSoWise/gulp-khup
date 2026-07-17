@@ -388,6 +388,117 @@ describe('scaffold — wordpress project type', () => {
 });
 
 // ---------------------------------------------------------------------------
+// WordPress PHP theme port (#76)
+// ---------------------------------------------------------------------------
+
+describe('scaffold — WordPress PHP theme port (#76)', () => {
+  let tmpDir, outDir;
+  const wpDefaults = {
+    projectName: 'my-wp-theme',
+    description: 'A WordPress theme',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'wordpress',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-wp76-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...wpDefaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generates style.css with theme header tokens substituted', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'style.css'), 'utf-8');
+    expect(content).toContain('Theme Name: my-wp-theme');
+    expect(content).toContain('Test Author');
+    expect(content).not.toContain('pnmg');
+    expect(content).not.toContain('<%= ');
+  });
+
+  it('generates theme.json', async () => {
+    await expect(access(join(outDir, 'theme.json'))).resolves.toBeUndefined();
+  });
+
+  it('theme.json is valid JSON', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'theme.json'), 'utf-8');
+    expect(() => JSON.parse(content)).not.toThrow();
+  });
+
+  it('generates functions.php', async () => {
+    await expect(access(join(outDir, 'functions.php'))).resolves.toBeUndefined();
+  });
+
+  it('generates all functions/ sub-modules', async () => {
+    for (const file of [
+      'functions/config.php',
+      'functions/gutenberg.php',
+      'functions/plugins.php',
+      'functions/search.php',
+      'functions/utils.php',
+      'functions/walkers/Walker_Nav_Menu_Custom.php',
+    ]) {
+      await expect(access(join(outDir, file)), file).resolves.toBeUndefined();
+    }
+  });
+
+  it('generated PHP files contain no pnmg_ prefix', async () => {
+    const { readFile } = await import('fs/promises');
+    for (const file of [
+      'functions.php',
+      'functions/config.php',
+      'functions/gutenberg.php',
+      'functions/plugins.php',
+      'functions/utils.php',
+      'header.php',
+      'footer.php',
+      'index.php',
+    ]) {
+      const content = await readFile(join(outDir, file), 'utf-8');
+      expect(content, `${file} should not contain pnmg_`).not.toContain('pnmg_');
+    }
+  });
+
+  it('functions/config.php uses wp_enqueue_scripts hook', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'functions/config.php'), 'utf-8');
+    expect(content).toContain("add_action( 'wp_enqueue_scripts'");
+    expect(content).not.toContain("add_action( 'wp_footer'");
+  });
+
+  it('functions/plugins.php wraps ACF calls in function_exists()', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'functions/plugins.php'), 'utf-8');
+    expect(content).toContain('function_exists');
+  });
+
+  it('generates all PHP template files', async () => {
+    for (const file of [
+      'header.php', 'footer.php', 'index.php',
+      'page.php', 'single.php', '404.php',
+      'inc/loop.php', 'inc/loop-search.php',
+    ]) {
+      await expect(access(join(outDir, file)), file).resolves.toBeUndefined();
+    }
+  });
+
+  it('generates patterns/hero.php', async () => {
+    await expect(access(join(outDir, 'patterns/hero.php'))).resolves.toBeUndefined();
+  });
+
+  it('index.php contains YOUR_FIELD_KEY placeholder for ACF block keys', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'index.php'), 'utf-8');
+    expect(content).toContain('YOUR_FIELD_KEY');
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Bug fixes — template token substitution and path correctness
 // ---------------------------------------------------------------------------
 
