@@ -12,9 +12,10 @@ All three project types scaffold and build correctly. `create-gulp-khup@1.1.6` i
 - ~~Resolve 57 npm audit vulnerabilities — `gulp-imagemin` chain~~ → 7 remaining (0 critical) (closed [#74](https://github.com/uncleSoWise/gulp-khup/issues/74))
 - ~~Add integration smoke test to CI: scaffold → `npm install` → `gulp build`~~ (closed [#75](https://github.com/uncleSoWise/gulp-khup/issues/75))
 
-## Phase 3.5 — Security Follow-up
+## Phase 3.5 — Security Follow-up ✅ Complete
 
-- Replace `gulp-htmlmin` with `html-minifier-terser` (2 remaining high vulns) (see [#80](https://github.com/uncleSoWise/gulp-khup/issues/80))
+- ~~Replace `gulp-htmlmin` with `html-minifier-terser` (2 remaining high vulns)~~ (closed [#80](https://github.com/uncleSoWise/gulp-khup/issues/80))
+- Generated web project now has **0 critical, 0 high, 5 moderate** vulnerabilities
 
 ## Phase 4+ — New Features
 

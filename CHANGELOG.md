@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-07-17
+
+### Fixed
+
+- Replaced `gulp-htmlmin` with `html-minifier-terser` in `html.js` and `nunjucks.js` (#80)
+  - Generated web project now has 0 critical, 0 high vulnerabilities (5 moderate only)
+  - `html-minifier-terser` is the actively maintained fork of the unmaintained `html-minifier`
+
 ## [1.2.0] - 2026-07-17
 
 ### Fixed
