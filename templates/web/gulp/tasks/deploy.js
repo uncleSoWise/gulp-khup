@@ -3,7 +3,7 @@
 // -------------------------------------
 //
 // - check CLI arguments for deployment settings
-// - deploy /dist/ files to server via FTP or SFTP
+// - deploy /dist/ files to server via SFTP
 // - environmental variables located in .env
 //
 // -------------------------------------
@@ -11,33 +11,12 @@
 import SftpClient from "ssh2-sftp-client";
 import commandLineArguments from "../commandLineArguments.js";
 import errorHandler from "../errorHandler.js";
-import fancyLog from "fancy-log";
-import ftp from "vinyl-ftp";
 import globs from "../globs.js";
 import gulp from "gulp";
 import path from "node:path";
 import plumber from "gulp-plumber";
 import { readFileSync } from "node:fs";
 import through2 from "through2";
-
-const ftpTask = () => {
-  const conn = ftp.create({
-    host: process.env.FTP_HOST,
-    port: process.env.FTP_PORT,
-    user: process.env.FTP_USER,
-    pass: process.env.FTP_PASS,
-    maxConnections: 1000,
-    parallel: 5,
-    log: fancyLog
-  });
-
-  return gulp
-    .src(globs.to.deploy, { base: globs.to.deployBase })
-    .pipe(plumber(errorHandler))
-    .pipe(conn.dest(process.env.FTP_REMOTEPATH))
-    .pipe(plumber.stop());
-};
-ftpTask.description = "deploy /dist/ files to server via FTP";
 
 const sftpTask = () => {
   const sftpConfig = {
@@ -52,7 +31,7 @@ const sftpTask = () => {
     try {
       sftpConfig.privateKey = readFileSync(process.env.SFTP_KEYPATH);
     } catch (err) {
-      fancyLog("Failed to read SFTP private key file", process.env.SFTP_KEYPATH, err);
+      console.error("Failed to read SFTP private key file", process.env.SFTP_KEYPATH, err);
     }
   }
 
@@ -120,16 +99,13 @@ const sftpTask = () => {
 sftpTask.description = "deploy /dist/ files to server via SFTP";
 
 const deployTask = (cb) => {
-  let taskStream;
-  if (commandLineArguments.ftp) {
-    taskStream = gulp.series(ftpTask)(cb);
-  }
   if (commandLineArguments.sftp) {
-    taskStream = gulp.series(sftpTask)(cb);
+    return gulp.series(sftpTask)(cb);
   }
-  return taskStream;
+  cb();
 };
-deployTask.description =
-  "deploy /dist/ files to remote server via FTP or SFTP";
+deployTask.description = "deploy /dist/ files to server via SFTP (use --sftp flag)";
 
 export default deployTask;
+
+

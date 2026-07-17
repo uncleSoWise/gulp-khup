@@ -6,6 +6,7 @@
 // - BrowserSync will manage refresh and device sync
 // - BrowserSync uses /dist/ as base for the server
 // - listen for changes in /src/ and run tasks
+// - SFTP upload on file change via --sftp flag
 //
 // -------------------------------------
 
@@ -15,8 +16,6 @@ import chalk from "chalk";
 import commandLineArguments from "../commandLineArguments.js";
 import cssTask from "./css.js";
 import errorHandler from "../errorHandler.js";
-import fancyLog from "fancy-log";
-import ftp from "vinyl-ftp";
 import globs from "../globs.js";
 import gulp from "gulp";
 import htmlTask from "./html.js";
@@ -75,27 +74,6 @@ const watchFilesTask = (cb) => {
     cb(null);
   });
 
-  // enable FTP deploys on watch via CLI parameters
-  if (commandLineArguments.ftp) {
-    const conn = ftp.create({
-      host: process.env.FTP_HOST,
-      port: process.env.FTP_PORT,
-      user: process.env.FTP_USER,
-      pass: process.env.FTP_PASS,
-      maxConnections: 1000,
-      parallel: 5,
-      log: fancyLog
-    });
-    watcher.on("change", (event) => {
-      fancyLog(chalk.red("changed: uploading..."), chalk.yellow(JSON.stringify(event)));
-      return gulp
-        .src(event, { base: globs.to.deployBase })
-        .pipe(plumber(errorHandler))
-        .pipe(conn.dest(process.env.FTP_REMOTEPATH))
-        .pipe(plumber.stop())
-    });
-  }
-
   // enable SFTP deploys on watch via CLI parameters
   if (commandLineArguments.sftp) {
     const sftpConfig = {
@@ -113,9 +91,9 @@ const watchFilesTask = (cb) => {
       try {
         sftpConfig.privateKey = readFileSync(process.env.SFTP_KEYPATH);
       } catch (error) {
-        fancyLog(
-          chalk.red("Failed to read SFTP private key file"),
-          chalk.yellow(process.env.SFTP_KEYPATH),
+        console.error(
+          "Failed to read SFTP private key file",
+          process.env.SFTP_KEYPATH,
           error
         );
       }
@@ -172,7 +150,7 @@ const watchFilesTask = (cb) => {
     };
 
     watcher.on("change", (event) => {
-      fancyLog(chalk.red("changed: uploading..."), chalk.yellow(JSON.stringify(event)));
+      console.log("changed: uploading...", JSON.stringify(event));
       return gulp
         .src(event, { base: globs.to.deployBase })
         .pipe(plumber(errorHandler))
