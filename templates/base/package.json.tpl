@@ -33,7 +33,7 @@
     "gulp-cached": "^1.1.1",
     "gulp-changed": "^5.0.3",
     "gulp-flatmap": "^1.0.2",
-    "gulp-htmlmin": "^5.0.1",
+    "html-minifier-terser": "^7.2.0",
     "gulp-inline-source": "^4.0.0",
     "gulp-notify": "^5.0.0",
     "gulp-nunjucks": "^6.1.0",

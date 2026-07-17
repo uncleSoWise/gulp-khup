@@ -463,6 +463,44 @@ describe('scaffold — web template token substitution (bug fixes)', () => {
   });
 });
 
+describe('scaffold — html-minifier-terser replaces gulp-htmlmin (#80)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-html-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generated package.json has html-minifier-terser, not gulp-htmlmin', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('gulp-htmlmin');
+    expect(pkg.devDependencies).toHaveProperty('html-minifier-terser');
+  });
+
+  it('generated html.js imports html-minifier-terser, not gulp-htmlmin', async () => {
+    const { readFile } = await import('fs/promises');
+    for (const file of ['gulp/tasks/html.js', 'gulp/tasks/nunjucks.js']) {
+      const content = await readFile(join(outDir, file), 'utf-8');
+      expect(content, `${file} should not import gulp-htmlmin`).not.toContain('gulp-htmlmin');
+      expect(content, `${file} should import html-minifier-terser`).toContain('html-minifier-terser');
+    }
+  });
+});
+
 describe('scaffold — sharp replaces gulp-imagemin (#74)', () => {
   let tmpDir;
   let outDir;
