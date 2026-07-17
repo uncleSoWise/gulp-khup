@@ -4,13 +4,17 @@ All three project types scaffold and build correctly. `create-gulp-khup@1.1.6` i
 
 ---
 
-## Phase 3 — Template Quality (next sprint)
+## Phase 3 — Template Quality ✅ Complete
 
-- Remove vestigial `eslint-disable` comments from template task files (see [#71](https://github.com/uncleSoWise/gulp-khup/issues/71))
-- Remove/replace deprecated `psi` task — PSI v2 API is retired (see [#72](https://github.com/uncleSoWise/gulp-khup/issues/72))
-- Remove/replace unmaintained `vinyl-ftp` in web deploy task (see [#73](https://github.com/uncleSoWise/gulp-khup/issues/73))
-- Resolve 57 npm audit vulnerabilities in generated web project — `gulp-imagemin` chain (see [#74](https://github.com/uncleSoWise/gulp-khup/issues/74))
-- Add integration smoke test to CI: scaffold → `npm install` → `gulp build` (see [#75](https://github.com/uncleSoWise/gulp-khup/issues/75))
+- ~~Remove vestigial `eslint-disable` comments from template task files~~ (closed [#71](https://github.com/uncleSoWise/gulp-khup/issues/71))
+- ~~Remove/replace deprecated `psi` task — PSI v2 API is retired~~ (closed [#72](https://github.com/uncleSoWise/gulp-khup/issues/72))
+- ~~Remove/replace unmaintained `vinyl-ftp` in web deploy task~~ (closed [#73](https://github.com/uncleSoWise/gulp-khup/issues/73))
+- ~~Resolve 57 npm audit vulnerabilities — `gulp-imagemin` chain~~ → 7 remaining (0 critical) (closed [#74](https://github.com/uncleSoWise/gulp-khup/issues/74))
+- ~~Add integration smoke test to CI: scaffold → `npm install` → `gulp build`~~ (closed [#75](https://github.com/uncleSoWise/gulp-khup/issues/75))
+
+## Phase 3.5 — Security Follow-up
+
+- Replace `gulp-htmlmin` with `html-minifier-terser` (2 remaining high vulns) (see [#80](https://github.com/uncleSoWise/gulp-khup/issues/80))
 
 ## Phase 4+ — New Features
 

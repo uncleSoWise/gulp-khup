@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-17
+
 ### Fixed
 
 - Resolved unsubstituted EJS tokens in web/email templates blocking `gulp build` (#27)
@@ -16,7 +18,13 @@ and this project adheres to
   - Fixed normalize.css path in `_reset.scss`: `../../../../../` → `../../../`
   - Hardcoded email template EJS expressions to Archive defaults (contentWidth=560, gutterWidth=20, etc.)
   - Removed `<%= prototypePath %>` from `globs.js`; replaced with `dist`/`src` variable references
-- Added 10 regression tests for template token substitution and path correctness
+- Removed vestigial `/* eslint-disable */` comments from all template task files — generated projects use Biome (#71)
+- Removed deprecated `psi` task (Google PSI v2 API is retired) from gulpfile and `package.json` (#72)
+- Replaced `vinyl-ftp` with SFTP-only deploy; removed FTP path from `deploy.js` and `watch.js` (#73)
+- Replaced `gulp-imagemin` binary-downloader chain with `sharp` + `svgo` (#74)
+  - Generated project vulnerabilities: 57 (10 critical) → 7 (0 critical)
+  - Added `overrides` for `lodash.template`, `nth-check`, `terser`, `uuid`; bumped `postcss` to `^8.5.10`
+- Added CI integration smoke test job: scaffold → `npm install` → `gulp build` (#75)
 
 ## [1.1.6] - 2026-07-16
 
