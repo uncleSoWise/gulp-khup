@@ -27,7 +27,18 @@
     ul,
     ol {Margin: 0 0 20px 0; padding: 0 0 0 20px;}
 
-    @media only screen and (max-width: 560) {
+    /*
+     * Responsive breakpoints
+     * Note: Gmail strips @media queries — this affects Gmail only.
+     * All other clients (Outlook, Apple Mail, iOS Mail, Samsung Mail) honour these rules.
+     * gulp-inline-css inlines the styles above; @media overrides must remain in <style>.
+     * Campaign Monitor merge tags used in this template:
+     *   <webversion>  — link to web version (below)
+     *   <currentyear> — current year in footer
+     *   <unsubscribe> — unsubscribe link in footer
+     *   <singleline label="..."> — editable single-line text region
+     */
+    @media only screen and (max-width: 560px) {
       .table {width: 320px !important; margin: 0 auto !important; overflow: hidden !important;}
       .footer span {text-align: center !important;}
       .mobile-hide {display: none !important;}

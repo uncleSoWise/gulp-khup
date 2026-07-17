@@ -294,6 +294,70 @@ describe('scaffold — email project type', () => {
 });
 
 // ---------------------------------------------------------------------------
+// Email compatibility (#77)
+// ---------------------------------------------------------------------------
+
+describe('scaffold — email compatibility (#77)', () => {
+  let tmpDir, outDir;
+  const emailDefaults = {
+    projectName: 'test-email',
+    description: 'A test email project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'email',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-email77-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...emailDefaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('email package.json has html-minifier-terser, not gulp-htmlmin', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('gulp-htmlmin');
+    expect(pkg.devDependencies).not.toHaveProperty('gulp-imagemin');
+    expect(pkg.devDependencies).not.toHaveProperty('fancy-log');
+    expect(pkg.devDependencies).toHaveProperty('html-minifier-terser');
+    expect(pkg.devDependencies).toHaveProperty('sharp');
+    expect(pkg.devDependencies).toHaveProperty('autoprefixer');
+  });
+
+  it('email package.json has npm overrides for security', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.overrides).toBeDefined();
+    expect(pkg.overrides).toHaveProperty('nth-check');
+  });
+
+  it('_css.njk mobile breakpoint uses max-width: 560px with px unit', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_css.njk'), 'utf-8');
+    expect(content).toContain('max-width: 560px');
+    expect(content).not.toContain('max-width: 560)');
+  });
+
+  it('_css.njk documents Campaign Monitor merge tags and Gmail behaviour', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_css.njk'), 'utf-8');
+    expect(content).toContain('Campaign Monitor');
+    expect(content).toContain('Gmail');
+  });
+
+  it('_footer.njk documents currentyear as a Campaign Monitor merge tag', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_footer.njk'), 'utf-8');
+    expect(content).toContain('Campaign Monitor');
+    expect(content).toContain('<currentyear>');
+  });
+});
+
+// ---------------------------------------------------------------------------
 // scaffold() — wordpress project type
 // ---------------------------------------------------------------------------
 
