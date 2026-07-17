@@ -66,7 +66,7 @@ All new files live in `templates/wordpress/src/` (static task copies them to `di
 |------|--------|-------|
 | `header.php` | Archive | ACF code-injection calls (`get_field('code_head', 'options')`) wrapped in `if(function_exists('get_field'))` |
 | `footer.php` | Archive | `get_field('code_before_close_body', 'options')` guarded |
-| `index.php` | Archive | **Simplified**: ACF block JSON construction removed; standard `get_header()` / loop / `get_footer()` |
+| `index.php` | Archive | **B**: ACF block JSON kept with hex keys replaced by `'YOUR_FIELD_KEY'` + `// TODO` comments; `get_field()` calls guarded |
 | `page.php` | Archive | Minimal template |
 | `single.php` | Archive | Minimal template |
 | `404.php` | Archive | Port verbatim |
@@ -94,7 +94,7 @@ All new files live in `templates/wordpress/src/` (static task copies them to `di
 | 7 | Add `add_theme_support('wp-block-styles')` | Required for WP 6.0+ block styles to load in theme context |
 | 8 | `theme.json` added | Global Styles — palette/typography/spacing match `_variables.scss` design tokens |
 | 9 | `patterns/hero.php` added | Native WP 6.0+ auto-discovery pattern — no PHP registration needed |
-| 10 | `index.php` simplified | Archive had project-specific ACF block JSON — scaffold gets clean generic template |
+| 10 | `index.php` ACF block keys → `'YOUR_FIELD_KEY'` + `// TODO` | Hardcoded hex keys are project-specific and would silently fail in a new project; placeholder pattern preserved |
 
 ---
 
