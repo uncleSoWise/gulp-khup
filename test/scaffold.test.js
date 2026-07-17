@@ -463,6 +463,43 @@ describe('scaffold — web template token substitution (bug fixes)', () => {
   });
 });
 
+describe('scaffold — sharp replaces gulp-imagemin (#74)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-img-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generated package.json has sharp and svgo instead of gulp-imagemin', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('gulp-imagemin');
+    expect(pkg.devDependencies).toHaveProperty('sharp');
+    expect(pkg.devDependencies).toHaveProperty('svgo');
+  });
+
+  it('generated img.js imports sharp and not gulp-imagemin', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulp', 'tasks', 'img.js'), 'utf-8');
+    expect(content).not.toContain('gulp-imagemin');
+    expect(content).toContain('sharp');
+  });
+});
+
 describe('scaffold — psi task removal (#72)', () => {
   let tmpDir;
   let outDir;

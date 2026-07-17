@@ -2,81 +2,80 @@
 //   Task: img
 // -------------------------------------
 //
-// - losslessly compress image assets
-// - /img/ files move to correct place in theme
+// - compress JPEG/PNG/WebP/AVIF with sharp (no binary downloaders)
+// - optimise SVG with svgo (pure JS, no binary)
+// - /img/ files move to correct place in dist/
 //
 // -------------------------------------
 
 import gulp from 'gulp';
 import changed from 'gulp-changed';
 import plumber from 'gulp-plumber';
+import sharp from 'sharp';
+import { optimize as svgOptimize } from 'svgo';
+import through2 from 'through2';
+import path from 'node:path';
 import errorHandler from '../errorHandler.js';
 import globs from '../globs.js';
 
-let imageminModulePromise;
-const loadImagemin = async () => {
-  if (!imageminModulePromise) {
-    // Defer loading so gulp-cli's initial require does not trip over gulp-imagemin's top-level await
-    imageminModulePromise = import('gulp-imagemin');
-  }
-  return imageminModulePromise;
-};
+const JPEG_EXTS = new Set(['.jpg', '.jpeg']);
 
-const imageTask = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const {
-        default: imagemin,
-        gifsicle,
-        mozjpeg,
-        optipng,
-        svgo
-      } = await loadImagemin();
+const optimizeImage = () =>
+  through2.obj((file, _, cb) => {
+    if (file.isNull() || file.isStream()) { cb(null, file); return; }
 
-      const stream = gulp
-        .src(globs.to.img, { encoding: false })
-        .pipe(plumber(errorHandler))
-        .pipe(changed(globs.to.dist))
-        .pipe(imagemin([
-          gifsicle({ interlaced: true }),
-          mozjpeg({ progressive: true }),
-          optipng({ optimizationLevel: 2 }),
-          svgo({
-            plugins: [
-              {
-                name: "preset-default",
-                params: {
-                  overrides:
-                  {
-                    removeViewBox: false,
-                    removeTitle: false,
-                    collapseGroups: false,
-                    cleanupIDs: {
-                      prefix: {
-                        toString() {
-                          this.counter = this.counter || 0;
-                          this.counter += this.counter;
-                          return `svg-id-${this.counter}`;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          })
-        ]))
-        .pipe(plumber.stop())
-        .pipe(gulp.dest(globs.to.dist));
+    const ext = path.extname(file.path).toLowerCase();
 
-      stream.on('error', reject);
-      stream.on('finish', resolve);
-      stream.on('end', resolve);
-    } catch (error) {
-      reject(error);
+    if (ext === '.svg') {
+      try {
+        const result = svgOptimize(file.contents.toString('utf-8'), {
+          plugins: [{
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+                removeTitle: false,
+                collapseGroups: false,
+              },
+            },
+          }],
+        });
+        file.contents = Buffer.from(result.data, 'utf-8');
+      } catch (_err) { /* pass through on error */ }
+      cb(null, file);
+      return;
     }
+
+    const RASTER_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
+    if (!RASTER_EXTS.has(ext)) { cb(null, file); return; }
+
+    (async () => {
+      try {
+        const img = sharp(file.contents);
+        if (JPEG_EXTS.has(ext)) {
+          file.contents = await img.jpeg({ progressive: true, quality: 85 }).toBuffer();
+        } else if (ext === '.png') {
+          file.contents = await img.png({ compressionLevel: 8 }).toBuffer();
+        } else if (ext === '.webp') {
+          file.contents = await img.webp({ quality: 85 }).toBuffer();
+        } else if (ext === '.avif') {
+          file.contents = await img.avif({ quality: 50 }).toBuffer();
+        }
+      } catch (_err) { /* pass through on error */ }
+      cb(null, file);
+    })();
   });
-};
-imageTask.description = 'losslessly compress image assets';
+
+const imageTask = () =>
+  gulp
+    .src(globs.to.img, { encoding: false })
+    .pipe(plumber(errorHandler))
+    .pipe(changed(globs.to.dist))
+    .pipe(optimizeImage())
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(globs.to.dist));
+
+imageTask.description = 'compress images with sharp (JPEG/PNG/WebP/AVIF) and svgo (SVG)';
 
 export default imageTask;
+

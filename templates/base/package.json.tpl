@@ -34,7 +34,6 @@
     "gulp-changed": "^5.0.3",
     "gulp-flatmap": "^1.0.2",
     "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^9.1.0",
     "gulp-inline-source": "^4.0.0",
     "gulp-notify": "^5.0.0",
     "gulp-nunjucks": "^6.1.0",
@@ -51,13 +50,15 @@
     "marked": "^16.3.0",
     "nunjucks": "^3.2.4",
     "nunjucks-markdown": "^2.0.1",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.10",
     "sass": "^1.93.2",
+    "sharp": "^0.34.0",
     "ssh2-sftp-client": "^12.0.1",
     "stylelint": "^16.24.0",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-order": "^7.0.0",
     "stylelint-scss": "^6.12.1",
+    "svgo": "^3.3.2",
     "through2": "^4.0.2"
   },
   "dependencies": {
@@ -66,5 +67,11 @@
     "hamburgers": "^1.2.1",
     "normalize.css": "^8.0.1",
     "swiper": "^12.0.2"
+  },
+  "overrides": {
+    "lodash.template": "^4.5.0",
+    "nth-check": "^2.1.1",
+    "terser": "^5.0.0",
+    "uuid": "^11.1.1"
   }
 }
