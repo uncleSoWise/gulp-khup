@@ -8,6 +8,20 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-07-17
+
+### Added
+
+- WordPress project type: full PHP theme boilerplate ported from Archive (#76)
+  - `functions.php` + 6 sub-modules (`config`, `gutenberg`, `plugins`, `search`, `utils`, custom nav walker)
+  - PHP templates: `header`, `footer`, `index`, `page`, `single`, `404`, `inc/loop`, `inc/loop-search`
+  - `style.css` — WordPress theme header (`Theme Name`, `Text Domain`, `Version`)
+  - `theme.json` — WP 6.0+ Global Styles (colour palette, typography scale, spacing)
+  - `patterns/hero.php` — native WP 6.0+ block pattern, auto-discovered (no registration needed)
+  - New `appSlug` scaffold token (dashes → underscores) used as PHP function prefix
+  - All ACF calls guarded with `function_exists()` — theme works without ACF Pro
+  - `wp_enqueue_scripts` hook (Archive bug fixed: was incorrectly using `wp_footer`/`init`)
+
 ## [1.2.1] - 2026-07-17
 
 ### Fixed

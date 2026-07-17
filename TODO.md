@@ -19,6 +19,6 @@ All three project types scaffold and build correctly. `create-gulp-khup@1.1.6` i
 
 ## Phase 4+ — New Features
 
-- WordPress project type: advanced theme features (block patterns, block.json, theme.json) (see [#76](https://github.com/uncleSoWise/gulp-khup/issues/76))
+- ~~WordPress project type: advanced theme features (block patterns, block.json, theme.json)~~ (closed [#76](https://github.com/uncleSoWise/gulp-khup/issues/76))
 - Email project type: client-specific compatibility passes (see [#77](https://github.com/uncleSoWise/gulp-khup/issues/77))
 - ~~`cosmiconfig` support for customizing globs~~ — closed as not planned; scaffolded projects own `globs.js` directly ([#18](https://github.com/uncleSoWise/gulp-khup/issues/18))
