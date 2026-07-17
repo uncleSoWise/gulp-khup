@@ -53,6 +53,7 @@ export async function scaffold({
     appVersion: '0.1.0',
     year: new Date().getFullYear().toString(),
     inSubFolder: '',
+    appSlug: projectName.replace(/-/g, '_'),
   };
 
   try {
