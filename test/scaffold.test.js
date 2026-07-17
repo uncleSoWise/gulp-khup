@@ -413,7 +413,7 @@ describe('scaffold — WordPress PHP theme port (#76)', () => {
 
   it('generates style.css with theme header tokens substituted', async () => {
     const { readFile } = await import('fs/promises');
-    const content = await readFile(join(outDir, 'style.css'), 'utf-8');
+    const content = await readFile(join(outDir, 'src', 'style.css'), 'utf-8');
     expect(content).toContain('Theme Name: my-wp-theme');
     expect(content).toContain('Test Author');
     expect(content).not.toContain('pnmg');
@@ -421,17 +421,17 @@ describe('scaffold — WordPress PHP theme port (#76)', () => {
   });
 
   it('generates theme.json', async () => {
-    await expect(access(join(outDir, 'theme.json'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'theme.json'))).resolves.toBeUndefined();
   });
 
   it('theme.json is valid JSON', async () => {
     const { readFile } = await import('fs/promises');
-    const content = await readFile(join(outDir, 'theme.json'), 'utf-8');
+    const content = await readFile(join(outDir, 'src', 'theme.json'), 'utf-8');
     expect(() => JSON.parse(content)).not.toThrow();
   });
 
   it('generates functions.php', async () => {
-    await expect(access(join(outDir, 'functions.php'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'functions.php'))).resolves.toBeUndefined();
   });
 
   it('generates all functions/ sub-modules', async () => {
@@ -443,7 +443,7 @@ describe('scaffold — WordPress PHP theme port (#76)', () => {
       'functions/utils.php',
       'functions/walkers/Walker_Nav_Menu_Custom.php',
     ]) {
-      await expect(access(join(outDir, file)), file).resolves.toBeUndefined();
+      await expect(access(join(outDir, 'src', file)), file).resolves.toBeUndefined();
     }
   });
 
@@ -459,21 +459,21 @@ describe('scaffold — WordPress PHP theme port (#76)', () => {
       'footer.php',
       'index.php',
     ]) {
-      const content = await readFile(join(outDir, file), 'utf-8');
+      const content = await readFile(join(outDir, 'src', file), 'utf-8');
       expect(content, `${file} should not contain pnmg_`).not.toContain('pnmg_');
     }
   });
 
   it('functions/config.php uses wp_enqueue_scripts hook', async () => {
     const { readFile } = await import('fs/promises');
-    const content = await readFile(join(outDir, 'functions/config.php'), 'utf-8');
+    const content = await readFile(join(outDir, 'src', 'functions', 'config.php'), 'utf-8');
     expect(content).toContain("add_action( 'wp_enqueue_scripts'");
     expect(content).not.toContain("add_action( 'wp_footer'");
   });
 
   it('functions/plugins.php wraps ACF calls in function_exists()', async () => {
     const { readFile } = await import('fs/promises');
-    const content = await readFile(join(outDir, 'functions/plugins.php'), 'utf-8');
+    const content = await readFile(join(outDir, 'src', 'functions', 'plugins.php'), 'utf-8');
     expect(content).toContain('function_exists');
   });
 
@@ -483,17 +483,17 @@ describe('scaffold — WordPress PHP theme port (#76)', () => {
       'page.php', 'single.php', '404.php',
       'inc/loop.php', 'inc/loop-search.php',
     ]) {
-      await expect(access(join(outDir, file)), file).resolves.toBeUndefined();
+      await expect(access(join(outDir, 'src', file)), file).resolves.toBeUndefined();
     }
   });
 
   it('generates patterns/hero.php', async () => {
-    await expect(access(join(outDir, 'patterns/hero.php'))).resolves.toBeUndefined();
+    await expect(access(join(outDir, 'src', 'patterns', 'hero.php'))).resolves.toBeUndefined();
   });
 
   it('index.php contains YOUR_FIELD_KEY placeholder for ACF block keys', async () => {
     const { readFile } = await import('fs/promises');
-    const content = await readFile(join(outDir, 'index.php'), 'utf-8');
+    const content = await readFile(join(outDir, 'src', 'index.php'), 'utf-8');
     expect(content).toContain('YOUR_FIELD_KEY');
   });
 });
