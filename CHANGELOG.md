@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-07-17
+
+### Fixed
+
+- Email project type: synced `package.json.tpl` with base — `gulp build` was broken due to missing deps (#77)
+- Email `_css.njk`: fixed `@media only screen and (max-width: 560)` → `560px` (missing unit; query never fired)
+- Documented Campaign Monitor merge tags (`<currentyear>`, `<webversion>`, `<unsubscribe>`, `<singleline>`) in email templates (#77)
+
 ## [1.3.0] - 2026-07-17
 
 ### Added
