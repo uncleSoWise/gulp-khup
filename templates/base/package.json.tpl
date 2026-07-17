@@ -29,7 +29,6 @@
     "dotenv": "^17.2.2",
     "esbuild": "^0.25.10",
     "@biomejs/biome": "^2.2.4",
-    "fancy-log": "^2.0.0",
     "gulp": "^5.0.1",
     "gulp-cached": "^1.1.1",
     "gulp-changed": "^5.0.3",
@@ -53,15 +52,13 @@
     "nunjucks": "^3.2.4",
     "nunjucks-markdown": "^2.0.1",
     "postcss": "^8.5.6",
-    "psi": "^4.1.0",
     "sass": "^1.93.2",
     "ssh2-sftp-client": "^12.0.1",
     "stylelint": "^16.24.0",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-order": "^7.0.0",
     "stylelint-scss": "^6.12.1",
-    "through2": "^4.0.2",
-    "vinyl-ftp": "^0.6.1"
+    "through2": "^4.0.2"
   },
   "dependencies": {
     "basiclightbox": "^5.0.4",

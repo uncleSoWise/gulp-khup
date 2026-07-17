@@ -386,3 +386,205 @@ describe('scaffold — wordpress project type', () => {
     await expect(access(join(outDir, 'src', 'js', 'editor.js'))).resolves.toBeUndefined();
   });
 });
+
+// ---------------------------------------------------------------------------
+// Bug fixes — template token substitution and path correctness
+// ---------------------------------------------------------------------------
+
+describe('scaffold — web template token substitution (bug fixes)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-bugfix-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('_layout.njk has no unresolved <%= inSubFolder %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', '_layout.njk'), 'utf-8');
+    expect(content).not.toContain('<%= inSubFolder %>');
+  });
+
+  it('index.njk has no unresolved <%= inSubFolder %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'index.njk'), 'utf-8');
+    expect(content).not.toContain('<%= inSubFolder %>');
+  });
+
+  it('inc/_meta.njk has no unresolved <%= appName %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_meta.njk'), 'utf-8');
+    expect(content).not.toContain('<%= appName %>');
+    expect(content).toContain('test-project');
+  });
+
+  it('_reset.scss uses the correct relative path to normalize.css', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'scss', 'base', '_reset.scss'), 'utf-8');
+    expect(content).toContain('../../../node_modules/normalize.css/normalize');
+    expect(content).not.toContain('../../../../../node_modules');
+  });
+
+  it('gulp/globs.js has no unresolved <%= prototypePath %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulp', 'globs.js'), 'utf-8');
+    expect(content).not.toContain('<%= prototypePath %>');
+  });
+
+  it('generated gulp task files contain no eslint-disable comments', async () => {
+    const { readFile } = await import('fs/promises');
+    const taskFiles = [
+      'gulp/tasks/build.js',
+      'gulp/tasks/css.js',
+      'gulp/tasks/html.js',
+      'gulp/tasks/img.js',
+      'gulp/tasks/js.js',
+      'gulp/tasks/nunjucks.js',
+      'gulp/tasks/watch.js',
+      'gulpfile.js',
+    ];
+    for (const file of taskFiles) {
+      const content = await readFile(join(outDir, file), 'utf-8');
+      expect(content, `${file} should have no eslint-disable`).not.toContain('eslint-disable');
+    }
+  });
+});
+
+describe('scaffold — psi task removal (#72)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-psi-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generated package.json does not include psi dependency', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('psi');
+  });
+
+  it('generated gulpfile.js does not import psiTask', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
+    expect(content).not.toContain('psiTask');
+    expect(content).not.toContain('psi.js');
+  });
+
+  it('psi.js is not copied to generated project', async () => {
+    await expect(access(join(outDir, 'gulp', 'tasks', 'psi.js'))).rejects.toThrow();
+  });
+});
+
+describe('scaffold — vinyl-ftp removal, SFTP-only deploy (#73)', () => {
+  let tmpDir;
+  let outDir;
+  const defaults = {
+    projectName: 'test-project',
+    description: 'A test project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'web',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-deploy-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...defaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('generated package.json does not include vinyl-ftp or fancy-log', async () => {
+    const { readFile } = await import('fs/promises');
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.devDependencies).not.toHaveProperty('vinyl-ftp');
+    expect(pkg.devDependencies).not.toHaveProperty('fancy-log');
+  });
+
+  it('generated deploy.js does not reference vinyl-ftp or ftpTask', async () => {
+    const { readFile } = await import('fs/promises');
+    for (const file of ['gulp/tasks/deploy.js', 'gulp/tasks/watch.js']) {
+      const content = await readFile(join(outDir, file), 'utf-8');
+      expect(content, `${file} should not import vinyl-ftp`).not.toContain('vinyl-ftp');
+      expect(content, `${file} should not define ftpTask`).not.toContain('const ftpTask');
+      expect(content, `${file} should not use fancyLog`).not.toContain('fancyLog');
+    }
+  });
+
+  it('generated deploy.js still contains sftpTask', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'gulp', 'tasks', 'deploy.js'), 'utf-8');
+    expect(content).toContain('sftpTask');
+    expect(content).toContain('ssh2-sftp-client');
+  });
+
+  it('generated .env.example has no FTP variables', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, '.env.example'), 'utf-8');
+    // Match lines that begin with FTP_ (not SFTP_ — SFTP vars are expected)
+    expect(content).not.toMatch(/^FTP_/m);
+  });
+});
+
+describe('scaffold — email template token substitution (bug fixes)', () => {
+  let tmpDir;
+  let outDir;
+  const emailDefaults = {
+    projectName: 'test-email',
+    description: 'A test email project',
+    authorName: 'Test Author',
+    authorEmail: 'test@example.com',
+    projectType: 'email',
+  };
+
+  beforeEach(async () => {
+    tmpDir = await mkdtemp(join(tmpdir(), 'gulp-khup-email-bugfix-'));
+    outDir = join(tmpDir, 'output');
+    await scaffold({ ...emailDefaults, outDir });
+  });
+
+  afterEach(async () => {
+    await rm(tmpDir, { recursive: true, force: true });
+  });
+
+  it('email layout partials have no unresolved <%= contentWidth %> token', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', 'layout', '_one-col.njk'), 'utf-8');
+    expect(content).not.toContain('<%= contentWidth %>');
+  });
+
+  it('email _preheader.njk has no unresolved EJS tokens', async () => {
+    const { readFile } = await import('fs/promises');
+    const content = await readFile(join(outDir, 'src', 'inc', '_preheader.njk'), 'utf-8');
+    expect(content).not.toContain('<%=');
+  });
+});

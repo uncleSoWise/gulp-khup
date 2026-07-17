@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 // *************************************
 //
 //   gulpflow v8.1.0
@@ -17,7 +16,6 @@
 //   `gulp js`
 //   `gulp nunjucks`
 //   `gulp prettier`
-//   `gulp psi`
 //   `gulp size`
 //   `gulp static`
 //   `gulp watch`
@@ -41,7 +39,6 @@ import htmlTask from './gulp/tasks/html.js';
 import imgTask from './gulp/tasks/img.js';
 import jsTask from './gulp/tasks/js.js';
 import nunjucksTask from './gulp/tasks/nunjucks.js';
-import psiTask from './gulp/tasks/psi.js';
 import sizeTask from './gulp/tasks/size.js';
 import staticTask from './gulp/tasks/static.js';
 import watchTask from './gulp/tasks/watch.js';
@@ -61,7 +58,6 @@ gulp.task('img', imgTask);
 gulp.task('js', jsTask);
 
 gulp.task('nunjucks', nunjucksTask);
-gulp.task('psi', psiTask);
 gulp.task('size', sizeTask);
 gulp.task('static', staticTask);
 gulp.task('watch', watchTask);

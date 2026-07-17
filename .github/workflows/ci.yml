@@ -22,7 +22,7 @@ jobs:
         run: npm install --ignore-scripts --legacy-peer-deps
 
       - name: Run security audit
-        # 163 remaining vulns all require Phase 2 breaking changes — informational only.
+        # Remaining vulns tracked in #74 (gulp-imagemin chain) — informational only.
         run: npm audit || true
 
   test:
@@ -45,3 +45,40 @@ jobs:
 
       - name: Run coverage (src/ must be 100%)
         run: npm run test:coverage
+
+  integration:
+    name: Integration Smoke Test
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install scaffolder dependencies
+        run: npm install --ignore-scripts --legacy-peer-deps
+
+      - name: Scaffold web project
+        run: |
+          node --input-type=module <<'EOF'
+          import { scaffold } from './src/scaffold.js';
+          await scaffold({
+            projectName: 'smoke-test',
+            description: 'CI integration smoke test',
+            authorName: 'CI',
+            authorEmail: 'ci@example.com',
+            projectType: 'web',
+            cwd: '/tmp',
+          });
+          EOF
+
+      - name: Install generated project dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: /tmp/smoke-test
+
+      - name: Build generated project
+        run: npx gulp build
+        working-directory: /tmp/smoke-test

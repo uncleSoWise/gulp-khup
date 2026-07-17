@@ -8,6 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Resolved unsubstituted EJS tokens in web/email templates blocking `gulp build` (#27)
+  - Renamed `_layout.njk`, `index.njk`, `inc/_meta.njk` to `.njk.tpl` so scaffold token substitution runs
+  - Added `inSubFolder: ''` to scaffold.js tokens map
+  - Fixed normalize.css path in `_reset.scss`: `../../../../../` → `../../../`
+  - Hardcoded email template EJS expressions to Archive defaults (contentWidth=560, gutterWidth=20, etc.)
+  - Removed `<%= prototypePath %>` from `globs.js`; replaced with `dist`/`src` variable references
+- Added 10 regression tests for template token substitution and path correctness
+
 ## [1.1.6] - 2026-07-16
 
 ### Fixed
