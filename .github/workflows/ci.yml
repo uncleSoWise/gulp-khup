@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [develop, next]
+    branches: [main]
   pull_request:
-    branches: [develop, next]
-    # Dependabot PRs targeting develop also trigger this via pull_request.
+    branches: [main]
+    # Dependabot PRs targeting main also trigger this via pull_request.
 
 jobs:
   # audit, typecheck, and test all run in parallel — none depend on each other.
