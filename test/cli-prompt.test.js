@@ -33,25 +33,25 @@ afterEach(() => {
 describe('promptUser', () => {
   it('calls p.intro with the package name', async () => {
     p.group.mockResolvedValueOnce(mockValues);
-    await promptUser('');
+    await promptUser({});
     expect(p.intro).toHaveBeenCalledWith('create-gulp-khup');
   });
 
   it('calls p.group to collect project details', async () => {
     p.group.mockResolvedValueOnce(mockValues);
-    await promptUser('');
+    await promptUser({});
     expect(p.group).toHaveBeenCalledOnce();
   });
 
   it('returns the values from p.group', async () => {
     p.group.mockResolvedValueOnce(mockValues);
-    const result = await promptUser('');
+    const result = await promptUser({});
     expect(result).toEqual(mockValues);
   });
 
   it('passes initialName as initialValue for the projectName prompt', async () => {
     p.group.mockResolvedValueOnce(mockValues);
-    await promptUser('pre-filled-name');
+    await promptUser({ projectName: 'pre-filled-name' });
 
     // p.group is called with (fieldsObject, options)
     // The fields object is the first arg — each field is a function
@@ -69,7 +69,7 @@ describe('promptUser', () => {
       return mockValues;
     });
 
-    await promptUser('my-project');
+    await promptUser({ projectName: 'my-project' });
 
     // p.text called for projectName, description, authorName, authorEmail (4×)
     expect(p.text).toHaveBeenCalledTimes(4);
@@ -87,11 +87,38 @@ describe('promptUser', () => {
       throw new Error('process.exit called');
     });
 
-    await expect(promptUser('')).rejects.toThrow('process.exit called');
+    await expect(promptUser({})).rejects.toThrow('process.exit called');
 
     expect(p.cancel).toHaveBeenCalledWith('Cancelled — no files were created.');
     expect(exitSpy).toHaveBeenCalledWith(0);
 
     exitSpy.mockRestore();
+  });
+
+  it('accepts an initialValues object (no error thrown with object arg)', async () => {
+    p.group.mockResolvedValueOnce(mockValues);
+    await expect(promptUser({ projectName: 'init-name' })).resolves.toBeDefined();
+  });
+
+  it('passes initialValues.projectName as initialValue to the projectName prompt', async () => {
+    p.group.mockImplementationOnce(async (fieldsObj) => {
+      await fieldsObj.projectName();
+      return mockValues;
+    });
+    await promptUser({ projectName: 'pre-filled' });
+    expect(p.text).toHaveBeenCalledWith(
+      expect.objectContaining({ initialValue: 'pre-filled' })
+    );
+  });
+
+  it('passes initialValues.description as initialValue to the description prompt', async () => {
+    p.group.mockImplementationOnce(async (fieldsObj) => {
+      await fieldsObj.description();
+      return mockValues;
+    });
+    await promptUser({ description: 'pre-filled desc' });
+    expect(p.text).toHaveBeenCalledWith(
+      expect.objectContaining({ initialValue: 'pre-filled desc' })
+    );
   });
 });

@@ -6,7 +6,7 @@ import { scaffold } from '../src/scaffold.js';
 const rawArg = process.argv[2];
 const initialName = rawArg ? sanitizeProjectName(rawArg) : '';
 
-const values = await promptUser(initialName);
+const values = await promptUser({ projectName: initialName });
 const projectName = sanitizeProjectName(values.projectName);
 
 p.log.step(`Scaffolding ${projectName}...`);
