@@ -2,7 +2,7 @@
 import { parseArgs } from 'node:util';
 import { readFile } from 'node:fs/promises';
 import * as p from '@clack/prompts';
-import { promptUser, sanitizeProjectName, getGitConfig } from '../src/cli.js';
+import { promptUser, sanitizeProjectName, validateProjectName, getGitConfig } from '../src/cli.js';
 import { scaffold } from '../src/scaffold.js';
 
 let flags, positionals;
@@ -60,6 +60,11 @@ let values;
 if (flags.yes) {
   if (!rawArg) {
     p.log.error('Project name is required with --yes. Usage: npm create gulp-khup@latest <name> --yes');
+    process.exit(1);
+  }
+  const nameError = validateProjectName(initialName);
+  if (nameError) {
+    p.log.error(nameError);
     process.exit(1);
   }
   const [authorName, authorEmail] = await Promise.all([

@@ -25,6 +25,10 @@ describe('bin/create.js', () => {
     expect(source).toContain('sanitizeProjectName');
   });
 
+  it('calls validateProjectName on the project name in --yes mode', () => {
+    expect(source).toContain('validateProjectName');
+  });
+
   it('imports scaffold from src/scaffold.js', () => {
     expect(source).toContain("from '../src/scaffold.js'");
     expect(source).toContain('scaffold');
