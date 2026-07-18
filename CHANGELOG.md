@@ -24,6 +24,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `fastclick` removed from generated web project (deprecated since iOS 8)
 - 0 moderate vulnerabilities remaining in generated projects (was 5; resolved with `postcss` override)
 
+## [1.4.0] - 2026-07-18
+
+### Added
+- `--yes`/`-y` flag: skip all prompts; uses `--type` (default `web`), `--description`, and git config for author/email fields
+- `--type` flag: pre-select project type (`web`, `wordpress`, `email`) — works in both interactive (pre-fills prompt) and `--yes` mode
+- `--description` flag: pre-fill or set description
+- `--version`/`-v` flag: print version and exit
+- `--help`/`-h` flag: print usage summary and exit
+
+### Changed
+- `validateProjectName` now enforces npm package name rules: lowercase only, must start with a letter or number, max 214 characters
+- `promptUser` now accepts an `initialValues` object to pre-fill any prompt field (previously only project name was pre-fillable)
+
 ## [1.3.1] - 2026-07-17
 
 ### Fixed
@@ -259,7 +272,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 [Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...HEAD
-[1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.5.0
+[1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.0...v1.2.1

@@ -25,6 +25,10 @@ describe('bin/create.js', () => {
     expect(source).toContain('sanitizeProjectName');
   });
 
+  it('calls validateProjectName on the project name in --yes mode', () => {
+    expect(source).toContain('validateProjectName');
+  });
+
   it('imports scaffold from src/scaffold.js', () => {
     expect(source).toContain("from '../src/scaffold.js'");
     expect(source).toContain('scaffold');
@@ -34,12 +38,42 @@ describe('bin/create.js', () => {
     expect(source).toContain("from '@clack/prompts'");
   });
 
-  it('reads the CLI argument from process.argv[2]', () => {
-    expect(source).toContain('process.argv[2]');
+  it('reads CLI arguments from process.argv', () => {
+    expect(source).toContain('process.argv.slice(2)');
   });
 
   it('handles scaffold errors with p.log.error and process.exit(1)', () => {
     expect(source).toContain('process.exit(1)');
     expect(source).toContain('p.log.error');
+  });
+
+  it('imports parseArgs from node:util', () => {
+    expect(source).toContain("from 'node:util'");
+    expect(source).toContain('parseArgs');
+  });
+
+  it('handles the --version flag', () => {
+    expect(source).toContain('flags.version');
+    expect(source).toContain('pkg.version');
+  });
+
+  it('handles the --help flag', () => {
+    expect(source).toContain('flags.help');
+    expect(source).toContain('--type');
+    expect(source).toContain('--yes');
+    expect(source).toContain('--version');
+  });
+
+  it('handles the --yes flag for non-interactive mode', () => {
+    expect(source).toContain('flags.yes');
+    expect(source).toContain('getGitConfig');
+  });
+
+  it('validates --type against VALID_TYPES', () => {
+    expect(source).toContain('VALID_TYPES');
+  });
+
+  it('imports getGitConfig from src/cli.js', () => {
+    expect(source).toContain('getGitConfig');
   });
 });
