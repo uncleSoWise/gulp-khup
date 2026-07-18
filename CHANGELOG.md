@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Biome linter configured for scaffolder source (`src/`, `bin/`, `test/`) — `npm run lint` / `npm run format`
+
+### Changed
+- CI `test` job: removed redundant `npm test` step; only `npm run test:coverage` runs (halves test time per matrix leg)
+- CI `typecheck` job: added Biome lint step
+
+### Fixed
+- Removed `--legacy-peer-deps` from CI scaffolder installs (peer conflict no longer exists)
+
 ## [1.3.1] - 2026-07-17
 
 ### Fixed
