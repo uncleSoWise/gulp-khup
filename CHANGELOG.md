@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-18
+
+### Added
+- `templates/web/package.json.tpl` — web project type now gets only its required deps (stylelint stack, ssh2-sftp-client, nunjucks stack, gulp-inline-source, runtime frontend libs)
+- `templates/wordpress/package.json.tpl` — WordPress project type now gets only its required deps (stylelint stack, ssh2-sftp-client)
+
+### Changed
+- `through2` replaced with native `node:stream` `Transform` in all base task files (css.js, js.js, img.js, html.js, nunjucks.js, watch.js, deploy.js)
+- `gulp-touch-cmd 0.0.1` replaced with inline `fs.utimes` Transform in `js.js`
+- `gulp-special-html 0.0.4` replaced with inline entity-correction Transform in `html.js` and `nunjucks.js`
+- Generated `package.json` no longer includes a `repository` field
+- `css.js` comment corrected: `// 8 bytes` → `// 8 KB`
+
+### Removed
+- `fastclick` removed from generated web project (deprecated since iOS 8)
+- 0 moderate vulnerabilities remaining in generated projects (was 5; resolved with `postcss` override)
+
 ## [1.3.1] - 2026-07-17
 
 ### Fixed
@@ -241,7 +258,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.5.0
 [1.3.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.0...v1.2.1
