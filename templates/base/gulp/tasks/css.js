@@ -28,7 +28,7 @@ import * as sassCompiler from 'sass';
 import sourcemaps from 'gulp-sourcemaps';
 import path from 'path';
 import { promises as fs } from 'fs';
-import through from 'through2';
+import { Transform, PassThrough } from 'node:stream';
 import commandLineArguments from '../commandLineArguments.js';
 import errorHandler from '../errorHandler.js';
 import globs from '../globs.js';
@@ -156,19 +156,23 @@ const inlineTargets = (Array.isArray(globs.to.scssInline) ? globs.to.scssInline 
     return path.join(cssDir, `${baseName}.css`);
   });
 
-const filterInlineTargets = () => through.obj(function transform(file, _enc, cb) {
-  if (inlineTargets.includes(path.resolve(file.path))) {
-    this.push(file);
-  }
+const filterInlineTargets = () =>
+  new Transform({
+    objectMode: true,
+    transform(file, _enc, cb) {
+      if (inlineTargets.includes(path.resolve(file.path))) {
+        this.push(file);
+      }
 
-  cb();
-});
+      cb();
+    },
+  });
 
 const cssTask = () => {
   return gulp
     .src(globs.to.scss, { base: globs.to.src })
     .pipe(plumber(errorHandler))
-    .pipe(commandLineArguments.nomin ? sourcemaps.init() : through.obj())
+    .pipe(commandLineArguments.nomin ? sourcemaps.init() : new PassThrough({ objectMode: true }))
     .pipe(sass.sync({
       silenceDeprecations: ['legacy-js-api']
     }).on('error', sass.logError))
@@ -177,14 +181,14 @@ const cssTask = () => {
         includeContent: false,
         sourceRoot: globs.to.src
       })
-      : through.obj())
+      : new PassThrough({ objectMode: true }))
     .pipe(postcss([autoprefixer({ cascade: false })]))
     .pipe(pxtorem(pxtoremOptions))
     .pipe(postcss([createInlineAssetsPlugin()]))
     .pipe(rename((file) => {
       file.dirname = path.join(file.dirname, '../css');
     }))
-    .pipe(commandLineArguments.nomin ? through.obj() : postcss([cssnano({
+    .pipe(commandLineArguments.nomin ? new PassThrough({ objectMode: true }) : postcss([cssnano({
       autoprefixer: true, svgo: false, zindex: false
     })]))
     .pipe(gulp.dest(globs.to.dist))
