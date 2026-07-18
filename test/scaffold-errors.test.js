@@ -2,10 +2,10 @@
 // These tests cover the branches that require specific error conditions
 // and use filesystem tricks or the _templatesDir test seam — no vi.mock needed.
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtemp, mkdir, writeFile, rm, access } from 'fs/promises';
-import { join } from 'path';
-import { tmpdir } from 'os';
+import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { scaffold } from '../src/scaffold.js';
 
@@ -27,7 +27,7 @@ describe('scaffold — mkdir error re-throw (lines 62-63)', () => {
       scaffold({
         ...defaults,
         outDir: '/this-parent-definitely-does-not-exist-gulp-khup/child',
-      })
+      }),
     ).rejects.toThrow(); // ENOENT from mkdir — re-thrown by scaffold
   });
 
@@ -61,9 +61,7 @@ describe('scaffold — copyDir error paths (lines 75-77)', () => {
     await writeFile(join(tplDir, 'base', 'test.txt'), 'hello');
     // web/ intentionally absent → readdir throws ENOENT → no-op (line 75 return)
 
-    await expect(
-      scaffold({ ...defaults, outDir, _templatesDir: tplDir })
-    ).resolves.toBeUndefined();
+    await expect(scaffold({ ...defaults, outDir, _templatesDir: tplDir })).resolves.toBeUndefined();
 
     // base/test.txt was still copied
     await expect(access(join(outDir, 'test.txt'))).resolves.toBeUndefined();
@@ -76,8 +74,6 @@ describe('scaffold — copyDir error paths (lines 75-77)', () => {
     await mkdir(tplDir, { recursive: true });
     await writeFile(join(tplDir, 'base'), 'i am a file, not a directory');
 
-    await expect(
-      scaffold({ ...defaults, outDir, _templatesDir: tplDir })
-    ).rejects.toThrow(); // ENOTDIR — not ENOENT — so it propagates
+    await expect(scaffold({ ...defaults, outDir, _templatesDir: tplDir })).rejects.toThrow(); // ENOTDIR — not ENOENT — so it propagates
   });
 });

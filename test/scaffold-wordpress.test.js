@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { access, readFile } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { scaffold } from '../src/scaffold.js';
 import { makeTmpDir } from './helpers.js';
 
@@ -115,8 +115,14 @@ describe('scaffold — WordPress project type', () => {
 
   it('generated PHP files use appSlug prefix (my_wp_theme_) and have no pnmg_', async () => {
     for (const file of [
-      'functions.php', 'functions/config.php', 'functions/gutenberg.php',
-      'functions/plugins.php', 'functions/utils.php', 'header.php', 'footer.php', 'index.php',
+      'functions.php',
+      'functions/config.php',
+      'functions/gutenberg.php',
+      'functions/plugins.php',
+      'functions/utils.php',
+      'header.php',
+      'footer.php',
+      'index.php',
     ]) {
       const content = await readFile(join(outDir, 'src', file), 'utf-8');
       expect(content, `${file}: no pnmg_`).not.toContain('pnmg_');
@@ -138,8 +144,14 @@ describe('scaffold — WordPress project type', () => {
 
   it('generates all PHP template files', async () => {
     for (const file of [
-      'header.php', 'footer.php', 'index.php', 'page.php', 'single.php', '404.php',
-      'inc/loop.php', 'inc/loop-search.php',
+      'header.php',
+      'footer.php',
+      'index.php',
+      'page.php',
+      'single.php',
+      '404.php',
+      'inc/loop.php',
+      'inc/loop-search.php',
     ]) {
       await expect(access(join(outDir, 'src', file)), file).resolves.toBeUndefined();
     }

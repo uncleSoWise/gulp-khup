@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { parseArgs } from 'node:util';
 import { readFile } from 'node:fs/promises';
+import { parseArgs } from 'node:util';
 import * as p from '@clack/prompts';
-import { promptUser, sanitizeProjectName, validateProjectName, getGitConfig } from '../src/cli.js';
+import { getGitConfig, promptUser, sanitizeProjectName, validateProjectName } from '../src/cli.js';
 import { scaffold } from '../src/scaffold.js';
 
 let flags, positionals;
@@ -10,11 +10,11 @@ try {
   const parsed = parseArgs({
     args: process.argv.slice(2),
     options: {
-      version:     { type: 'boolean', short: 'v' },
-      help:        { type: 'boolean', short: 'h' },
-      type:        { type: 'string' },
+      version: { type: 'boolean', short: 'v' },
+      help: { type: 'boolean', short: 'h' },
+      type: { type: 'string' },
       description: { type: 'string' },
-      yes:         { type: 'boolean', short: 'y' },
+      yes: { type: 'boolean', short: 'y' },
     },
     allowPositionals: true,
   });
@@ -26,9 +26,7 @@ try {
 }
 
 if (flags.version) {
-  const pkg = JSON.parse(
-    await readFile(new URL('../package.json', import.meta.url), 'utf-8')
-  );
+  const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf-8'));
   console.log(pkg.version);
   process.exit(0);
 }
@@ -59,7 +57,9 @@ const initialName = rawArg ? sanitizeProjectName(rawArg) : '';
 let values;
 if (flags.yes) {
   if (!rawArg) {
-    p.log.error('Project name is required with --yes. Usage: npm create gulp-khup@latest <name> --yes');
+    p.log.error(
+      'Project name is required with --yes. Usage: npm create gulp-khup@latest <name> --yes',
+    );
     process.exit(1);
   }
   const nameError = validateProjectName(initialName);
@@ -81,7 +81,9 @@ if (flags.yes) {
 } else {
   values = await promptUser({
     projectName: initialName,
-    ...(flags.type        && { projectType:   /** @type {import('../src/cli.js').ProjectType} */ (flags.type) }),
+    ...(flags.type && {
+      projectType: /** @type {import('../src/cli.js').ProjectType} */ (flags.type),
+    }),
     ...(flags.description !== undefined && { description: flags.description }),
   });
 }

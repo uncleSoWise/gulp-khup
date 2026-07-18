@@ -1,7 +1,7 @@
 // @ts-check
-import { copyFile, mkdir, readFile, writeFile, readdir } from 'fs/promises';
-import { join, dirname, extname, basename } from 'path';
-import { fileURLToPath } from 'url';
+import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { basename, dirname, extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -31,7 +31,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export function applyTokens(content, tokens) {
   return Object.entries(tokens).reduce(
     (str, [key, value]) => str.replaceAll(`<%= ${key} %>`, value),
-    content
+    content,
   );
 }
 
@@ -43,10 +43,7 @@ export function applyTokens(content, tokens) {
  * @returns {string[]}
  */
 export function resolveTemplateDirs(projectType, templatesDir) {
-  return [
-    join(templatesDir, 'base'),
-    join(templatesDir, projectType),
-  ];
+  return [join(templatesDir, 'base'), join(templatesDir, projectType)];
 }
 
 /**

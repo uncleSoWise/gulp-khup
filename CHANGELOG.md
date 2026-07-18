@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-07-18
+
+### Added
+- Biome linter configured for scaffolder source (`src/`, `bin/`, `test/`) — `npm run lint` / `npm run format`
+
+### Changed
+- Minimum Node.js version raised to 22 (Node 18 and 20 are EOL; `engines` updated to `>=22`)
+- CI `test` job: Node matrix updated to 22 + 24 (Node 18 removed)
+- CI `lint` job: new dedicated parallel job using `biome ci .` (outputs inline PR annotations)
+- CI `test` job: removed redundant `npm test` step; only `npm run test:coverage` runs
+- CI: concurrency group added — in-progress runs cancelled on new push
+- CI: `audit` job no longer runs `npm ci` (npm audit only needs `package-lock.json`)
+- CI: `permissions: contents: read` declared at workflow level
+- Dependabot: `target-branch: main` explicit; grouped updates for `vitest`, `typescript`, `biome`, and GitHub Actions
+
+### Fixed
+- Removed `--legacy-peer-deps` from CI scaffolder installs (peer conflict no longer exists)
+
 ## [1.5.0] - 2026-07-18
 
 ### Added
@@ -271,7 +289,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.0...v1.3.1

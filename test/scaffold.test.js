@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mkdtemp, rm, mkdir, access } from 'fs/promises';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { tmpdir } from 'os';
+import { access, mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { scaffold, applyTokens, resolveTemplateDirs } from '../src/scaffold.js';
+import { applyTokens, resolveTemplateDirs, scaffold } from '../src/scaffold.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = join(__dirname, '../templates');
@@ -56,7 +56,9 @@ describe('resolveTemplateDirs', () => {
   });
 
   it('returns type-specific dir for wordpress type', () => {
-    expect(resolveTemplateDirs('wordpress', TEMPLATES_DIR)[1]).toBe(join(TEMPLATES_DIR, 'wordpress'));
+    expect(resolveTemplateDirs('wordpress', TEMPLATES_DIR)[1]).toBe(
+      join(TEMPLATES_DIR, 'wordpress'),
+    );
   });
 
   it('returns type-specific dir for email type', () => {
@@ -108,6 +110,8 @@ describe('scaffold — directory handling', () => {
   });
 
   it('succeeds silently when type-specific template dir does not exist', async () => {
-    await expect(scaffold({ ...defaults, outDir, projectType: 'wordpress' })).resolves.toBeUndefined();
+    await expect(
+      scaffold({ ...defaults, outDir, projectType: 'wordpress' }),
+    ).resolves.toBeUndefined();
   });
 });

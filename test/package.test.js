@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, expect, it } from 'vitest';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'));
@@ -31,8 +31,8 @@ describe('package.json', () => {
     expect(pkg.exports).toBe('./src/scaffold.js');
   });
 
-  it('requires Node.js 18 or higher', () => {
-    expect(pkg.engines?.node).toBe('>=18');
+  it('requires Node.js 22 or higher', () => {
+    expect(pkg.engines?.node).toBe('>=22');
   });
 
   it('only ships bin/, src/, and templates/ in the published package', () => {

@@ -1,14 +1,14 @@
 {
   "name": "create-gulp-khup",
   "description": "Scaffold a Gulp 5 static-site project — npm create gulp-khup@latest my-project",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "type": "module",
   "bin": {
     "create-gulp-khup": "bin/create.js"
   },
   "exports": "./src/scaffold.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "files": [
     "bin",
@@ -27,12 +27,15 @@
   "scripts": {
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "format": "biome format --write ."
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.4",
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^3.0.0",
     "typescript": "^7.0.2",
