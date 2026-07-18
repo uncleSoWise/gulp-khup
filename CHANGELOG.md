@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-07-18
+
+### Changed
+- `@clack/prompts` updated from 0.10.1 to 1.7.0 (sole runtime dep; no breaking changes)
+- `vitest` and `@vitest/coverage-v8` updated from 3.x to 4.x (dev dep; no test changes required)
+
 ## [1.6.0] - 2026-07-18
 
 ### Added
@@ -289,7 +295,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.4.0

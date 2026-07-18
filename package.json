@@ -1,7 +1,7 @@
 {
   "name": "create-gulp-khup",
   "description": "Scaffold a Gulp 5 static-site project — npm create gulp-khup@latest my-project",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "type": "module",
   "bin": {
     "create-gulp-khup": "bin/create.js"
