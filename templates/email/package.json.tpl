@@ -47,8 +47,7 @@
     "postcss": "^8.5.10",
     "sass": "^1.93.2",
     "sharp": "^0.34.0",
-    "svgo": "^3.3.2",
-    "through2": "^4.0.2"
+    "svgo": "^3.3.2"
   },
   "overrides": {
     "lodash.template": "^4.5.0",

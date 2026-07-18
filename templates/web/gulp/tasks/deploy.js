@@ -16,7 +16,7 @@ import gulp from "gulp";
 import path from "node:path";
 import plumber from "gulp-plumber";
 import { readFileSync } from "node:fs";
-import through2 from "through2";
+import { Transform } from "node:stream";
 
 const sftpTask = () => {
   const sftpConfig = {
@@ -52,7 +52,7 @@ const sftpTask = () => {
   const toPosixPath = (filePath) => filePath.split(path.sep).join(path.posix.sep);
 
   const sftpUploadStream = () =>
-    through2.obj((file, _, cb) => {
+    new Transform({ objectMode: true, transform(file, _, cb) {
       (async () => {
         if (file.isNull()) {
           cb(null, file);
@@ -80,7 +80,7 @@ const sftpTask = () => {
         sftpClient.end().catch(() => {});
         cb(err);
       });
-    });
+    }});
 
   const stream = gulp
     .src(globs.to.deploy.globs, { base: globs.to.deployBase })

@@ -52,8 +52,7 @@
     "stylelint-config-standard": "^39.0.0",
     "stylelint-order": "^7.0.0",
     "stylelint-scss": "^6.12.1",
-    "svgo": "^3.3.2",
-    "through2": "^4.0.2"
+    "svgo": "^3.3.2"
   },
   "dependencies": {
     "basiclightbox": "^5.0.4",

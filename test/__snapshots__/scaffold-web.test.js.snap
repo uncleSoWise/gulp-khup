@@ -125,7 +125,6 @@ exports[`scaffold — web project: file content > matches package.json snapshot 
     "stylelint-order": "^7.0.0",
     "stylelint-scss": "^6.12.1",
     "svgo": "^3.3.2",
-    "through2": "^4.0.2",
   },
   "license": "MIT",
   "main": "./gulpfile.js",
