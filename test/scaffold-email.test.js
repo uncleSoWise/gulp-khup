@@ -1,11 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { access, readFile } from 'fs/promises';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import { scaffold } from '../src/scaffold.js';
 import { makeTmpDir } from './helpers.js';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // ---------------------------------------------------------------------------
 // scaffold() — email project type
