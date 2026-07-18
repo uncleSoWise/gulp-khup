@@ -35,7 +35,7 @@ if (flags.version) {
 
 if (flags.help) {
   console.log(`
-Usage: npm create gulp-khup@latest <project-name> [options]
+Usage: npm create gulp-khup@latest [project-name] [options]
 
 Options:
   --type <type>          Project type: web, wordpress, or email (default: web)

@@ -138,4 +138,15 @@ describe('promptUser', () => {
       expect.objectContaining({ initialValue: 'override@example.com' })
     );
   });
+
+  it('passes initialValues.projectType as initialValue to the projectType prompt', async () => {
+    p.group.mockImplementationOnce(async (fieldsObj) => {
+      await fieldsObj.projectType();
+      return mockValues;
+    });
+    await promptUser({ projectType: 'wordpress' });
+    expect(p.select).toHaveBeenCalledWith(
+      expect.objectContaining({ initialValue: 'wordpress' })
+    );
+  });
 });

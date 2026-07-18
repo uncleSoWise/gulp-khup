@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-07-18
+
 ### Added
 - `--yes`/`-y` flag: skip all prompts; uses `--type` (default `web`), `--description`, and git config for author/email fields
 - `--type` flag: pre-select project type (`web`, `wordpress`, `email`) — works in both interactive (pre-fills prompt) and `--yes` mode
@@ -252,7 +254,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.0...v1.2.1
