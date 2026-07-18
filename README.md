@@ -196,5 +196,8 @@ These values are substituted into `.tpl` files during scaffolding:
 
 ## Contributing
 
-See [AGENTS.md](AGENTS.md) for codebase architecture, conventions, and AI agent guidance.  
-See [TODO.md](TODO.md) for the roadmap.
+See [AGENTS.md](AGENTS.md) for codebase architecture, conventions, and AI agent guidance.
+
+- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) prefixes + [cbea.ms rules](https://cbea.ms/git-commit/) (imperative, ≤72 chars, body explains why)
+- **Changelog:** [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) — update `## [Unreleased]` with every user-facing change
+- **Roadmap:** See [TODO.md](TODO.md)

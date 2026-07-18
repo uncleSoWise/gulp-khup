@@ -1,10 +1,9 @@
-# create-gulp-khup | Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to
-[Semantic Versioning](http://semver.org/spec/v2.0.0.html)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -239,3 +238,21 @@ and this project adheres to
 ### Added
 
 -   Repo initial commit
+
+---
+
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.6...v1.2.0
+[1.1.6]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.5...v1.1.6
+[1.1.5]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.4...v1.1.5
+[1.1.4]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/uncleSoWise/gulp-khup/compare/v0.1.1...v1.0.0
+[0.1.1]: https://github.com/uncleSoWise/gulp-khup/compare/0.1.0...v0.1.1
+[0.1.0]: https://github.com/uncleSoWise/gulp-khup/releases/tag/0.1.0

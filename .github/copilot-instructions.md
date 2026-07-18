@@ -62,5 +62,17 @@ When editing files inside `templates/`:
 - `npm run test:coverage` exits 0 (100% src/ coverage)
 - `npx tsc --project jsconfig.json --noEmit` exits 0 (0 type errors)
 - CI integration smoke test passes for all 3 project types (`gulp build` on web, email, wordpress)
-- CHANGELOG.md updated for user-facing changes
+- CHANGELOG.md updated for user-facing changes (Keep a Changelog 1.1.0 format)
+
+## Commit Conventions
+- Prefix: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `ci:`, `security:` ([Conventional Commits](https://www.conventionalcommits.org/))
+- Subject ≤72 characters, imperative mood, no trailing period
+- Blank line between subject and body when a body is needed
+- Body explains *why*, not *how* (the diff shows how)
+- Reference: [cbea.ms/git-commit](https://cbea.ms/git-commit/)
+
+## Changelog Conventions
+- Format: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+- Sections: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
+- Always update `## [Unreleased]` during development; close it at release time
 

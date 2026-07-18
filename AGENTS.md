@@ -107,7 +107,8 @@ Four job groups run in parallel — `audit`, `typecheck`, and `test` are indepen
 - **ESM throughout** — `"type": "module"`, all files use `import`/`export`
 - **No build step** — source is published as-is
 - **One runtime dep** — only `@clack/prompts`; use Node.js built-ins elsewhere
-- **Commit style** — Conventional Commits: `feat:`, `fix:`, `chore:`, `docs:`, `test:`
+- **Commit style** — [Conventional Commits](https://www.conventionalcommits.org/) prefixes (`feat:`, `fix:`, `chore:`, `docs:`, `test:`) + [cbea.ms rules](https://cbea.ms/git-commit/): subject ≤72 chars, imperative mood (`Add`, `Fix`, `Remove` — not `Added`, `Fixed`), no trailing period, blank line before body, body explains *why* not *how*
+- **Changelog** — [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) format: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security` sections under each version
 - **TDD discipline** — write failing test first, then minimal implementation to pass
 
 ---
