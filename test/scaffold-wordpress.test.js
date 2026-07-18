@@ -157,7 +157,7 @@ describe('scaffold — WordPress project type', () => {
     expect(content).toContain('YOUR_FIELD_KEY');
   });
 
-  it('package.json does not contain a repository field', async () => {
+  it('generated package.json does not contain a repository field', async () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.repository).toBeUndefined();
   });

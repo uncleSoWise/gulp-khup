@@ -5,7 +5,7 @@
 // - build CSS from SCSS
 // - autoprefix browser vendor styles
 // - convert PX to REM
-// - inline base64 any asset < 8 bytes
+// - inline base64 any asset < 8 KB
 // - move into relative /css/ directory
 // - create a minified version
 // - create an inline friendly version
