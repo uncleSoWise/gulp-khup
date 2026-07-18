@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { validateProjectName, sanitizeProjectName, getGitConfig } from '../src/cli.js';
+import { getGitConfig, sanitizeProjectName, validateProjectName } from '../src/cli.js';
 
 // ---------------------------------------------------------------------------
 // validateProjectName — pure validation, returns error string or undefined

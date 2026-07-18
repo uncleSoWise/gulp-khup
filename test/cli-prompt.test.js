@@ -3,7 +3,7 @@
 // (intro called, group called with correct shape, cancel + exit on Ctrl-C)
 // without requiring an actual terminal.
 
-import { vi, describe, it, expect, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@clack/prompts', () => ({
   intro: vi.fn(),
@@ -15,8 +15,8 @@ vi.mock('@clack/prompts', () => ({
   log: { step: vi.fn(), error: vi.fn() },
 }));
 
-import { promptUser } from '../src/cli.js';
 import * as p from '@clack/prompts';
+import { promptUser } from '../src/cli.js';
 
 const mockValues = {
   projectName: 'my-project',

@@ -1,5 +1,5 @@
 // @ts-check
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 
 /**
  * @typedef {'web' | 'wordpress' | 'email'} ProjectType
@@ -112,7 +112,7 @@ export async function promptUser(initialName = '') {
         p.cancel('Cancelled — no files were created.');
         process.exit(0);
       },
-    }
+    },
   );
 
   return /** @type {ScaffoldValues} */ (values);

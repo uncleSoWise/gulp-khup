@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
-import { mkdtemp, rm, mkdir, access, readFile } from 'fs/promises';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { tmpdir } from 'os';
+import { access, mkdir, mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
-import { scaffold, applyTokens, resolveTemplateDirs } from '../src/scaffold.js';
+import { applyTokens, resolveTemplateDirs, scaffold } from '../src/scaffold.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = join(__dirname, '../templates');
@@ -56,7 +56,9 @@ describe('resolveTemplateDirs', () => {
   });
 
   it('returns type-specific dir for wordpress type', () => {
-    expect(resolveTemplateDirs('wordpress', TEMPLATES_DIR)[1]).toBe(join(TEMPLATES_DIR, 'wordpress'));
+    expect(resolveTemplateDirs('wordpress', TEMPLATES_DIR)[1]).toBe(
+      join(TEMPLATES_DIR, 'wordpress'),
+    );
   });
 
   it('returns type-specific dir for email type', () => {
@@ -108,7 +110,9 @@ describe('scaffold — directory handling', () => {
   });
 
   it('succeeds silently when type-specific template dir does not exist', async () => {
-    await expect(scaffold({ ...defaults, outDir, projectType: 'wordpress' })).resolves.toBeUndefined();
+    await expect(
+      scaffold({ ...defaults, outDir, projectType: 'wordpress' }),
+    ).resolves.toBeUndefined();
   });
 });
 
@@ -245,9 +249,14 @@ describe('scaffold — web project: regressions', () => {
 
   it('generated gulp task files have no eslint-disable comments', async () => {
     for (const file of [
-      'gulp/tasks/build.js', 'gulp/tasks/css.js', 'gulp/tasks/html.js',
-      'gulp/tasks/img.js', 'gulp/tasks/js.js', 'gulp/tasks/nunjucks.js',
-      'gulp/tasks/watch.js', 'gulpfile.js',
+      'gulp/tasks/build.js',
+      'gulp/tasks/css.js',
+      'gulp/tasks/html.js',
+      'gulp/tasks/img.js',
+      'gulp/tasks/js.js',
+      'gulp/tasks/nunjucks.js',
+      'gulp/tasks/watch.js',
+      'gulpfile.js',
     ]) {
       const content = await readFile(join(outDir, file), 'utf-8');
       expect(content, `${file} should have no eslint-disable`).not.toContain('eslint-disable');
@@ -373,8 +382,12 @@ describe('scaffold — email project type', () => {
   it('generates email src/ nunjucks templates and layout partials', async () => {
     await expect(access(join(outDir, 'src', '_layout.njk'))).resolves.toBeUndefined();
     await expect(access(join(outDir, 'src', 'index.njk'))).resolves.toBeUndefined();
-    await expect(access(join(outDir, 'src', 'inc', 'layout', '_headline.njk'))).resolves.toBeUndefined();
-    await expect(access(join(outDir, 'src', 'inc', 'layout', '_one-col.njk'))).resolves.toBeUndefined();
+    await expect(
+      access(join(outDir, 'src', 'inc', 'layout', '_headline.njk')),
+    ).resolves.toBeUndefined();
+    await expect(
+      access(join(outDir, 'src', 'inc', 'layout', '_one-col.njk')),
+    ).resolves.toBeUndefined();
   });
 
   // --- package.json ---
@@ -554,8 +567,14 @@ describe('scaffold — WordPress project type', () => {
 
   it('generated PHP files use appSlug prefix (my_wp_theme_) and have no pnmg_', async () => {
     for (const file of [
-      'functions.php', 'functions/config.php', 'functions/gutenberg.php',
-      'functions/plugins.php', 'functions/utils.php', 'header.php', 'footer.php', 'index.php',
+      'functions.php',
+      'functions/config.php',
+      'functions/gutenberg.php',
+      'functions/plugins.php',
+      'functions/utils.php',
+      'header.php',
+      'footer.php',
+      'index.php',
     ]) {
       const content = await readFile(join(outDir, 'src', file), 'utf-8');
       expect(content, `${file}: no pnmg_`).not.toContain('pnmg_');
@@ -577,8 +596,14 @@ describe('scaffold — WordPress project type', () => {
 
   it('generates all PHP template files', async () => {
     for (const file of [
-      'header.php', 'footer.php', 'index.php', 'page.php', 'single.php', '404.php',
-      'inc/loop.php', 'inc/loop-search.php',
+      'header.php',
+      'footer.php',
+      'index.php',
+      'page.php',
+      'single.php',
+      '404.php',
+      'inc/loop.php',
+      'inc/loop-search.php',
     ]) {
       await expect(access(join(outDir, 'src', file)), file).resolves.toBeUndefined();
     }
@@ -596,4 +621,3 @@ describe('scaffold — WordPress project type', () => {
     expect(content).toContain('YOUR_FIELD_KEY');
   });
 });
-
