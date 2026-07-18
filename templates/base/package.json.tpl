@@ -8,10 +8,6 @@
     "name": "<%= authorName %>",
     "email": "<%= authorEmail %>"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/<%= appName %>"
-  },
   "type": "module",
   "license": "MIT",
   "scripts": {

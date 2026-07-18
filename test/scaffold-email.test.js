@@ -110,4 +110,9 @@ describe('scaffold — email project type', () => {
     expect(content).toContain('Campaign Monitor');
     expect(content).toContain('<currentyear>');
   });
+
+  it('package.json does not contain a repository field', async () => {
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.repository).toBeUndefined();
+  });
 });

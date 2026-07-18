@@ -40,7 +40,7 @@ const pxtoremOptions = {
   propList: ['font', 'font-size', 'border', 'padding', 'margin']
 };
 
-const INLINE_ASSET_MAX_SIZE = 8 * 1024; // bytes
+const INLINE_ASSET_MAX_SIZE = 8 * 1024; // 8 KB
 const INLINE_ASSET_EXTENSIONS = new Set(['.gif', '.jpg', '.jpeg', '.png']);
 const URL_MATCHER = /url\(\s*(?:(['"])\s*(.*?)\s*\1|([^'")\s]+))\s*\)/gi;
 

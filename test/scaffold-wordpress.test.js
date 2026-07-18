@@ -156,4 +156,9 @@ describe('scaffold — WordPress project type', () => {
     const content = await readFile(join(outDir, 'src', 'index.php'), 'utf-8');
     expect(content).toContain('YOUR_FIELD_KEY');
   });
+
+  it('package.json does not contain a repository field', async () => {
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.repository).toBeUndefined();
+  });
 });

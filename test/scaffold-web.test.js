@@ -217,4 +217,9 @@ describe('scaffold — web project: regressions', () => {
     const content = await readFile(join(outDir, '.env.example'), 'utf-8');
     expect(content).not.toMatch(/^FTP_/m);
   });
+
+  it('package.json does not contain a repository field', async () => {
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.repository).toBeUndefined();
+  });
 });

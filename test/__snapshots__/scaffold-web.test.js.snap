@@ -139,10 +139,6 @@ exports[`scaffold — web project: file content > matches package.json snapshot 
     "uuid": "^11.1.1",
   },
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/test-project",
-  },
   "scripts": {
     "check": "biome check .",
     "format": "biome format --write .",
