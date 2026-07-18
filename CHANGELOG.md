@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI `test` job: removed redundant `npm test` step; only `npm run test:coverage` runs (halves test time per matrix leg)
 - CI `test` job: Node matrix updated to Node 22 + 24 (Node 18 removed — EOL since April 2025)
 - CI `lint` job: new dedicated parallel job using `biome ci .` (outputs inline PR annotations; extracted from `typecheck`)
+- CI: concurrency group added — in-progress runs cancelled on new push
+- CI: `audit` job no longer runs `npm ci` (npm audit only needs `package-lock.json`)
+- CI: `permissions: contents: read` declared at workflow level (principle of least privilege)
 - `engines` in `package.json` updated to `>=22` (Node 18 and 20 are EOL)
 
 ### Fixed
