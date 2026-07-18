@@ -56,7 +56,6 @@
   },
   "dependencies": {
     "basiclightbox": "^5.0.4",
-    "fastclick": "^1.0.6",
     "hamburgers": "^1.2.1",
     "normalize.css": "^8.0.1",
     "swiper": "^12.0.2"
@@ -64,6 +63,7 @@
   "overrides": {
     "lodash.template": "^4.5.0",
     "nth-check": "^2.1.1",
+    "postcss": "^8.5.10",
     "terser": "^5.0.0",
     "uuid": "^11.1.1"
   }

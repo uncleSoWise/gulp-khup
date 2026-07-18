@@ -222,4 +222,11 @@ describe('scaffold — web project: regressions', () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.repository).toBeUndefined();
   });
+
+  // --- fastclick removed (#deprecated) ---
+
+  it('generated package.json does not include fastclick', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('fastclick');
+  });
 });
