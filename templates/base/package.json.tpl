@@ -41,8 +41,6 @@
     "gulp-sass": "^6.0.1",
     "gulp-size": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
-    "gulp-special-html": "0.0.4",
-    "gulp-touch-cmd": "0.0.1",
     "marked": "^16.3.0",
     "nunjucks": "^3.2.4",
     "nunjucks-markdown": "^2.0.1",
