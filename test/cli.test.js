@@ -59,8 +59,24 @@ describe('validateProjectName', () => {
     expect(validateProjectName('a')).toBeUndefined();
   });
 
-  it('returns undefined for an uppercase name (no case restriction in validation)', () => {
-    expect(validateProjectName('MyProject')).toBeUndefined();
+  it('rejects an uppercase name', () => {
+    expect(validateProjectName('MyProject')).toMatch(/lowercase/i);
+  });
+
+  it('rejects a name starting with a hyphen', () => {
+    expect(validateProjectName('-myproject')).toMatch(/invalid/i);
+  });
+
+  it('rejects a name starting with an underscore', () => {
+    expect(validateProjectName('_myproject')).toMatch(/invalid/i);
+  });
+
+  it('rejects a name longer than 214 characters', () => {
+    expect(validateProjectName('a'.repeat(215))).toMatch(/214/);
+  });
+
+  it('accepts a name exactly 214 characters long', () => {
+    expect(validateProjectName('a'.repeat(214))).toBeUndefined();
   });
 });
 
