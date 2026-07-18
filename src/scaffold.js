@@ -1,3 +1,4 @@
+// @ts-check
 import { copyFile, mkdir, readFile, writeFile, readdir } from 'fs/promises';
 import { join, dirname, extname, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -5,8 +6,27 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /**
+ * @typedef {'web' | 'wordpress' | 'email'} ProjectType
+ */
+
+/**
+ * @typedef {Object} ScaffoldOptions
+ * @property {string} projectName - Project slug used as directory name and in tokens
+ * @property {string} description - Short project description
+ * @property {string} authorName
+ * @property {string} authorEmail
+ * @property {ProjectType} [projectType='web']
+ * @property {string} [outDir] - Override output directory; defaults to `cwd/projectName`
+ * @property {string} [cwd] - Working directory; defaults to `process.cwd()`
+ * @property {string} [_templatesDir] - Test seam: override the bundled `templates/` path
+ */
+
+/**
  * Replace all `<%= tokenName %>` occurrences in content with their values.
  * Unknown tokens are left as-is.
+ * @param {string} content
+ * @param {Record<string, string>} tokens
+ * @returns {string}
  */
 export function applyTokens(content, tokens) {
   return Object.entries(tokens).reduce(
@@ -17,7 +37,10 @@ export function applyTokens(content, tokens) {
 
 /**
  * Returns the ordered list of template directories to merge for a given
- * project type: [base/, <projectType>/].
+ * project type: `[base/, <projectType>/]`.
+ * @param {ProjectType} projectType
+ * @param {string} templatesDir - Absolute path to the `templates/` root
+ * @returns {string[]}
  */
 export function resolveTemplateDirs(projectType, templatesDir) {
   return [
@@ -27,11 +50,13 @@ export function resolveTemplateDirs(projectType, templatesDir) {
 }
 
 /**
- * Scaffold a new project into outDir (or cwd/projectName).
- * Merges base/ and type-specific template directories, applying token
- * substitution on .tpl files and copying everything else verbatim.
+ * Scaffold a new project into `outDir` (or `cwd/projectName`).
+ * Merges `base/` and type-specific template directories, applying token
+ * substitution on `.tpl` files and copying everything else verbatim.
  *
- * Throws if the output directory already exists.
+ * @param {ScaffoldOptions} options
+ * @returns {Promise<void>}
+ * @throws {Error} If the output directory already exists.
  */
 export async function scaffold({
   projectName,
@@ -70,6 +95,12 @@ export async function scaffold({
   }
 }
 
+/**
+ * @param {string} srcDir
+ * @param {string} targetDir
+ * @param {Record<string, string>} tokens
+ * @returns {Promise<void>}
+ */
 async function copyDir(srcDir, targetDir, tokens) {
   let entries;
   try {

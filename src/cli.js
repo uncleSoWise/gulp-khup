@@ -1,8 +1,24 @@
+// @ts-check
 import { execSync } from 'child_process';
 
 /**
+ * @typedef {'web' | 'wordpress' | 'email'} ProjectType
+ */
+
+/**
+ * @typedef {Object} ScaffoldValues
+ * @property {string} projectName
+ * @property {string} description
+ * @property {string} authorName
+ * @property {string} authorEmail
+ * @property {ProjectType} projectType
+ */
+
+/**
  * Validate a project name. Returns an error string if invalid, undefined if valid.
- * Used as the `validate` callback for @clack/prompts text inputs.
+ * Used as the `validate` callback for \@clack/prompts text inputs.
+ * @param {string | null | undefined} name
+ * @returns {string | undefined}
  */
 export function validateProjectName(name) {
   const trimmed = (name ?? '').trim();
@@ -18,6 +34,8 @@ export function validateProjectName(name) {
 
 /**
  * Normalise a project name: trim whitespace, lowercase, replace spaces with hyphens.
+ * @param {string} name
+ * @returns {string}
  */
 export function sanitizeProjectName(name) {
   return name.trim().toLowerCase().replace(/ /g, '-');
@@ -26,6 +44,8 @@ export function sanitizeProjectName(name) {
 /**
  * Read a value from git config. Returns empty string if the key is unset or
  * git is unavailable — never throws.
+ * @param {string} key - e.g. `'user.name'` or `'user.email'`
+ * @returns {Promise<string>}
  */
 export async function getGitConfig(key) {
   try {
@@ -39,8 +59,10 @@ export async function getGitConfig(key) {
 }
 
 /**
- * Run the interactive @clack/prompts flow and return the collected values.
+ * Run the interactive \@clack/prompts flow and return the collected values.
  * Ctrl+C exits cleanly with a message — no stack trace.
+ * @param {string} [initialName=''] - Pre-fill the project name prompt
+ * @returns {Promise<ScaffoldValues>}
  */
 export async function promptUser(initialName = '') {
   const p = await import('@clack/prompts');
