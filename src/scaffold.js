@@ -84,7 +84,8 @@ export async function scaffold({
   try {
     await mkdir(targetDir, { recursive: false });
   } catch (err) {
-    if (err.code === 'EEXIST') {
+    const nodeErr = /** @type {NodeJS.ErrnoException} */ (err);
+    if (nodeErr.code === 'EEXIST') {
       throw new Error(`Output directory already exists: ${targetDir}`);
     }
     throw err;
@@ -106,7 +107,8 @@ async function copyDir(srcDir, targetDir, tokens) {
   try {
     entries = await readdir(srcDir, { withFileTypes: true });
   } catch (err) {
-    if (err.code === 'ENOENT') return; // missing template dir is a deliberate no-op
+    const nodeErr = /** @type {NodeJS.ErrnoException} */ (err);
+    if (nodeErr.code === 'ENOENT') return; // missing template dir is a deliberate no-op
     throw err;
   }
 

@@ -15,6 +15,6 @@ try {
   await scaffold({ ...values, projectName });
   p.outro(`Done! Run:\n\n  cd ${projectName}\n  npm install\n  gulp`);
 } catch (err) {
-  p.log.error(err.message);
+  p.log.error(err instanceof Error ? err.message : String(err));
   process.exit(1);
 }

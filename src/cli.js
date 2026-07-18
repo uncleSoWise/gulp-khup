@@ -115,5 +115,5 @@ export async function promptUser(initialName = '') {
     }
   );
 
-  return values;
+  return /** @type {ScaffoldValues} */ (values);
 }

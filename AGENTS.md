@@ -93,11 +93,12 @@ node bin/create.js my-project  # Run the scaffolder locally
 
 ## CI Pipeline
 
-Three jobs run in sequence: `audit` → `test` → `integration`.
+Four job groups run in parallel — `audit`, `typecheck`, and `test` are independent; `integration` runs after `test`.
 
-- **audit** — `npm audit` (informational, non-blocking)
-- **test** — Vitest + 100% line/branch/function/statement coverage on `src/`
-- **integration** — Scaffolds a `web` project, runs `npm install`, then `npx gulp build`. Catches template regressions that unit tests cannot.
+- **audit** — `npm audit --audit-level=critical` (fails the pipeline on critical CVEs)
+- **typecheck** — `tsc --project jsconfig.json --noEmit` (enforces JSDoc type annotations)
+- **test** — Vitest + 100% line/branch/function/statement coverage on `src/` (matrix: Node 18 + Node 22)
+- **integration** — Scaffolds `web`, `email`, and `wordpress` projects, runs `npm install`, then `npx gulp build` (matrix across all 3 types, runs on Node 22)
 
 ---
 

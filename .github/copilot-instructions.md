@@ -58,8 +58,9 @@ When editing files inside `templates/`:
 - `@media` queries stripped by Gmail is expected behaviour — `gulp-inline-css` handles inlining
 
 ## PR Requirements
-- `npm test` passes (130 tests, 0 skipped)
+- `npm test` passes (120 tests, 0 skipped)
 - `npm run test:coverage` exits 0 (100% src/ coverage)
-- CI integration smoke test passes (`gulp build` on a scaffolded web project)
+- `npx tsc --project jsconfig.json --noEmit` exits 0 (0 type errors)
+- CI integration smoke test passes for all 3 project types (`gulp build` on web, email, wordpress)
 - CHANGELOG.md updated for user-facing changes
 
