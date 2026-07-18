@@ -161,4 +161,9 @@ describe('scaffold — WordPress project type', () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.repository).toBeUndefined();
   });
+
+  it('generated wordpress package.json does not include normalize.css', async () => {
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.dependencies?.['normalize.css']).toBeUndefined();
+  });
 });

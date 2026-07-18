@@ -115,4 +115,9 @@ describe('scaffold — email project type', () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.repository).toBeUndefined();
   });
+
+  it('generated email package.json does not include stylelint', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('stylelint');
+  });
 });

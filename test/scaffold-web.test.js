@@ -77,6 +77,24 @@ describe('scaffold — web project: file content', () => {
     const content = await readFile(join(outDir, 'gulpfile.js'), 'utf-8');
     expect(content).toMatchSnapshot();
   });
+
+  it('generated web package.json includes stylelint', async () => {
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).toContain('stylelint');
+  });
+
+  it('generated web package.json includes ssh2-sftp-client', async () => {
+    await scaffold({ ...defaults, outDir });
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).toContain('ssh2-sftp-client');
+  });
+
+  it('generated web package.json includes normalize.css as a runtime dep', async () => {
+    await scaffold({ ...defaults, outDir });
+    const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
+    expect(pkg.dependencies?.['normalize.css']).toBeDefined();
+  });
 });
 
 // ---------------------------------------------------------------------------
