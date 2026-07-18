@@ -1,0 +1,52 @@
+name: Bug Report
+description: Something isn't working correctly in the scaffolder or a generated project
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Fill in as much as you can.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug — in the scaffolder CLI, a generated project's build, or a specific project type (web / wordpress / email).
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `npm create gulp-khup@latest my-project`
+        2. Choose project type: web / wordpress / email
+        3. Run `gulp build`
+        4. See error
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: create-gulp-khup version
+      placeholder: e.g. 1.3.1
+    validations:
+      required: false
+
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      placeholder: e.g. 22.x
+    validations:
+      required: false
