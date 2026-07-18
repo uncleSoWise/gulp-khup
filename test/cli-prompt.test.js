@@ -95,11 +95,6 @@ describe('promptUser', () => {
     exitSpy.mockRestore();
   });
 
-  it('accepts an initialValues object (no error thrown with object arg)', async () => {
-    p.group.mockResolvedValueOnce(mockValues);
-    await expect(promptUser({ projectName: 'init-name' })).resolves.toBeDefined();
-  });
-
   it('passes initialValues.projectName as initialValue to the projectName prompt', async () => {
     p.group.mockImplementationOnce(async (fieldsObj) => {
       await fieldsObj.projectName();
@@ -119,6 +114,28 @@ describe('promptUser', () => {
     await promptUser({ description: 'pre-filled desc' });
     expect(p.text).toHaveBeenCalledWith(
       expect.objectContaining({ initialValue: 'pre-filled desc' })
+    );
+  });
+
+  it('passes initialValues.authorName as initialValue to the authorName prompt', async () => {
+    p.group.mockImplementationOnce(async (fieldsObj) => {
+      await fieldsObj.authorName();
+      return mockValues;
+    });
+    await promptUser({ authorName: 'Override Author' });
+    expect(p.text).toHaveBeenCalledWith(
+      expect.objectContaining({ initialValue: 'Override Author' })
+    );
+  });
+
+  it('passes initialValues.authorEmail as initialValue to the authorEmail prompt', async () => {
+    p.group.mockImplementationOnce(async (fieldsObj) => {
+      await fieldsObj.authorEmail();
+      return mockValues;
+    });
+    await promptUser({ authorEmail: 'override@example.com' });
+    expect(p.text).toHaveBeenCalledWith(
+      expect.objectContaining({ initialValue: 'override@example.com' })
     );
   });
 });
