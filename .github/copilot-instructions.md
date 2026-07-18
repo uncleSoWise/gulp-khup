@@ -68,7 +68,12 @@ When editing files inside `templates/`:
 
 One permanent branch: `main`. All feature, fix, and chore branches target `main` via PR.
 Branch names: `feat/<issue>-description`, `fix/<issue>-description`, `chore/<description>`.
-Releases: tag `main` with `vX.Y.Z` — the publish workflow runs automatically.
+Releases: always do all three steps together when bumping `package.json` version:
+1. Merge the PR to `main`
+2. `git tag vX.Y.Z <merge-sha> && git push origin vX.Y.Z`
+3. `gh release create vX.Y.Z` — this triggers the publish workflow
+
+Skipping the tag or the GitHub Release means npm never receives the update.
 
 ## Commit Conventions
 - Prefix: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `ci:`, `security:` ([Conventional Commits](https://www.conventionalcommits.org/))
