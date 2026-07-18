@@ -166,4 +166,24 @@ describe('scaffold — WordPress project type', () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.dependencies?.['normalize.css']).toBeUndefined();
   });
+
+  it('generated wordpress package.json includes stylelint', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).toContain('stylelint');
+  });
+
+  it('generated wordpress package.json includes ssh2-sftp-client', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).toContain('ssh2-sftp-client');
+  });
+
+  it('generated wordpress package.json does not include nunjucks', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('"nunjucks"');
+  });
+
+  it('generated wordpress package.json does not include gulp-inline-source', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('gulp-inline-source');
+  });
 });
