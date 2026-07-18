@@ -60,7 +60,7 @@ describe('scaffold — email project type', () => {
     const pkg = JSON.parse(await readFile(join(outDir, 'package.json'), 'utf-8'));
     expect(pkg.devDependencies).not.toHaveProperty('gulp-htmlmin');
     expect(pkg.devDependencies).not.toHaveProperty('gulp-imagemin');
-    expect(pkg.devDependencies).not.toHaveProperty('fancy-log');
+    expect(pkg.devDependencies).toHaveProperty('fancy-log');
     expect(pkg.devDependencies).toHaveProperty('html-minifier-terser');
     expect(pkg.devDependencies).toHaveProperty('sharp');
     expect(pkg.devDependencies).toHaveProperty('autoprefixer');

@@ -25,6 +25,7 @@
     "del": "^8.0.1",
     "dotenv": "^17.2.2",
     "esbuild": "^0.25.10",
+    "fancy-log": "^2.0.0",
     "gulp": "^5.0.1",
     "gulp-cached": "^1.1.1",
     "gulp-changed": "^5.0.3",

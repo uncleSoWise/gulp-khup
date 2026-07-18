@@ -247,4 +247,19 @@ describe('scaffold — web project: regressions', () => {
     const content = await readFile(join(outDir, 'package.json'), 'utf-8');
     expect(content).not.toContain('fastclick');
   });
+
+  it('generated package.json does not include through2', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('through2');
+  });
+
+  it('generated package.json does not include gulp-touch-cmd', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('gulp-touch-cmd');
+  });
+
+  it('generated package.json does not include gulp-special-html', async () => {
+    const content = await readFile(join(outDir, 'package.json'), 'utf-8');
+    expect(content).not.toContain('gulp-special-html');
+  });
 });
