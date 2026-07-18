@@ -8,7 +8,7 @@ on:
     # Dependabot PRs targeting main also trigger this via pull_request.
 
 jobs:
-  # audit, typecheck, and test all run in parallel — none depend on each other.
+  # audit, typecheck, lint, and test all run in parallel — none depend on each other.
 
   audit:
     name: Security Audit
@@ -44,8 +44,22 @@ jobs:
       - name: Type check (JSDoc via tsc)
         run: npx tsc --project jsconfig.json --noEmit
 
+  lint:
+    name: Lint (Biome)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
       - name: Lint (Biome)
-        run: npm run lint
+        run: npx biome ci .
 
   test:
     name: Test (Node ${{ matrix.node-version }})
