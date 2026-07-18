@@ -11,7 +11,6 @@
 
 import esbuild from 'esbuild';
 import browserSync from 'browser-sync';
-import fancyLog from 'fancy-log';
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 import through from 'through2';
@@ -34,7 +33,7 @@ const bundleWithEsbuild = () => {
       return;
     }
 
-    fancyLog(`bundling ${file.relative}`);
+    console.log(`bundling ${file.relative}`);
 
     esbuild.build({
       entryPoints: [file.path],

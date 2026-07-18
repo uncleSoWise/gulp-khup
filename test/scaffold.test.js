@@ -484,6 +484,10 @@ describe('scaffold — WordPress project type', () => {
     }
   });
 
+  it('generates gulp/tasks/js.js (needed by WordPress build pipeline)', async () => {
+    await expect(access(join(outDir, 'gulp', 'tasks', 'js.js'))).resolves.toBeUndefined();
+  });
+
   // --- SCSS + JS src ---
 
   it('generates WordPress scss src/ structure', async () => {
