@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `--yes`/`-y` flag: skip all prompts; uses `--type` (default `web`), `--description`, and git config for author/email fields
+- `--type` flag: pre-select project type (`web`, `wordpress`, `email`) — works in both interactive (pre-fills prompt) and `--yes` mode
+- `--description` flag: pre-fill or set description
+- `--version`/`-v` flag: print version and exit
+- `--help`/`-h` flag: print usage summary and exit
+
+### Changed
+- `validateProjectName` now enforces npm package name rules: lowercase only, must start with a letter or number, max 214 characters
+- `promptUser` now accepts an `initialValues` object to pre-fill any prompt field (previously only project name was pre-fillable)
+
 ## [1.3.1] - 2026-07-17
 
 ### Fixed
