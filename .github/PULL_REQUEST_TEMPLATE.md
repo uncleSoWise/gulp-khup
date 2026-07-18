@@ -2,6 +2,8 @@
 
 <!-- One sentence summary -->
 
+**Target branch:** `main`
+
 ## Type of Change
 
 - [ ] Bug fix (non-breaking change that fixes an issue)

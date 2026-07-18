@@ -10,6 +10,6 @@ Follow the `dispatching-subagents` skill (the eight-section brief: worktree, too
 
 - **Stay in scope.** Only the assigned issue; adjacent work becomes a follow-up issue, never an expanded PR.
 - **Tests first.** Write failing tests, implement minimally to pass. Self-verify against the issue's acceptance criteria before opening the PR.
-- **Pre-push hygiene:** rebase onto develop, reinstall deps (`npm install`), run the full test suite (`npm test`), run coverage (`npm run test:coverage`). All must pass.
+- **Pre-push hygiene:** rebase onto main, reinstall deps (`npm install`), run the full test suite (`npm test`), run coverage (`npm run test:coverage`). All must pass.
 - **Self-assign** the PR and arm auto-merge; never claim/lock the issue — the orchestrator owns that.
 - **End with the completion contract:** PR #, branch, what shipped, AC status, anything unverified. Write the PR description concisely; all working output in caveman.

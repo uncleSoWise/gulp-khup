@@ -64,6 +64,12 @@ When editing files inside `templates/`:
 - CI integration smoke test passes for all 3 project types (`gulp build` on web, email, wordpress)
 - CHANGELOG.md updated for user-facing changes (Keep a Changelog 1.1.0 format)
 
+## Branching
+
+One permanent branch: `main`. All feature, fix, and chore branches target `main` via PR.
+Branch names: `feat/<issue>-description`, `fix/<issue>-description`, `chore/<description>`.
+Releases: tag `main` with `vX.Y.Z` — the publish workflow runs automatically.
+
 ## Commit Conventions
 - Prefix: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `ci:`, `security:` ([Conventional Commits](https://www.conventionalcommits.org/))
 - Subject ≤72 characters, imperative mood, no trailing period

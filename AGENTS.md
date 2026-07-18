@@ -79,6 +79,20 @@ All tokens are substituted into `.tpl` files via `src/scaffold.js`. Non-`.tpl` f
 
 ---
 
+## Branching Strategy
+
+One permanent branch: **`main`** (the only long-lived branch).
+
+| Prefix | Pattern | Target |
+|---|---|---|
+| Feature work | `feat/<issue-number>-short-description` | `main` |
+| Bug fixes | `fix/<issue-number>-short-description` | `main` |
+| Chores / releases | `chore/<description>` | `main` |
+
+All PRs target `main`. Release tags on `main` trigger the npm publish pipeline.
+
+---
+
 ## Key Commands
 
 ```bash
