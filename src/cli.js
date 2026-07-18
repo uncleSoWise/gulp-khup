@@ -26,11 +26,11 @@ export function validateProjectName(name) {
   if (trimmed.includes('..') || trimmed.startsWith('/')) {
     return 'Invalid project name: path traversal is not allowed';
   }
-  if (trimmed.length > 214) {
-    return 'Invalid project name: must be 214 characters or fewer';
-  }
   if (!/^[a-z0-9][a-z0-9_-]*$/.test(trimmed)) {
     return 'Invalid project name: use only lowercase letters, numbers, hyphens, and underscores; must start with a letter or number';
+  }
+  if (trimmed.length > 214) {
+    return 'Invalid project name: must be 214 characters or fewer';
   }
   return undefined;
 }

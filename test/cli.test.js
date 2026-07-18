@@ -75,6 +75,10 @@ describe('validateProjectName', () => {
     expect(validateProjectName('a'.repeat(215))).toMatch(/214/);
   });
 
+  it('accepts a name starting with a digit', () => {
+    expect(validateProjectName('1project')).toBeUndefined();
+  });
+
   it('accepts a name exactly 214 characters long', () => {
     expect(validateProjectName('a'.repeat(214))).toBeUndefined();
   });
