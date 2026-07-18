@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['18', '22']
+        node-version: ['22', '24']
     steps:
       - uses: actions/checkout@v7
 

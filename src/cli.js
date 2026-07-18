@@ -26,8 +26,11 @@ export function validateProjectName(name) {
   if (trimmed.includes('..') || trimmed.startsWith('/')) {
     return 'Invalid project name: path traversal is not allowed';
   }
-  if (!/^[a-zA-Z0-9_-]+$/.test(trimmed)) {
-    return 'Invalid project name: use only letters, numbers, hyphens, and underscores';
+  if (!/^[a-z0-9][a-z0-9_-]*$/.test(trimmed)) {
+    return 'Invalid project name: use only lowercase letters, numbers, hyphens, and underscores; must start with a letter or number';
+  }
+  if (trimmed.length > 214) {
+    return 'Invalid project name: must be 214 characters or fewer';
   }
   return undefined;
 }
@@ -61,15 +64,23 @@ export async function getGitConfig(key) {
 /**
  * Run the interactive \@clack/prompts flow and return the collected values.
  * Ctrl+C exits cleanly with a message — no stack trace.
- * @param {string} [initialName=''] - Pre-fill the project name prompt
+ * @param {{ projectName?: string, description?: string, projectType?: ProjectType, authorName?: string, authorEmail?: string }} [initialValues={}] - Pre-fill values for any prompt field
  * @returns {Promise<ScaffoldValues>}
  */
-export async function promptUser(initialName = '') {
+export async function promptUser(initialValues = {}) {
+  const {
+    projectName: initialName = '',
+    description: initialDescription = '',
+    projectType: initialProjectType,
+    authorName: prefilledAuthorName,
+    authorEmail: prefilledAuthorEmail,
+  } = initialValues;
+
   const p = await import('@clack/prompts');
 
   p.intro('create-gulp-khup');
 
-  const [authorName, authorEmail] = await Promise.all([
+  const [gitAuthorName, gitAuthorEmail] = await Promise.all([
     getGitConfig('user.name'),
     getGitConfig('user.email'),
   ]);
@@ -86,20 +97,22 @@ export async function promptUser(initialName = '') {
         p.text({
           message: 'Short description?',
           placeholder: 'A static marketing site',
+          initialValue: initialDescription,
         }),
       authorName: () =>
         p.text({
           message: 'Author name?',
-          initialValue: authorName,
+          initialValue: prefilledAuthorName ?? gitAuthorName,
         }),
       authorEmail: () =>
         p.text({
           message: 'Author email?',
-          initialValue: authorEmail,
+          initialValue: prefilledAuthorEmail ?? gitAuthorEmail,
         }),
       projectType: () =>
         p.select({
           message: 'Project type?',
+          initialValue: initialProjectType,
           options: [
             { value: 'web', label: 'Static HTML', hint: 'recommended' },
             { value: 'wordpress', label: 'WordPress' },

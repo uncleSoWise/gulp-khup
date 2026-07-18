@@ -31,8 +31,8 @@ describe('package.json', () => {
     expect(pkg.exports).toBe('./src/scaffold.js');
   });
 
-  it('requires Node.js 18 or higher', () => {
-    expect(pkg.engines?.node).toBe('>=18');
+  it('requires Node.js 22 or higher', () => {
+    expect(pkg.engines?.node).toBe('>=22');
   });
 
   it('only ships bin/, src/, and templates/ in the published package', () => {

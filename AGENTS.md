@@ -91,6 +91,13 @@ One permanent branch: **`main`** (the only long-lived branch).
 
 All PRs target `main`. Release tags on `main` trigger the npm publish pipeline.
 
+**Release process (mandatory — always do all three steps together):**
+1. Merge the PR to `main`
+2. Tag `main` at the merge commit: `git tag vX.Y.Z <sha> && git push origin vX.Y.Z`
+3. Publish a GitHub Release from that tag (`gh release create vX.Y.Z ...`) — this triggers the publish workflow
+
+Skipping step 2 or 3 means the npm package is never published. `package.json` version and the npm registry must always stay in sync.
+
 ---
 
 ## Key Commands

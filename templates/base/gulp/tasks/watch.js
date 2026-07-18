@@ -27,7 +27,7 @@ import path from "node:path";
 import plumber from "gulp-plumber";
 import { readFileSync } from "node:fs";
 import staticTask from "./static.js";
-import through2 from "through2";
+import { Transform } from "node:stream";
 
 const serverInitTask = (cb) => {
   browserSync.init(
@@ -117,7 +117,7 @@ const watchFilesTask = (cb) => {
 
     const remoteRoot = (process.env.SFTP_REMOTEPATH || ".").replace(/\\/g, "/");
     const sftpUploadStream = () => {
-      return through2.obj((file, _, cb) => {
+      return new Transform({ objectMode: true, transform(file, _, cb) {
         (async () => {
           if (file.isNull()) {
             cb(null, file);
@@ -146,7 +146,7 @@ const watchFilesTask = (cb) => {
           sftpClient.end().catch(() => {});
           cb(error);
         });
-      });
+      }});
     };
 
     watcher.on("change", (event) => {

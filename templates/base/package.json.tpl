@@ -8,10 +8,6 @@
     "name": "<%= authorName %>",
     "email": "<%= authorEmail %>"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/<%= appName %>"
-  },
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -20,6 +16,7 @@
     "lint": "biome lint ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.4",
     "autoprefixer": "^10.4.21",
     "beeper": "^3.0.0",
     "browser-sync": "^3.0.4",
@@ -28,15 +25,11 @@
     "del": "^8.0.1",
     "dotenv": "^17.2.2",
     "esbuild": "^0.25.10",
-    "@biomejs/biome": "^2.2.4",
     "gulp": "^5.0.1",
     "gulp-cached": "^1.1.1",
     "gulp-changed": "^5.0.3",
     "gulp-flatmap": "^1.0.2",
-    "html-minifier-terser": "^7.2.0",
-    "gulp-inline-source": "^4.0.0",
     "gulp-notify": "^5.0.0",
-    "gulp-nunjucks": "^6.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^10.0.0",
     "gulp-pxtorem": "^3.0.0",
@@ -45,32 +38,16 @@
     "gulp-sass": "^6.0.1",
     "gulp-size": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
-    "gulp-special-html": "0.0.4",
-    "gulp-touch-cmd": "0.0.1",
-    "marked": "^16.3.0",
-    "nunjucks": "^3.2.4",
-    "nunjucks-markdown": "^2.0.1",
+    "html-minifier-terser": "^7.2.0",
     "postcss": "^8.5.10",
     "sass": "^1.93.2",
     "sharp": "^0.34.0",
-    "ssh2-sftp-client": "^12.0.1",
-    "stylelint": "^16.24.0",
-    "stylelint-config-standard": "^39.0.0",
-    "stylelint-order": "^7.0.0",
-    "stylelint-scss": "^6.12.1",
-    "svgo": "^3.3.2",
-    "through2": "^4.0.2"
-  },
-  "dependencies": {
-    "basiclightbox": "^5.0.4",
-    "fastclick": "^1.0.6",
-    "hamburgers": "^1.2.1",
-    "normalize.css": "^8.0.1",
-    "swiper": "^12.0.2"
+    "svgo": "^3.3.2"
   },
   "overrides": {
     "lodash.template": "^4.5.0",
     "nth-check": "^2.1.1",
+    "postcss": "^8.5.10",
     "terser": "^5.0.0",
     "uuid": "^11.1.1"
   }
