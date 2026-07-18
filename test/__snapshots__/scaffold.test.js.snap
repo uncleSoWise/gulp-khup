@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`scaffold — generated file content > matches gulpfile.js snapshot 1`] = `
+exports[`scaffold — web project: file content > matches gulpfile.js snapshot 1`] = `
 "// *************************************
 //
 //   gulpflow v8.1.0
@@ -73,7 +73,7 @@ gulp.task('w', watchTask);
 "
 `;
 
-exports[`scaffold — generated file content > matches package.json snapshot 1`] = `
+exports[`scaffold — web project: file content > matches package.json snapshot 1`] = `
 {
   "author": {
     "email": "test@example.com",
