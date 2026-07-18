@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { access, readFile } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { scaffold } from '../src/scaffold.js';
 import { makeTmpDir } from './helpers.js';
 
@@ -44,8 +44,12 @@ describe('scaffold — email project type', () => {
   it('generates email src/ nunjucks templates and layout partials', async () => {
     await expect(access(join(outDir, 'src', '_layout.njk'))).resolves.toBeUndefined();
     await expect(access(join(outDir, 'src', 'index.njk'))).resolves.toBeUndefined();
-    await expect(access(join(outDir, 'src', 'inc', 'layout', '_headline.njk'))).resolves.toBeUndefined();
-    await expect(access(join(outDir, 'src', 'inc', 'layout', '_one-col.njk'))).resolves.toBeUndefined();
+    await expect(
+      access(join(outDir, 'src', 'inc', 'layout', '_headline.njk')),
+    ).resolves.toBeUndefined();
+    await expect(
+      access(join(outDir, 'src', 'inc', 'layout', '_one-col.njk')),
+    ).resolves.toBeUndefined();
   });
 
   // --- package.json ---

@@ -101,9 +101,7 @@ describe('promptUser', () => {
       return mockValues;
     });
     await promptUser({ projectName: 'pre-filled' });
-    expect(p.text).toHaveBeenCalledWith(
-      expect.objectContaining({ initialValue: 'pre-filled' })
-    );
+    expect(p.text).toHaveBeenCalledWith(expect.objectContaining({ initialValue: 'pre-filled' }));
   });
 
   it('passes initialValues.description as initialValue to the description prompt', async () => {
@@ -113,7 +111,7 @@ describe('promptUser', () => {
     });
     await promptUser({ description: 'pre-filled desc' });
     expect(p.text).toHaveBeenCalledWith(
-      expect.objectContaining({ initialValue: 'pre-filled desc' })
+      expect.objectContaining({ initialValue: 'pre-filled desc' }),
     );
   });
 
@@ -124,7 +122,7 @@ describe('promptUser', () => {
     });
     await promptUser({ authorName: 'Override Author' });
     expect(p.text).toHaveBeenCalledWith(
-      expect.objectContaining({ initialValue: 'Override Author' })
+      expect.objectContaining({ initialValue: 'Override Author' }),
     );
   });
 
@@ -135,7 +133,7 @@ describe('promptUser', () => {
     });
     await promptUser({ authorEmail: 'override@example.com' });
     expect(p.text).toHaveBeenCalledWith(
-      expect.objectContaining({ initialValue: 'override@example.com' })
+      expect.objectContaining({ initialValue: 'override@example.com' }),
     );
   });
 
@@ -145,8 +143,6 @@ describe('promptUser', () => {
       return mockValues;
     });
     await promptUser({ projectType: 'wordpress' });
-    expect(p.select).toHaveBeenCalledWith(
-      expect.objectContaining({ initialValue: 'wordpress' })
-    );
+    expect(p.select).toHaveBeenCalledWith(expect.objectContaining({ initialValue: 'wordpress' }));
   });
 });

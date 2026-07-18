@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
-import { access, readFile } from 'fs/promises';
-import { join } from 'path';
+import { access, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { scaffold } from '../src/scaffold.js';
 import { makeTmpDir } from './helpers.js';
 
@@ -151,9 +151,14 @@ describe('scaffold — web project: regressions', () => {
 
   it('generated gulp task files have no eslint-disable comments', async () => {
     for (const file of [
-      'gulp/tasks/build.js', 'gulp/tasks/css.js', 'gulp/tasks/html.js',
-      'gulp/tasks/img.js', 'gulp/tasks/js.js', 'gulp/tasks/nunjucks.js',
-      'gulp/tasks/watch.js', 'gulpfile.js',
+      'gulp/tasks/build.js',
+      'gulp/tasks/css.js',
+      'gulp/tasks/html.js',
+      'gulp/tasks/img.js',
+      'gulp/tasks/js.js',
+      'gulp/tasks/nunjucks.js',
+      'gulp/tasks/watch.js',
+      'gulpfile.js',
     ]) {
       const content = await readFile(join(outDir, file), 'utf-8');
       expect(content, `${file} should have no eslint-disable`).not.toContain('eslint-disable');
