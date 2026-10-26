@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Generated projects' `biome.json` migrated from the Biome 1.x format (`files.ignore`) to Biome 2 (`files.includes`), so `npm run check`, `lint` and `format` no longer fail with "unknown key `ignore`"
+
 ## [1.6.1] - 2026-07-18
 
 ### Changed
