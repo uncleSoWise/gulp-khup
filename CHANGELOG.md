@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2026-10-26
+
 ### Fixed
 - Generated projects' `biome.json` migrated from the Biome 1.x format (`files.ignore`) to Biome 2 (`files.includes`), so `npm run check`, `lint` and `format` no longer fail with "unknown key `ignore`"
 
@@ -298,7 +300,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.2...HEAD
+[1.6.2]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/uncleSoWise/gulp-khup/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/uncleSoWise/gulp-khup/compare/v1.4.0...v1.5.0
